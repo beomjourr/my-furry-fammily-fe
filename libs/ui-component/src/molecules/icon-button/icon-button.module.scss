@@ -1,0 +1,13 @@
+@import '../../base.scss';
+
+.icon-button {
+    background-color: $icon-button-color;
+
+    &.small {
+        width: 59px;
+        height: 59px;
+        background: #FFFBF1;
+        border-radius: 20px;
+        flex: 0 0 auto;
+    }
+}
