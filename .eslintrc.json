@@ -23,13 +23,24 @@
     },
     {
       "files": ["*.ts", "*.tsx"],
-      "extends": ["plugin:@nx/typescript"],
-      "rules": {}
+      "extends": ["plugin:@nx/typescript", "plugin:prettier/recommended"],
+      "plugins": ["prettier"],
+      "rules": {
+        "prettier/prettier": [
+          "error",
+          {
+            "singleQuote": true
+          }
+        ]
+      }
     },
     {
       "files": ["*.js", "*.jsx"],
       "extends": ["plugin:@nx/javascript"],
       "rules": {}
     }
-  ]
+  ],
+  "rules": {
+    "import/prefer-default-export": "off"
+  }
 }

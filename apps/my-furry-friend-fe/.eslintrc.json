@@ -1,5 +1,7 @@
 {
   "extends": [
+    "airbnb",
+    "airbnb-typescript",
     "plugin:@nx/react-typescript",
     "next",
     "next/core-web-vitals",
@@ -14,6 +16,9 @@
           "error",
           "apps/furry-family-fe/pages"
         ]
+      },
+      "parserOptions": {
+        "project": ["apps/my-furry-friend-fe/tsconfig(.*)?.json"]
       }
     },
     {
