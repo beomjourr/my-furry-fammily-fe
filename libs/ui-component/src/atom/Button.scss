@@ -1,0 +1,10 @@
+@import '../base.scss';
+
+.base {
+    background-color: $primary-color;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}

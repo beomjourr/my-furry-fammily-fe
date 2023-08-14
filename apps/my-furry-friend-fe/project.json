@@ -1,7 +1,7 @@
 {
-  "name": "furry-family-fe",
+  "name": "my-furry-friend-fe",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/furry-family-fe",
+  "sourceRoot": "apps/my-furry-friend-fe",
   "projectType": "application",
   "targets": {
     "build": {
@@ -9,11 +9,11 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/apps/furry-family-fe"
+        "outputPath": "dist/apps/my-furry-friend-fe"
       },
       "configurations": {
         "development": {
-          "outputPath": "apps/furry-family-fe"
+          "outputPath": "apps/my-furry-friend-fe"
         },
         "production": {}
       }
@@ -22,16 +22,16 @@
       "executor": "@nx/next:server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "furry-family-fe:build",
+        "buildTarget": "my-furry-friend-fe:build",
         "dev": true
       },
       "configurations": {
         "development": {
-          "buildTarget": "furry-family-fe:build:development",
+          "buildTarget": "my-furry-friend-fe:build:development",
           "dev": true
         },
         "production": {
-          "buildTarget": "furry-family-fe:build:production",
+          "buildTarget": "my-furry-friend-fe:build:production",
           "dev": false
         }
       }
@@ -39,14 +39,14 @@
     "export": {
       "executor": "@nx/next:export",
       "options": {
-        "buildTarget": "furry-family-fe:build:production"
+        "buildTarget": "my-furry-friend-fe:build:production"
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/furry-family-fe/jest.config.ts",
+        "jestConfig": "apps/my-furry-friend-fe/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {
@@ -60,7 +60,7 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/furry-family-fe/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["apps/my-furry-friend-fe/**/*.{ts,tsx,js,jsx}"]
       }
     }
   },
