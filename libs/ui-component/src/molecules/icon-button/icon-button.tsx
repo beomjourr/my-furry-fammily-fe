@@ -5,7 +5,7 @@ import classnames from 'classnames';
 
 /* eslint-disable-next-line */
 export interface IconButtonProps {
-  size?: 'small' | 'medium';
+  size?: 'small';
   children?: ReactNode;
 }
 
