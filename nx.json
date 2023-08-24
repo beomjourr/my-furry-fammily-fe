@@ -75,9 +75,18 @@
   "generators": {
     "@nx/react": {
       "application": {
+        "style": "scss",
+        "linter": "eslint",
+        "bundler": "vite",
         "babel": true
       },
-      "library": {}
+      "library": {
+        "style": "scss",
+        "linter": "eslint"
+      },
+      "component": {
+        "style": "scss"
+      }
     },
     "@nx/next": {
       "application": {
