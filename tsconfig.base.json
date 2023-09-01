@@ -20,6 +20,9 @@
     "paths": {
       "@furry-family/ui-component": [
         "libs/ui-component/src/index.ts"
+      ],
+      "@furry-family/common-utils": [
+        "libs/common-utils/src/index.ts"
       ]
     }
   },
