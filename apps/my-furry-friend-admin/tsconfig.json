@@ -8,7 +8,10 @@
     "types": [
       "vite/client",
       "vitest"
-    ]
+    ],
+    "paths": {
+      "@/*": ["apps/my-furry-friend-admin/*"]
+    }
   },
   "files": [],
   "include": [],

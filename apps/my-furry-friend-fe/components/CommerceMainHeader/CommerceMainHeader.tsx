@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import logo from '../../public/store_logo.svg';
+import logo from '@/public/store_logo.svg';
 import styles from './CommerceMainHeader.module.scss';
 
 export function CommerceMainHeader() {
