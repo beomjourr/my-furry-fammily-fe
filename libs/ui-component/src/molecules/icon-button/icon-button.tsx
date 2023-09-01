@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
+import classnames from 'classnames';
 import Button from '../../atom/Button/Button';
 import styles from './icon-button.module.scss';
-import classnames from 'classnames';
 
 /* eslint-disable-next-line */
 export interface IconButtonProps {
