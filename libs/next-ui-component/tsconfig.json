@@ -4,22 +4,13 @@
     "allowJs": false,
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "types": [
-      "vite/client"
-    ],
-    "paths": {
-      "@/*": ["libs/ui-component/src/*"],
-    }
+    "strict": true
   },
   "files": [],
   "include": [],
   "references": [
     {
-      "path": "./tsconfig.lib.json"
-    },
-    {
-      "path": "./tsconfig.storybook.json"
+      "path": "./tsconfig.lib.json",
     }
   ],
   "extends": "../../tsconfig.base.json"

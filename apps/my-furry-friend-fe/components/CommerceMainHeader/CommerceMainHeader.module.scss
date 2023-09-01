@@ -2,11 +2,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: absolute;
     width: 100%;
     height: 52px;
     background: #FFFFFF;
     border-bottom: 1px solid #D9D9D9;
+    position: sticky;
 
     & > img {
         margin-left: 19px;

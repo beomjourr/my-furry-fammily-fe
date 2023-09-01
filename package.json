@@ -66,6 +66,7 @@
     "jest-environment-jsdom": "^29.4.1",
     "jest-environment-node": "^29.4.1",
     "jsdom": "~22.1.0",
+    "node-sass": "^7.0.3",
     "nx": "16.6.0",
     "postcss": "^8.4.29",
     "prettier": "^3.0.1",

@@ -20,9 +20,6 @@
       "jest",
       "node"
     ],
-    "paths": {
-      "@/*": ["apps/my-furry-friend-fe/*"]
-    }
   },
   "include": [
     "**/*.ts",

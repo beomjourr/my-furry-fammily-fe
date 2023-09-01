@@ -1,0 +1,10 @@
+.container {
+    @apply flex flex-wrap w-full h-full bg-white relative;
+
+    max-width: 600px;
+    margin: 0 auto;
+
+    .innerContainer {
+        @apply flex justify-center items-center w-full h-full
+    }
+}

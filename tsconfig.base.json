@@ -18,11 +18,14 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@furry-family/ui-component": [
-        "libs/ui-component/src/index.ts"
-      ],
       "@furry-family/common-utils": [
         "libs/common-utils/src/index.ts"
+      ],
+      "@my-furry-family/next-ui-component": [
+        "libs/next-ui-component/src/index.ts"
+      ],
+      "@my-furry-family/next-ui-component/server": [
+        "libs/next-ui-component/src/server.ts"
       ]
     }
   },
