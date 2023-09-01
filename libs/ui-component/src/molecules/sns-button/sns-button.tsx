@@ -1,7 +1,7 @@
-import Button from '../../atom/Button/Button';
-import styles from './sns-button.module.scss';
-import kakao from '../../../public/kakao_login_large_wide.png';
 import React from 'react';
+import styles from './sns-button.module.scss';
+import kakao from '@/public/kakao_login_large_wide.png';
+import Button from '@/atom/Button/Button';
 
 export interface SnsButtonProps {
   type: 'kakao';
