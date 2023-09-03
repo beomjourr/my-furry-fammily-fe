@@ -19,7 +19,7 @@
     "types": [
       "jest",
       "node"
-    ],
+    ]
   },
   "include": [
     "**/*.ts",
@@ -29,7 +29,8 @@
     ".next/types/**/*.ts",
     "../../dist/apps/furry-family-fe/.next/types/**/*.ts",
     "next-env.d.ts",
-    "../../apps/my-furry-friend-fe/.next/types/**/*.ts"
+    "../../apps/my-furry-friend-fe/.next/types/**/*.ts",
+    "../../dist/apps/my-furry-friend-fe/.next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",
