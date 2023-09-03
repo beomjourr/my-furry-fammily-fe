@@ -18,8 +18,11 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@furry-family/common-utils": [
+      "@my-furry-family/common-utils": [
         "libs/common-utils/src/index.ts"
+      ],
+      "@my-furry-family/design-system/*": [
+        "libs/design-system/*"
       ],
       "@my-furry-family/next-ui-component": [
         "libs/next-ui-component/src/index.ts"
@@ -27,9 +30,9 @@
       "@my-furry-family/next-ui-component/server": [
         "libs/next-ui-component/src/server.ts"
       ],
-      "@my-furry-family/design-system/*": [
-        "libs/design-system/*"
-      ]
+      "@my-furry-family/images/*": [
+        "libs/images/*"
+      ],
     }
   },
   "exclude": [

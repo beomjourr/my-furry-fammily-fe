@@ -4,7 +4,7 @@ import React from 'react';
 import { SnsButton } from './sns-button';
 
 const meta = {
-  title: 'ui-component/SnsButton',
+  title: 'next/client-component/SnsButton',
   component: SnsButton,
 } satisfies Meta<typeof SnsButton>;
 
@@ -13,5 +13,7 @@ type Story = StoryObj<typeof SnsButton>;
 
 export const Kakao: Story = {
   name: 'kakao Button',
-  render: () => <SnsButton type="kakao" />,
+  args: {
+    type: 'kakao',
+  },
 };
