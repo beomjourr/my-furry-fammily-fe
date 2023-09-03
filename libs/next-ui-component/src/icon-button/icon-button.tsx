@@ -1,18 +1,24 @@
-import { ReactNode } from 'react';
 import classnames from 'classnames';
+import Image, { StaticImageData } from 'next/image';
+import React from 'react';
 import styles from './icon-button.module.scss';
 
 /* eslint-disable-next-line */
 export interface IconButtonProps {
+  src: StaticImageData | string;
+  className?: string;
   size?: 'small';
-  children?: ReactNode;
+  alt?: string;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 export function IconButton(props: IconButtonProps) {
-  const { children, size = 'small' } = props;
+  const { src, className, alt = '', size = 'small' } = props;
   return (
-    <button className={classnames(styles['icon-button'], styles[size])}>
-      {children}
+    <button
+      className={classnames(styles['icon-button'], styles[size], className)}
+    >
+      <Image src={src} alt={alt}></Image>
     </button>
   );
 }

@@ -1,5 +1,5 @@
 {
-  "name": "@furry-family/common-utils",
+  "name": "@my-furry-family/common-utils",
   "version": "0.0.1",
   "dependencies": {},
   "main": "./index.js",
