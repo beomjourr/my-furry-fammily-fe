@@ -26,6 +26,9 @@
       ],
       "@my-furry-family/next-ui-component/server": [
         "libs/next-ui-component/src/server.ts"
+      ],
+      "@my-furry-family/design-system/*": [
+        "libs/design-system/*"
       ]
     }
   },

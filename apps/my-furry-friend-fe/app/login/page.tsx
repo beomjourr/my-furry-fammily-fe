@@ -7,6 +7,7 @@ export default async function Login() {
     <div className={styles.container}>
       <CommerceMainHeader />
       <div className={styles.innerContainer}>
+        test 테스트
         <SnsButton type="kakao" />
       </div>
     </div>
