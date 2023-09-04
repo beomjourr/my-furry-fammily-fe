@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { ButtonHTMLAttributes } from 'react';
 import classnames from 'classnames';
-import styles from './radio-button.module.scss';
+import styles from './card-radio-button.module.scss';
 
-export interface RadioButtonProps
+export interface CardRadioButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement> {
   value: string;
-  selectValue?: string;
+  isActive?: boolean;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
@@ -35,21 +35,21 @@ export function RadioButtonGroup({
 
         return React.cloneElement(child as React.ReactElement, {
           onClick: handleClick,
-          selectValue: value,
+          isActive: child.props.value === value,
         });
       })}
     </>
   );
 }
 
-export function RadioButton({
+export function CardRadioButton({
   children,
   value,
-  selectValue,
+  isActive,
   onClick,
   className,
   ...rest
-}: RadioButtonProps) {
+}: CardRadioButtonProps) {
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     onClick?.(e);
   };
@@ -59,7 +59,7 @@ export function RadioButton({
       type="button"
       className={classnames(
         styles['button'],
-        styles[selectValue === value ? 'active' : ''],
+        styles[isActive ? 'active' : ''],
         className,
       )}
       value={value}
