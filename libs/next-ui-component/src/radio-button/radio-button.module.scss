@@ -1,0 +1,29 @@
+@import '../../../../libs/design-system/base.scss';
+
+.button {
+  width: 100%;
+  padding: 15.5px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #FFFFFF;
+
+  border: 1px solid $primary-300;
+  border-radius: 10px;
+
+  color: $primary-300;
+
+  &.active {
+    background: #D2DEFF;
+  }
+
+  &:disabled {
+    border: 1px solid $gray-500;
+    color: $gray-500;
+    cursor: not-allowed;
+  }
+}
+
