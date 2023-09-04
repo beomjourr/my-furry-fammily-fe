@@ -13,21 +13,22 @@ export interface CardRadioButtonProps
 interface RadioButtonGroup {
   value: string;
   children: React.ReactNode;
+  className?: string;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  disabled?: boolean;
 }
 
 export function RadioButtonGroup({
   children,
   value,
   onClick,
+  className,
 }: RadioButtonGroup) {
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     onClick?.(e);
   };
 
   return (
-    <>
+    <div className={className}>
       {React.Children.map(children, (child) => {
         if (!React.isValidElement(child)) {
           return null;
@@ -38,7 +39,7 @@ export function RadioButtonGroup({
           isActive: child.props.value === value,
         });
       })}
-    </>
+    </div>
   );
 }
 

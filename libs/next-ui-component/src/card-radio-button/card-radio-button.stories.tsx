@@ -21,20 +21,13 @@ const Template = (args: CardRadioButtonProps) => {
   };
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        gap: 10,
-      }}
-    >
-      <RadioButtonGroup value={value} onClick={handleClick}>
-        <CardRadioButton value="말티즈">말티즈</CardRadioButton>
-        <CardRadioButton value="리트리버">리트리버</CardRadioButton>
-        <CardRadioButton value="시츄" disabled>
-          시츄
-        </CardRadioButton>
-      </RadioButtonGroup>
-    </div>
+    <RadioButtonGroup value={value} onClick={handleClick}>
+      <CardRadioButton value="말티즈">말티즈</CardRadioButton>
+      <CardRadioButton value="리트리버">리트리버</CardRadioButton>
+      <CardRadioButton value="시츄" disabled>
+        시츄
+      </CardRadioButton>
+    </RadioButtonGroup>
   );
 };
 
