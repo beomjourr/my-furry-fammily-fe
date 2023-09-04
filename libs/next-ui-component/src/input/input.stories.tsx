@@ -10,9 +10,9 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof Input>;
 
-export const Kakao: Story = {
-  name: 'kakao Button',
+export const labelWithInput: Story = {
+  name: 'input with label',
   args: {
-    type: 'text',
+    label: 'test',
   },
 };

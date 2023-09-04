@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
-
 import styles from './input.module.scss';
 
-// export interface SnsButtonProps {
-//   type: 'kakao';
-// }
+export interface InputProps {
+  label?: string;
+}
 
-export function Input() {
+export function Input(props: InputProps) {
+  const { label } = props;
   const [value, setValue] = useState('');
   const [isInvalid, setIsInvalid] = useState(false);
+  // 현재 글자 수, 최대 글자 수
+  const currentLength = value.length;
+  const maxLength = 300;
 
   const handleClear = () => {
     setValue('');
@@ -18,18 +21,17 @@ export function Input() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
 
-    if (!inputValue) {
+    if (inputValue.length >= 10) {
       setIsInvalid(true);
     } else {
       setIsInvalid(false);
     }
-
     setValue(inputValue);
   };
 
   return (
-    <form>
-      <h6>가나다</h6>
+    <div className={styles.frame}>
+      <h6 className={styles.label}>{label}</h6>
       <div className={styles.container}>
         <input
           type="text"
@@ -42,7 +44,13 @@ export function Input() {
           x
         </button>
       </div>
-    </form>
+      <div className={styles.bottom}>
+        <h6 className={styles.helperText}>Helper text</h6>
+        <h6 className={styles.countText}>
+          {currentLength}/{maxLength}
+        </h6>
+      </div>
+    </div>
   );
 }
 

@@ -1,17 +1,29 @@
+@import '../../../../libs/design-system/base.scss';
+* {
+  box-sizing: border-box;
+}
+.frame {
+  width: 270px;
+}
 .input {
-  background: none;
+  font-size: 14px;
+  line-height: 17px;
   cursor: pointer;
   width: 270px;
   height: 48px;
-  border: 1px solid #9a9aa1;
-  padding: 8px; /* 필요에 따라 내부 여백을 조절할 수 있습니다. */
+  border: 1px solid $gray-500;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 16px;
   border-radius: 10px;
+  &:focus {
+    border-color: $primary-400;
+    outline: none;
+    color: $gray-900;
+    caret-color: $primary-400;
+  }
 }
-.input:focus {
-  border-color: #6282db;
-  outline: none;
-  color: black;
-}
+
 .invalid {
   border-color: red;
 }
@@ -26,10 +38,34 @@
   display: flex;
   align-items: center;
 }
-h6 {
+.label {
   margin: 0;
   padding: 0;
-  color: #75757d;
-  margin-bottom: 10px;
-  font-weight: 300;
+  color: $gray-600;
+  margin-bottom: 4px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 20px;
+}
+.helperText {
+  margin: 0;
+  padding: 0;
+  color: $gray-600;
+  margin-top: 4px;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 20px;
+}
+.countText {
+  margin: 0;
+  padding: 0;
+  color: $gray-600;
+  margin-top: 4px;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 20px;
+}
+.bottom {
+  display: flex;
+  justify-content: space-between;
 }
