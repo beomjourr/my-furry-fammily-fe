@@ -1,0 +1,35 @@
+.input {
+  background: none;
+  cursor: pointer;
+  width: 270px;
+  height: 48px;
+  border: 1px solid #9a9aa1;
+  padding: 8px; /* 필요에 따라 내부 여백을 조절할 수 있습니다. */
+  border-radius: 10px;
+}
+.input:focus {
+  border-color: #6282db;
+  outline: none;
+  color: black;
+}
+.invalid {
+  border-color: red;
+}
+.button {
+  position: absolute;
+  left: 240px;
+  vertical-align: middle;
+  border-radius: 10px;
+}
+.container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+h6 {
+  margin: 0;
+  padding: 0;
+  color: #75757d;
+  margin-bottom: 10px;
+  font-weight: 300;
+}
