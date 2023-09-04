@@ -6,12 +6,11 @@
     height: 4px;
     background: $background-color;
 
-    /* Progress bar */
     .progress {
         position: absolute;
         height: 4px;
         left: 0px;
         top: 0px;
-        background: $primary-300;    
+        background: $primary-300;
     }
 }

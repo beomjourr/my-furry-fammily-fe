@@ -1,6 +1,5 @@
 import styles from './progressbar.module.scss';
 
-/* eslint-disable-next-line */
 export interface ProgressBarProps {
   max: number;
   current: number;
