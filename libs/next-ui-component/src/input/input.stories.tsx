@@ -16,7 +16,6 @@ export const labelWithInput: Story = {
     label: 'test',
     placeholder: '입력하세요',
     helperText: 'helpertext 입니다',
-    currentLength: 20,
     maxLength: 300,
     validationRule: (value) => value.length < 10,
   },
