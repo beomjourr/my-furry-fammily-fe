@@ -4,11 +4,12 @@ import {
   CardRadioButton,
   RadioButtonGroup,
 } from '@my-furry-family/next-ui-component';
-import { useState } from 'react';
+import { useAtom } from 'jotai';
+import { dogOrCatData } from '../../../store/survey';
 import styles from './DogOrCat.module.scss';
 
 export function DogOrCat() {
-  const [value, setValue] = useState('강아지');
+  const [value, setValue] = useAtom(dogOrCatData);
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     setValue(e.currentTarget.value);

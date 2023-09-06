@@ -2,6 +2,7 @@
 
 import { ProgressBar } from '@my-furry-family/next-ui-component';
 import { useMemo } from 'react';
+import { RequestCurator } from '../../../components/survey/RequestCurator/RequestCurator';
 import { DogOrCat } from '../../../components/survey/DogOrCat/DogOrCat';
 import { SignUpHeader } from '../../../components/SignUpHeader/SignUpHeader';
 import styles from './page.module.scss';
@@ -20,6 +21,8 @@ export default async function Survey({
       case 1:
         return <DogOrCat />;
         break;
+      case 13:
+        return <RequestCurator />;
       default:
         return <DogOrCat />;
     }
