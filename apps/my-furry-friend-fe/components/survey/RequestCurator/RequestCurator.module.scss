@@ -7,16 +7,6 @@
     height: 100%;
     align-items: center;
 
-    .title {
-        font-weight: 600;
-        font-size: 20px;
-        line-height: 24px;
-        text-align: center;
-
-        color: $gray-700;
-        margin-top: 30%;
-    }
-
     & > textarea {
         margin-top: 75px;
     }

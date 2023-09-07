@@ -7,6 +7,7 @@ import {
 import { useAtom } from 'jotai';
 import { dogOrCatData } from '../../../store/survey';
 import styles from './DogOrCat.module.scss';
+import { SurveyTitle } from '../SurveyTitle/SurveyTitle';
 
 export function DogOrCat() {
   const [value, setValue] = useAtom(dogOrCatData);
@@ -17,11 +18,10 @@ export function DogOrCat() {
 
   return (
     <div className={styles.container}>
-      <p className={styles.title}>
+      <SurveyTitle description="고양이는 추후 업데이트 하겠습니다.">
         우리 내새꾸는 <br />
         강아지인가요? 고양이인가요?
-      </p>
-      <p className={styles.description}>고양이는 추후 업데이트 하겠습니다.</p>
+      </SurveyTitle>
       <RadioButtonGroup
         className={styles['radio-buttons']}
         value={value}
