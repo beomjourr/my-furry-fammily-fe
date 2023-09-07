@@ -33,19 +33,18 @@ export function ImageProfile(props: ImageProfileProps) {
         ref.current?.click();
       }}
     >
-      {!imageSrc && (
-        <Image
-          className={styles.profile}
-          src={ProfileButton}
-          alt="profileButton"
-        />
-      )}
-      {imageSrc && (
+      {imageSrc ? (
         <Image
           fill={true}
           className={classNames(styles.profile, styles.uploaded)}
           src={imageSrc}
           alt="uploadedImage"
+        />
+      ) : (
+        <Image
+          className={styles.profile}
+          src={ProfileButton}
+          alt="profileButton"
         />
       )}
       <input
