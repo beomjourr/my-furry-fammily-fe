@@ -2,6 +2,8 @@
 
 import { ProgressBar } from '@my-furry-family/next-ui-component';
 import { useMemo } from 'react';
+import { SelectSpecies } from '../../../components/survey/SelectSpecies/SelectSpecies';
+import { SelectNeutering } from '../../../components/survey/SelectNeutering/SelectNeutering';
 import { RequestCurator } from '../../../components/survey/RequestCurator/RequestCurator';
 import { DogOrCat } from '../../../components/survey/DogOrCat/DogOrCat';
 import { SignUpHeader } from '../../../components/SignUpHeader/SignUpHeader';
@@ -20,6 +22,12 @@ export default async function Survey({
     switch (pageIndex) {
       case 1:
         return <DogOrCat />;
+        break;
+      case 2:
+        return <SelectSpecies />;
+        break;
+      case 4:
+        return <SelectNeutering />;
         break;
       case 13:
         return <RequestCurator />;

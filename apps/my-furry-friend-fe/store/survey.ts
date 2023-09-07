@@ -2,6 +2,8 @@ import { atom } from 'jotai';
 
 export const currentIndex = atom(0);
 export const dogOrCatData = atom('강아지');
+export const species = atom('포메라니안');
+export const isNeutering = atom(true);
 export const requestCuratorData = atom('');
 
 export const surveyBody = atom((get) => {
