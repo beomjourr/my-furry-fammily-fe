@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Button } from './Button';
+import { Button } from './button';
 
 const meta = {
   title: 'next/client-component/Button',
@@ -12,7 +12,4 @@ type Story = StoryObj<typeof Button>;
 
 export const Default: Story = {
   name: 'Button',
-  //   args: {
-  //     type: 'button',
-  //   },
 };

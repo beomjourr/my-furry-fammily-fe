@@ -1,31 +1,45 @@
 'use client';
 
-import React, { ChangeEvent, useRef, useState } from 'react';
+import { useState } from 'react';
+import Image from 'next/image';
 import classNames from 'classnames';
-import styles from './Button.module.scss';
+import styles from './button.module.scss';
 
 export interface ButtonProps {
   text: string;
-  className?: string;
-  disabled?: boolean;
+  className: string;
+  leftImage: string;
+  rightImage: string;
+  disabled: boolean;
 }
 
 export function Button(props: ButtonProps) {
-  const { text, className, disabled } = props;
-  const [clicked, setCliked] = useState<boolean | undefined>(false);
+  const { text, className, leftImage, rightImage, disabled } = props;
+  const [isClicked, setIsCliked] = useState<boolean | undefined>(false);
 
   const onClick = () => {
-    setCliked((prev) => !prev);
+    setIsCliked((prev) => !prev);
   };
-
-  const buttonClasses = classNames(className, {
-    [styles.clicked]: clicked,
-  });
 
   return (
     <div className={styles.container}>
-      <button className={buttonClasses} onClick={onClick} disabled={disabled}>
-        {text}
+      <button
+        className={classNames(
+          styles['button'],
+          styles[className],
+          styles[isClicked ? 'clicked' : ''],
+        )}
+        type="button"
+        onClick={onClick}
+        disabled={disabled}
+      >
+        {leftImage && (
+          <Image src={leftImage} alt="img" width={24} height={24} />
+        )}
+        <span>{text}</span>
+        {rightImage && (
+          <Image src={rightImage} alt="img" width={24} height={24} />
+        )}
       </button>
     </div>
   );

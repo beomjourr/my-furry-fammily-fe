@@ -1,89 +1,51 @@
 @import '../../../../libs/design-system/base.scss';
 
 .container {
-  height: 400px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-
-  button {
-    width: 104px;
+  .button {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100px;
     height: 48px;
     border-radius: 40px;
     font-size: 16px;
     font-weight: 600;
+    cursor: pointer;
 
-    &.fulledButtons {
+    &.filled {
       background-color: $primary-300;
       color: #ffffff;
 
       &:hover {
-        background-color: #3f63c6;
+        background-color: $primary-400;
       }
 
       &.clicked {
-        background-color: #3051ae;
+        background-color: $primary-800;
       }
 
       &:disabled {
-        background-color: $gray-300;
-        color: #9a9aa1;
+        background-color: $gray-400;
+        color: $gray-500;
       }
     }
 
-    &.outlinedButtons {
+    &.outline {
       background-color: #ffffff;
       color: $primary-300;
       border: $primary-300;
 
       &:hover {
-        background-color: #e5ecff;
-        border: #e5ecff;
+        background-color: $primary-50;
       }
 
       &.clicked {
-        background-color: #d2deff;
-        border: #d2deff;
+        background-color: $primary-100;
       }
 
       &:disabled {
-        border: #9a9aa1;
-        color: #9a9aa1;
-      }
-    }
-
-    &.textButtons {
-      background-color: #ffffff;
-      color: $primary-300;
-
-      &:hover {
-        background-color: #e5ecff;
-      }
-
-      &.clicked {
-        background-color: #d2deff;
-      }
-
-      &:disabled {
-        color: #9a9aa1;
-      }
-    }
-
-    &.tonalButtons {
-      background-color: #b2c7ff;
-      color: #292929;
-
-      &:hover {
-        background-color: #8eadff;
-      }
-
-      &.clicked {
-        background-color: #7097ff;
-      }
-
-      &:disabled {
-        background-color: $gray-300;
-        color: #9a9aa1;
+        border: $gray-400;
+        color: $gray-400;
       }
     }
   }
