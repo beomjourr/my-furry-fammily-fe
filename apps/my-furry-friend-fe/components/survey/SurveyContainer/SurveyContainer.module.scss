@@ -7,16 +7,40 @@
     height: 100%;
     align-items: center;
 
-    .form-container {   
+    .form-container {
         .radio-buttons {
             margin-top: 39px;
             flex: 1;
+
+            &.wrap {
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 16px;
+
+                & > * {
+                    width: 152px;
+                    height: 48px;
+                    justify-content: center;
+                    align-items: center;
+                    flex-shrink: 0;
+                    margin-bottom: 0;
+
+                    &.width-full {
+                        width: 320px;
+                    }
+                }
+            }
 
             & > * {
                 width: 270px;
                 height: 48px;
                 margin-bottom: 16px;
             }
+        }
+
+        .textarea {
+            margin-top: 75px;
         }
     }
 }

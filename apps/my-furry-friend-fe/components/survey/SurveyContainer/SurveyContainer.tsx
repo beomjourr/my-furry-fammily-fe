@@ -8,6 +8,7 @@ import {
 import { useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAtom } from 'jotai';
+import classNames from 'classnames';
 import { SurveyData, surveyData } from '../../../store/survey';
 import styles from './SurveyContainer.module.scss';
 import { SurveyTitle } from '../SurveyTitle/SurveyTitle';
@@ -48,7 +49,6 @@ const formMeta = [
   {
     key: 'howLong',
     title: '우리 내새꾸가 가족이 된 지\n얼마나 되었나요?',
-    isExistButton: true,
   },
   {
     key: 'feed',
@@ -120,7 +120,7 @@ export function SurveyContainer({ pageIndex }: { pageIndex: number }) {
       case 1:
         return (
           <RadioButtonGroup
-            className={styles['radio-buttons']}
+            className={classNames(styles['radio-buttons'], styles.wrap)}
             value={currentValue ?? ''}
             onClick={(e) => handleCardClick(e.currentTarget.value)}
           >
@@ -196,7 +196,7 @@ export function SurveyContainer({ pageIndex }: { pageIndex: number }) {
       case 8:
         return (
           <RadioButtonGroup
-            className={styles['radio-buttons']}
+            className={classNames(styles['radio-buttons'], styles.wrap)}
             value={currentValue ?? ''}
             onClick={(e) => handleCardClick(e.currentTarget.value)}
           >
@@ -204,7 +204,9 @@ export function SurveyContainer({ pageIndex }: { pageIndex: number }) {
             <CardRadioButton value="2">관절</CardRadioButton>
             <CardRadioButton value="3">피부</CardRadioButton>
             <CardRadioButton value="4">소화</CardRadioButton>
-            <CardRadioButton value="5">기타</CardRadioButton>
+            <CardRadioButton className={styles['width-full']} value="5">
+              기타
+            </CardRadioButton>
           </RadioButtonGroup>
         );
         break;
@@ -229,6 +231,7 @@ export function SurveyContainer({ pageIndex }: { pageIndex: number }) {
       case 11:
         return (
           <Textarea
+            className={styles.textarea}
             initialValue={currentValue ?? ''}
             onChange={(e) => handleCardClick(e.currentTarget.value)}
           />
