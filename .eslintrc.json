@@ -46,6 +46,7 @@
     "import/prefer-default-export": "off",
     "import/order": [
       "error"
-    ]
+    ],
+    "react/require-default-props": "off"
   }
 }
