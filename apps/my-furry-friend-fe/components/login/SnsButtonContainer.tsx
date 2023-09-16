@@ -12,7 +12,7 @@ function SnsButtonContainer({ type }: SnsButtonContainerProps) {
 
   const handleKaKaoLogin = () => {
     router.replace(
-      'https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=23172c0f75d5e36e75bc0313d5701da4&redirect_uri=http://localhost:4200/login/callback',
+      `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_KAKAO_LOGIN_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URL}`,
     );
   };
 
