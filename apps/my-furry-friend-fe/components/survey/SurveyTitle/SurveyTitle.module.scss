@@ -1,0 +1,20 @@
+@import '../../../../../libs/design-system/base.scss';
+
+.title {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+
+    color: $gray-700;
+    margin-top: 30%;
+    white-space: pre-line;
+}
+
+.description {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: #9A9AA1;
+    margin-top: 12px;
+}

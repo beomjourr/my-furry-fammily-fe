@@ -1,0 +1,27 @@
+@import '../../../../libs/design-system/base.scss';
+
+.textarea {
+    box-sizing: border-box;
+    padding: 16px;
+
+    width: 328px;
+    height: 124px;
+
+    background: #FFFFFF;
+    border: 1px solid #BCBCC4;
+    border-radius: 10px;
+
+    font-family: inherit;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+
+    color: $gray-700;
+    resize: none;
+    caret-color: #0045BD;
+
+    &:focus {
+        outline: none;
+        border-color: #6282DB;
+    }
+}
