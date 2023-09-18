@@ -1,18 +1,19 @@
-import React from 'react';
+import React, { HTMLAttributes } from 'react';
 import Image from 'next/image';
 import kakao from '@my-furry-family/images/kakao_login_large_wide.png';
 import styles from './sns-button.module.scss';
 
-export interface SnsButtonProps {
+export interface SnsButtonProps extends HTMLAttributes<HTMLButtonElement> {
   type: 'kakao';
 }
 
 export function SnsButton(props: SnsButtonProps) {
-  const { type } = props;
+  const { type, ...rest } = props;
+
   return (
-    <button className={styles.button}>
+    <button className={styles.button} {...rest}>
       {type === 'kakao' && (
-        <Image className={styles.image} src={kakao} alt="kakao"></Image>
+        <Image priority className={styles.image} src={kakao} alt="kakao" />
       )}
     </button>
   );
