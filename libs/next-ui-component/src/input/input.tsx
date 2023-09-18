@@ -1,31 +1,43 @@
 import React, { useEffect, useState } from 'react';
+import classNames from 'classnames';
 import styles from './input.module.scss';
 
 export interface InputProps {
   label?: string;
+  value?: string;
   placeholder?: string;
   helperText?: string;
   countText?: number;
   maxLength?: number;
   validationRule: (value: string) => boolean;
+  onChange: (value: string) => void;
 }
 
 export function Input(props: InputProps) {
-  const { label, placeholder, helperText, maxLength, validationRule } = props;
-  const [value, setValue] = useState('');
+  const {
+    label,
+    value,
+    placeholder,
+    helperText,
+    maxLength,
+    validationRule,
+    onChange,
+  } = props;
   const [isInvalid, setIsInvalid] = useState(false);
-  const currentLength = value.length;
+  const [currentLength, setCurrentLength] = useState(value?.length || 0);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
     const isValid = validationRule(inputValue);
     setIsInvalid(!isValid);
-    setValue(inputValue);
+    onChange(inputValue);
+    setCurrentLength(inputValue.length);
   };
 
   useEffect(() => {
-    const isValid = validationRule(value);
+    const isValid = validationRule(value || '');
     setIsInvalid(!isValid);
+    setCurrentLength(value?.length || 0);
   }, [validationRule, value]);
 
   return (
@@ -34,7 +46,7 @@ export function Input(props: InputProps) {
       <div className={styles.container}>
         <input
           type="text"
-          className={`${styles.input} ${isInvalid ? styles.invalid : ''}`}
+          className={classNames(styles.input, { [styles.invalid]: isInvalid })}
           placeholder={placeholder}
           value={value}
           onChange={handleChange}
