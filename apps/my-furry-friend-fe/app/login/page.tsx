@@ -1,14 +1,13 @@
-import { SnsButton } from '@my-furry-family/next-ui-component';
-import { CommerceMainHeader } from '../../components/CommerceMainHeader/CommerceMainHeader';
 import styles from './page.module.scss';
+import Title from '../../components/login/Title';
+import SnsButtonContainer from '../../components/login/SnsButtonContainer';
 
 export default async function Login() {
   return (
     <div className={styles.container}>
-      <CommerceMainHeader />
       <div className={styles.innerContainer}>
-        test 테스트
-        <SnsButton type="kakao" />
+        <Title />
+        <SnsButtonContainer type="kakao" />
       </div>
     </div>
   );
