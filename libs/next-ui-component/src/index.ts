@@ -3,4 +3,4 @@
 export * from './icon-button/icon-button';
 export * from './sns-button/sns-button';
 export * from './card-radio-button/card-radio-button';
-export * from './button/Button';
+export * from './button/button';

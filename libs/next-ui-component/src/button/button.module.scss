@@ -1,52 +1,50 @@
 @import '../../../../libs/design-system/base.scss';
 
-.container {
-  .button {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width: 100px;
-    height: 48px;
-    border-radius: 40px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
+.button {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100px;
+  height: 48px;
+  border-radius: 40px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
 
-    &.filled {
-      background-color: $primary-300;
-      color: #ffffff;
+  &.filled {
+    background-color: $primary-300;
+    color: #ffffff;
 
-      &:hover {
-        background-color: $primary-400;
-      }
-
-      &.clicked {
-        background-color: $primary-800;
-      }
-
-      &:disabled {
-        background-color: $gray-400;
-        color: $gray-500;
-      }
+    &:hover {
+      background-color: $primary-400;
     }
 
-    &.outline {
-      background-color: #ffffff;
-      color: $primary-300;
-      border: $primary-300;
+    &:active {
+      background-color: $primary-800;
+    }
 
-      &:hover {
-        background-color: $primary-50;
-      }
+    &:disabled {
+      background-color: $gray-400;
+      color: $gray-500;
+    }
+  }
 
-      &.clicked {
-        background-color: $primary-100;
-      }
+  &.outline {
+    background-color: #ffffff;
+    color: $primary-300;
+    border: $primary-300;
 
-      &:disabled {
-        border: $gray-400;
-        color: $gray-400;
-      }
+    &:hover {
+      background-color: $primary-50;
+    }
+
+    &:active {
+      background-color: $primary-100;
+    }
+
+    &:disabled {
+      border: $gray-400;
+      color: $gray-400;
     }
   }
 }
