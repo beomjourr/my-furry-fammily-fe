@@ -16,6 +16,7 @@ export function DateSelector() {
 
   return (
     <div className={styles.dateSelector}>
+      {/* //<input 태그의 type을 select로 하는 방법도 찾아보기 */}
       <select
         className={styles.box}
         value={selectedYear}
