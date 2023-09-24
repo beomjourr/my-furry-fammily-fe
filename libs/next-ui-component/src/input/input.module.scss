@@ -1,0 +1,74 @@
+@import '../../../../libs/design-system/base.scss';
+
+.frame {
+  width: 270px;
+}
+.input {
+  font-size: 14px;
+  line-height: 17px;
+  cursor: pointer;
+  width: 270px;
+  height: 48px;
+  border: 1px solid $gray-500;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 16px;
+  border-radius: 10px;
+  &:focus {
+    border-color: $primary-400;
+    outline: none;
+    color: $gray-900;
+    caret-color: $primary-400;
+  }
+}
+
+.invalid {
+  border-color: red;
+}
+.button {
+  position: absolute;
+  left: 240px;
+  vertical-align: middle;
+  border-radius: 10px;
+}
+.container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.label {
+  margin: 0;
+  padding: 0;
+  color: $gray-600;
+  margin-bottom: 4px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 20px;
+}
+.helperText {
+  margin: 0;
+  padding: 0;
+  color: $gray-600;
+  margin-top: 4px;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 20px;
+  position: absolute;
+  left: 0;
+}
+.countText {
+  margin: 0;
+  padding: 0;
+  color: $gray-600;
+  margin-top: 4px;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 20px;
+  position: absolute;
+  right: 0;
+}
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}

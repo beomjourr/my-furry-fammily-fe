@@ -7,3 +7,4 @@ export * from './button/button';
 export * from './progressbar/progressbar';
 export * from './Textarea/Textarea';
 export * from './ImageProfile/ImageProfile';
+export * from './input/input';
