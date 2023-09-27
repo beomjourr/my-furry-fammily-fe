@@ -11,7 +11,7 @@ export interface InputProps {
   countText?: number;
   maxLength?: number;
   validationRule: (value: string) => boolean;
-  onChange: (value: string) => void;
+  onChange?: (value: string) => void;
 }
 
 export function Input(props: InputProps) {
@@ -31,13 +31,14 @@ export function Input(props: InputProps) {
     const inputValue = e.target.value;
     const isValid = validationRule(inputValue);
     setIsInvalid(!isValid);
-    onChange(inputValue);
+    onChange?.(inputValue);
     setCurrentLength(inputValue.length);
   };
 
   useEffect(() => {
     const isValid = validationRule(value || '');
     setIsInvalid(!isValid);
+    console.log(currentLength, value);
     setCurrentLength(value?.length || 0);
   }, [validationRule, value]);
 
