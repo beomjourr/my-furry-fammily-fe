@@ -6,13 +6,15 @@ import {
   Textarea,
 } from '@my-furry-family/next-ui-component';
 import { useMemo } from 'react';
-import { useRouter } from 'next/navigation';
 import { useAtom } from 'jotai';
 import classNames from 'classnames';
-import { SurveyData, surveyData } from '../../../store/survey';
+import {
+  SurveyData,
+  surveyCurrentPageIndex,
+  surveyData,
+} from '../../../store/survey';
 import styles from './SurveyContainer.module.scss';
 import { SurveyTitle } from '../SurveyTitle/SurveyTitle';
-import { ErrorPage } from '../../ErrorPage/ErrorPage';
 
 const formMeta = [
   {
@@ -246,9 +248,9 @@ const formMeta = [
   },
 ];
 
-export function SurveyContainer({ pageIndex }: { pageIndex: number }) {
-  const router = useRouter();
+export function SurveyContainer() {
   const [data, setData] = useAtom(surveyData);
+  const [pageIndex, setPageIndex] = useAtom(surveyCurrentPageIndex);
   const currentValue = useMemo(
     () => data[formMeta[pageIndex].key as keyof SurveyData],
     [data, pageIndex],
@@ -263,7 +265,7 @@ export function SurveyContainer({ pageIndex }: { pageIndex: number }) {
     });
 
     if (!formMeta[pageIndex].isExistButton) {
-      router.push(`/survey/${pageIndex + 1}`);
+      setPageIndex(pageIndex + 1);
     }
   };
 
@@ -282,10 +284,7 @@ export function SurveyContainer({ pageIndex }: { pageIndex: number }) {
       {formMeta[pageIndex].isExistButton &&
         pageIndex !== formMeta.length - 1 && (
           <div>
-            <button
-              type="button"
-              onClick={() => router.push(`/survey/${pageIndex + 1}`)}
-            >
+            <button type="button" onClick={() => setPageIndex(pageIndex + 1)}>
               다음
             </button>
           </div>
