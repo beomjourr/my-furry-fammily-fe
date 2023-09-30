@@ -1,12 +1,14 @@
+'use client';
+
 import { IconButton, ProgressBar } from '@my-furry-family/next-ui-component';
 import backArrow from '@my-furry-family/images/ico_back.png';
 import { useAtom } from 'jotai';
-import { surveyCurrentPageIndex } from '../../store/survey';
-import styles from './SignUpHeader.module.scss';
+import { surveyCurrentPageIndex } from '../../../store/survey';
+import styles from './SurveyHeader.module.scss';
 
 const SURVEY_PAGE_LENGTH = 12;
 
-export function SignUpHeader() {
+export function SurveyHeader() {
   const [pageIndex, setPageIndex] = useAtom(surveyCurrentPageIndex);
 
   const handleBackClick = () => {
