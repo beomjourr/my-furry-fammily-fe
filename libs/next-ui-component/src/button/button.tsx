@@ -1,33 +1,25 @@
 'use client';
 
-import Image from 'next/image';
 import classNames from 'classnames';
+import React, { HTMLAttributes } from 'react';
 import styles from './button.module.scss';
 
-export interface ButtonProps {
-  text: string;
+export interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
+  type: 'filled' | 'outline';
   className: string;
-  leftImage: string;
-  rightImage: string;
-  disabled: boolean;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  children: React.ReactNode;
 }
 
 export function Button(props: ButtonProps) {
-  const { text, className, leftImage, rightImage, disabled, onClick } = props;
+  const { type, className, children, ...attr } = props;
 
   return (
     <button
-      className={classNames(styles['button'], styles[className])}
+      className={classNames(styles['button'], styles[type], className)}
       type="button"
-      onClick={onClick}
-      disabled={disabled}
+      {...attr}
     >
-      {leftImage && <Image src={leftImage} alt="img" width={24} height={24} />}
-      <span>{text}</span>
-      {rightImage && (
-        <Image src={rightImage} alt="img" width={24} height={24} />
-      )}
+      {children}
     </button>
   );
 }
