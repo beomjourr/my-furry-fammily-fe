@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
-import styles from './input.module.scss';
+import styles from './Input.module.scss';
 
 export interface InputProps {
   label?: string;

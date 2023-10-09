@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ButtonHTMLAttributes } from 'react';
 import classnames from 'classnames';
-import styles from './card-radio-button.module.scss';
+import styles from './CardRadioButton.module.scss';
 
 export interface CardRadioButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement> {

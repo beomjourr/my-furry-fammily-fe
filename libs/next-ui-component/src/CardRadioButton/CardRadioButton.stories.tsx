@@ -4,7 +4,7 @@ import {
   CardRadioButton,
   CardRadioButtonProps,
   RadioButtonGroup,
-} from './card-radio-button';
+} from './CardRadioButton';
 
 const meta = {
   title: 'next/client-component/CardRadioButton',

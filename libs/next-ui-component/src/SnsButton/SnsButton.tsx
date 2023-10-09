@@ -1,7 +1,7 @@
 import React, { HTMLAttributes } from 'react';
 import Image from 'next/image';
 import kakao from '@my-furry-family/images/kakao_login_large_wide.png';
-import styles from './sns-button.module.scss';
+import styles from './SnsButton.module.scss';
 
 export interface SnsButtonProps extends HTMLAttributes<HTMLButtonElement> {
   type: 'kakao';

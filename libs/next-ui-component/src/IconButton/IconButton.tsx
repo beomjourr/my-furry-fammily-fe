@@ -1,7 +1,7 @@
 import classnames from 'classnames';
 import Image, { StaticImageData } from 'next/image';
 import React from 'react';
-import styles from './icon-button.module.scss';
+import styles from './IconButton.module.scss';
 
 /* eslint-disable-next-line */
 export interface IconButtonProps {

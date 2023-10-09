@@ -2,7 +2,7 @@
 
 import classNames from 'classnames';
 import React, { HTMLAttributes } from 'react';
-import styles from './button.module.scss';
+import styles from './Button.module.scss';
 
 export interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
   type: 'filled' | 'outline';
