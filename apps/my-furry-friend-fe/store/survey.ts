@@ -15,6 +15,8 @@ export interface SurveyData {
   requestCurator: null | string;
 }
 
+export const surveyCurrentPageIndex = atom<number>(0);
+
 export const surveyData = atom<SurveyData>({
   dogOrCat: null,
   species: null,

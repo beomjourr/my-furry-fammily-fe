@@ -13,10 +13,11 @@ export interface IconButtonProps {
 }
 
 export function IconButton(props: IconButtonProps) {
-  const { src, className, alt = '', size = 'small' } = props;
+  const { src, className, alt = '', size = 'small', onClick } = props;
   return (
     <button
       className={classnames(styles['icon-button'], styles[size], className)}
+      onClick={onClick}
     >
       <Image src={src} alt={alt}></Image>
     </button>
