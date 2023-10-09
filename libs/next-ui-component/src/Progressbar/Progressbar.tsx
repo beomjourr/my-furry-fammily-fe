@@ -1,4 +1,4 @@
-import styles from './progressbar.module.scss';
+import styles from './Progressbar.module.scss';
 
 export interface ProgressBarProps {
   max: number;

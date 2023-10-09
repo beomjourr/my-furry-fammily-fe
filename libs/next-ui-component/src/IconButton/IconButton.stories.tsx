@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import backArrow from '@my-furry-family/images/ico_back.png';
-import { IconButton } from './icon-button';
+import { IconButton } from './IconButton';
 
 const meta = {
   title: 'next/client-component/IconButton',

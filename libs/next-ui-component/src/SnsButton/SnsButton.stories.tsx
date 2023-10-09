@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import React from 'react';
-import { SnsButton } from './sns-button';
+import { SnsButton } from './SnsButton';
 
 const meta = {
   title: 'next/client-component/SnsButton',
