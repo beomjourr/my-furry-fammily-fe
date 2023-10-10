@@ -1,56 +1,53 @@
-// import React, { useState } from 'react';
-// import styles from './selectbox.module.scss';
+'use client';
+import React, { useState } from 'react';
+import styles from './SelectBox.module.scss';
 
-// export function DateSelector() {
-//   const years = Array.from({ length: 10 }, (_, index) => 2023 - index);
+const Options = [
+  { label: '2020년', value: '2020' },
+  { label: '2021년', value: '2021' },
+  { label: '2022년', value: '2022' },
+  { label: '2023년', value: '2023' },
+  { label: '2024년', value: '2024' },
+];
 
-//   const months = Array.from({ length: 12 }, (_, index) => index + 1);
+export interface SelectBoxOptionProps {
+  value: string;
+  label: string;
+  classNames?: string;
+  onChange?: React.ChangeEventHandler;
+}
 
-//   const days = Array.from({ length: 31 }, (_, index) => index + 1);
+export function SelectBoxOption(props: SelectBoxOptionProps) {
+  const { value, label, classNames } = props;
 
-//   const [selectedYear, setSelectedYear] = useState('');
-//   const [selectedMonth, setSelectedMonth] = useState('');
-//   const [selectedDay, setSelectedDay] = useState('');
+  return (
+    <option value={value} className={classNames}>
+      {label}
+    </option>
+  );
+}
 
-//   return (
-//     <div className={styles.dateSelector}>
-//       <div
-//         className={styles.box}
-//         onChange={(e) => setSelectedYear(e.target.value)}
-//       >
-//         <option value="">년</option>
-//         {years.map((year) => (
-//           <option key={year} value={year}>
-//             {year}
-//           </option>
-//         ))}
-//       </div>
+export interface SelectBoxProps {
+  value: string;
+  children?: React.ReactNode;
+  onChange?: React.ChangeEventHandler;
+}
 
-//       <div
-//         className={styles.box}
-//         onChange={(e) => setSelectedMonth(e.target.value)}
-//       >
-//         <option value="">월</option>
-//         {months.map((month) => (
-//           <option key={month} value={month}>
-//             {month}
-//           </option>
-//         ))}
-//       </div>
+export function SelectBox(props: SelectBoxProps) {
+  const { value, children, onChange } = props;
 
-//       <div
-//         className={styles.box}
-//         onChange={(e) => setSelectedDay(e.target.value)}
-//       >
-//         <option value="">일</option>
-//         {days.map((day) => (
-//           <option key={day} value={day}>
-//             {day}
-//           </option>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// }
+  return (
+    <select className={styles.box} value={value} onChange={onChange}>
+      <option value="">{children}</option>
+      {Options.map((option) => (
+        <SelectBoxOption
+          key={option.value}
+          value={option.value}
+          label={option.label}
+        />
+      ))}
+    </select>
+  );
+}
 
-// export default DateSelector;
+export default SelectBox;
