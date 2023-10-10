@@ -13,6 +13,6 @@ type Story = StoryObj<typeof SelectContainer>;
 export const selectbox: Story = {
   name: 'day selectbox',
   args: {
-    children: '가나다',
+    children: '년',
   },
 };
