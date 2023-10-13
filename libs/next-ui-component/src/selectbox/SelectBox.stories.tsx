@@ -19,6 +19,34 @@ export const selectbox: Story = {
         <OptionBox value="2022">2022년</OptionBox>
         <OptionBox value="2023">2023년</OptionBox>
         <OptionBox value="2024">2024년</OptionBox>
+        <OptionBox value="2024">2024년</OptionBox>
+        <OptionBox value="2024">2024년</OptionBox>
+        <OptionBox value="2024">2024년</OptionBox>
+        <OptionBox value="2024">2024년</OptionBox>
+        <OptionBox value="2024">2024년</OptionBox>
+        <OptionBox value="2024">2024년</OptionBox>
+        <OptionBox value="2024">2024년</OptionBox>
+        <OptionBox value="2024">2024년</OptionBox>
+        <OptionBox value="2024">2024년</OptionBox>
+        <OptionBox value="2024">2024년</OptionBox>
+        <OptionBox value="2024">2024년</OptionBox>
+        <OptionBox value="2024">2024년</OptionBox>
+        <OptionBox value="2024">2024년</OptionBox>
+        <OptionBox value="2024">2024년</OptionBox>
+        <OptionBox value="2024">2024년</OptionBox>
+        <OptionBox value="2024">2024년</OptionBox>
+        <OptionBox value="2024">2024년</OptionBox>
+        <OptionBox value="2024">2024년</OptionBox>
+        <OptionBox value="2024">2024년</OptionBox>
+        <OptionBox value="2024">2024년</OptionBox>
+        <OptionBox value="2024">2024년</OptionBox>
+        <OptionBox value="2024">2024년</OptionBox>
+        <OptionBox value="2024">2024년</OptionBox>
+        <OptionBox value="2024">2024년</OptionBox>
+        <OptionBox value="2024">2024년</OptionBox>
+        <OptionBox value="2024">2024년</OptionBox>
+        <OptionBox value="2024">2024년</OptionBox>
+        <OptionBox value="2024">2024년</OptionBox>
       </SelectBox>
     );
   },
