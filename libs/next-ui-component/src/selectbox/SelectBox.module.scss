@@ -1,37 +1,59 @@
 @import '../../../../libs/design-system/base.scss';
 
-.dateSelector {
-  display: flex;
-  gap: 8px;
-  width: fit-content;
-  position: relative;
-  appearance: none;
-  padding: 10px 16px;
-}
 .selectbox {
-  appearance: none;
-  width: 104px;
+  display: flex;
+  width: 100%;
   height: 48px;
-  font-size: 14px;
-  line-height: 17px;
-  padding: 10px 16px;
+  padding: 0px 16px;
+  align-items: center;
   border-radius: 10px;
-  border: 1px solid $gray-500;
+  border: 1px solid #BCBCC4;
+  background: #FFF;
   position: relative;
-  &:focus {
-    border-color: $primary-400;
-    background: #e5ecff;
-    outline: none;
-    color: $gray-900;
+  box-sizing: border-box;
+  font-family: Pretendard;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  user-select: none;
+  cursor: pointer;
+  color: #BCBCC4;
+
+  &:active {
+    border-radius: 10px;
+    border: 1px solid #6282DB;
+    background: #E6E9F9;
+  }
+
+  &.active {
+    border-radius: 10px;
+    border: 1px solid #6282DB;
+    color: #6282DB;
+  }
+
+  &.open {
+    background: #E6E9F9;
+  }
+
+  .label {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .option-container {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    border: 1px solid #6282DB;
+    border-radius: 10px;
+    padding: 8px 0;
   }
 }
 
-.item {
-  width: 100%;
-  height: 48px;
-  font-size: 14px;
-  line-height: 17px;
-  padding: 10px 16px;
-  border-radius: 10px;
-  margin: 0;
-}

@@ -1,18 +1,25 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { SelectContainer } from './SelectBox';
+import { SelectBox } from './SelectBox';
+import { OptionBox } from './OptionBox';
 
 const meta = {
   title: 'next/client-component/SelectBox',
-  component: SelectContainer,
-} satisfies Meta<typeof SelectContainer>;
+  component: SelectBox,
+} satisfies Meta<typeof SelectBox>;
 
 export default meta;
-type Story = StoryObj<typeof SelectContainer>;
+type Story = StoryObj<typeof SelectBox>;
 
 export const selectbox: Story = {
-  name: 'day selectbox',
-  args: {
-    children: '년',
+  name: 'selectbox',
+  render: () => {
+    return (
+      <SelectBox defaultLabel="년" onChange={(value) => console.log(value)}>
+        <OptionBox value="2022">2022년</OptionBox>
+        <OptionBox value="2023">2023년</OptionBox>
+        <OptionBox value="2024">2024년</OptionBox>
+      </SelectBox>
+    );
   },
 };

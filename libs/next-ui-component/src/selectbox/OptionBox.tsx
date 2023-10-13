@@ -1,11 +1,17 @@
 'use client';
-import React, { Children, ReactNode, useState } from 'react';
+import React from 'react';
 import styles from './OptionBox.module.scss';
 
 interface OptionBoxProps {
   children: React.ReactNode;
-  onClick: () => void;
+  value: string;
+  onClick?: () => void;
 }
-export function OptionBox({ children, onClick }: OptionBoxProps) {
-  return <div className={styles.optionbox}>{children}</div>;
+
+export function OptionBox({ children, value, onClick }: OptionBoxProps) {
+  return (
+    <div className={styles.optionbox} onClick={onClick} data-value={value}>
+      {children}
+    </div>
+  );
 }
