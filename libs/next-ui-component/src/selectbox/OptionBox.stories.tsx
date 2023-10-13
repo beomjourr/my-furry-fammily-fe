@@ -13,6 +13,6 @@ type Story = StoryObj<typeof OptionBox>;
 export const optionbox: Story = {
   name: 'optionbox',
   args: {
-    children: '가나다',
+    children: '텍스트',
   },
 };
