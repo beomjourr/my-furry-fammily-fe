@@ -1,0 +1,16 @@
+@import '../../../../libs/design-system/base.scss';
+
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.barcontainer {
+  height: 3px;
+  width: 100%;
+  background: $gray-300;
+}
+
+.bar {
+  background: #9cb6ff;
+}

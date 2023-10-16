@@ -1,0 +1,21 @@
+@import '../../../../libs/design-system/base.scss';
+
+.container a {
+  font-family: Pretendard;
+  color: $gray-700;
+  text-decoration: none;
+  width: 100%;
+}
+
+.selectbar {
+  height: 3px;
+  width: 100%;
+  background: #9cb6ff;
+}
+
+.item {
+  margin: 10px 20px;
+  &:active {
+    color: #6282db;
+  }
+}
