@@ -2,17 +2,22 @@
 
 .container a {
   font-family: Pretendard;
-  color: $gray-700;
+  color: $gray-600;
+  font-weight: 500;
   text-decoration: none;
   width: 100%;
+  line-height: 50px;
 }
 
-.item {
-  margin: 20px 50px;
-  &:active {
-    color: #6282db;
-  }
+.container {
+  position: relative;
 }
-.active {
-  background-color: #6282db;
+.item {
+  margin: 20px 25px;
+
+  &:focus {
+    color: #6282db;
+    color: $gray-700;
+    font-weight: 600;
+  }
 }

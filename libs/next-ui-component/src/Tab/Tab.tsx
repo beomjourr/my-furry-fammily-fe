@@ -19,6 +19,11 @@ export function Tab({ e, menu, onChange }: TabProps) {
       onChange(tabIndex);
     }
   };
+  const containerWidth = 100 / menu.length; // 탭 개수에 따라 너비 계산
+  const activeBarStyle = {
+    width: `${containerWidth}%`,
+    transform: `translateX(${activeTab * containerWidth}vw)`,
+  };
 
   return (
     <>
@@ -35,7 +40,12 @@ export function Tab({ e, menu, onChange }: TabProps) {
           </TabItem>
         ))}
       </div>
-      <div className={styles.barcontainer}></div>
+      <div className={styles.barcontainer}>
+        <div
+          className={`${styles.basic} ${isActive ? styles.activebar : ''}`}
+          style={activeBarStyle}
+        ></div>
+      </div>
     </>
   );
 }

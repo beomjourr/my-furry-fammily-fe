@@ -17,7 +17,6 @@ export function TabItem({ onClick, isActive, children }: TabItemProps) {
       >
         {children}
       </a>
-      <div></div>
     </div>
   );
 }

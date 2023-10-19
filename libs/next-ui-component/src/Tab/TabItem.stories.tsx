@@ -12,7 +12,5 @@ type Story = StoryObj<typeof TabItem>;
 
 export const tabitem: Story = {
   name: 'tabitem',
-  args: {
-    children: '텍스트',
-  },
+  args: {},
 };
