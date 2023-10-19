@@ -7,15 +7,12 @@
   width: 100%;
 }
 
-.selectbar {
-  height: 3px;
-  width: 100%;
-  background: #9cb6ff;
-}
-
 .item {
-  margin: 10px 20px;
+  margin: 20px 50px;
   &:active {
     color: #6282db;
   }
+}
+.active {
+  background-color: #6282db;
 }

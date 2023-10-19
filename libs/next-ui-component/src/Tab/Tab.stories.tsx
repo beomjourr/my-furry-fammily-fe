@@ -13,6 +13,6 @@ type Story = StoryObj<typeof Tab>;
 export const tab: Story = {
   name: 'tab',
   args: {
-    menu: ['진료별', '규모별'],
+    menu: ['지역별', '진료별', '규모별'],
   },
 };
