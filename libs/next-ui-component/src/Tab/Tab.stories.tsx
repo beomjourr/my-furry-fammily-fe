@@ -12,5 +12,7 @@ type Story = StoryObj<typeof Tab>;
 
 export const tab: Story = {
   name: 'tab',
-  args: {},
+  args: {
+    menu: ['진료별', '규모별'],
+  },
 };
