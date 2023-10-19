@@ -1,8 +1,5 @@
 name: PR affected test
 on:
-  push:
-    branches:
-      - main
   pull_request:
     types: [opened, synchronize, reopened]
 
