@@ -17,6 +17,9 @@ export function TabItem({ onClick, isActive, children }: TabItemProps) {
       >
         {children}
       </a>
+      <div
+        className={`${styles.basic} ${isActive ? styles.activebar : ''}`}
+      ></div>
     </div>
   );
 }
