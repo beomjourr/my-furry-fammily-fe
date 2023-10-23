@@ -4,6 +4,7 @@ import Image from 'next/image';
 import logo from '@my-furry-family/images/logo.svg';
 import { useRouter } from 'next/navigation';
 import { Button } from '@my-furry-family/next-ui-component';
+import { Header } from '../../components/Header/Header';
 import { SurveyHeader } from '../../components/survey/SurveyHeader/SurveyHeader';
 import styles from './page.module.scss';
 
@@ -16,8 +17,12 @@ export default async function SurveyLoading() {
 
   return (
     <div className={styles.container}>
-      {/* header */}
-      <SurveyHeader />
+      <Header
+        isBack
+        onBackClick={() => {
+          router.push('/signup');
+        }}
+      />
       <div className={styles.innerContainer}>
         <Image className={styles.img} src="" alt="loadingImg" />
         <div className={styles.logoContainer}>
@@ -31,7 +36,7 @@ export default async function SurveyLoading() {
           </div>
         </div>
         <Button type="filled" className={styles.button} onClick={goToSurvey}>
-          완료
+          응답하기
         </Button>
       </div>
     </div>

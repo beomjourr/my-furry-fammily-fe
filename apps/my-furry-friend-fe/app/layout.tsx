@@ -1,4 +1,5 @@
 import './global.scss';
+import { Providers } from './providers';
 
 export const metadata = {
   title: 'Welcome to furry-family-fe',
@@ -12,7 +13,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <body>{children}</body>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

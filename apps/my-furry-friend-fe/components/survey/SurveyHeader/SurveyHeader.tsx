@@ -1,10 +1,9 @@
 'use client';
 
-import { IconButton, ProgressBar } from '@my-furry-family/next-ui-component';
-import backArrow from '@my-furry-family/images/ico_back.png';
+import { ProgressBar } from '@my-furry-family/next-ui-component';
 import { useAtom } from 'jotai';
 import { surveyCurrentPageIndex } from '../../../store/survey';
-import styles from './SurveyHeader.module.scss';
+import { Header } from '../../Header/Header';
 
 const SURVEY_PAGE_LENGTH = 12;
 
@@ -17,18 +16,7 @@ export function SurveyHeader() {
 
   return (
     <>
-      <div className={styles.container}>
-        {pageIndex !== 0 && (
-          <div className={styles.left}>
-            <IconButton
-              className={styles.back}
-              src={backArrow}
-              alt="back"
-              onClick={handleBackClick}
-            />
-          </div>
-        )}
-      </div>
+      <Header isBack={pageIndex !== 0} onBackClick={handleBackClick} />
       <ProgressBar max={SURVEY_PAGE_LENGTH} current={pageIndex + 1} />
     </>
   );
