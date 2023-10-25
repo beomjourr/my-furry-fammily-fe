@@ -253,10 +253,7 @@ const formMeta = [
 export function SurveyContainer() {
   const [data, setData] = useAtom(surveyData);
   const [pageIndex, setPageIndex] = useAtom(surveyCurrentPageIndex);
-  const { trigger, isMutating } = useSWRMutation(
-    '/api/v1/pet-infos',
-    saveSurvey,
-  );
+  const { trigger } = useSWRMutation('/pet-infos', saveSurvey);
   const currentValue = useMemo(
     () => data[formMeta[pageIndex].key as keyof SurveyData],
     [data, pageIndex],
