@@ -1,5 +1,6 @@
 'use client';
-import React, { useState } from 'react';
+import React from 'react';
+import classNames from 'classnames';
 import styles from './TabItem.module.scss';
 
 interface TabItemProps {
@@ -8,12 +9,11 @@ interface TabItemProps {
   onClick: (event: React.MouseEvent<HTMLDivElement>) => void;
 }
 export function TabItem({ onClick, isActive, children }: TabItemProps) {
-  console.log(isActive); //왜 tab 0,1,2가 다 출력되는지?
   return (
     <div className={styles.container} onClick={onClick}>
       <a
         href="/#"
-        className={`${styles.item} ${isActive ? styles.active : ''} `}
+        className={classNames(styles.item, { [styles.active]: isActive })}
       >
         {children}
       </a>

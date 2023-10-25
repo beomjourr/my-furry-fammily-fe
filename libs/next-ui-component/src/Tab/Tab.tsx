@@ -4,14 +4,12 @@ import styles from './Tab.module.scss';
 import { TabItem } from './TabItem';
 
 interface TabProps {
-  e?: React.MouseEvent<HTMLButtonElement>;
   menu: string[];
   onChange?: (index: number) => void;
 }
 
-export function Tab({ e, menu, onChange }: TabProps) {
+export function Tab({ menu, onChange }: TabProps) {
   const [activeTab, setActiveTab] = useState(0);
-  const [isActive, setIsActive] = useState(false);
 
   const handleTabClick = (tabIndex: number) => {
     setActiveTab(tabIndex);
@@ -19,11 +17,6 @@ export function Tab({ e, menu, onChange }: TabProps) {
       onChange(tabIndex);
     }
   };
-  // const containerWidth = 100 / menu.length; // 탭 개수에 따라 너비 계산
-  // // const activeBarStyle = {
-  //   width: `${containerWidth}%`,
-  //   transform: `translateX(${activeTab * containerWidth}vw)`,
-  // };
 
   return (
     <div className={styles.container}>
