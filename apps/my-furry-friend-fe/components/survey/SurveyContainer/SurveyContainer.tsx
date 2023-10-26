@@ -9,6 +9,7 @@ import { useMemo } from 'react';
 import { useAtom } from 'jotai';
 import classNames from 'classnames';
 import useSWRMutation from 'swr/mutation';
+import { Button } from '@chakra-ui/react';
 import { saveSurvey } from '../../../service/survey';
 import {
   SurveyData,
@@ -298,18 +299,28 @@ export function SurveyContainer() {
       </div>
       {formMeta[pageIndex].isExistButton &&
         pageIndex !== formMeta.length - 1 && (
-          <div>
-            <button type="button" onClick={() => setPageIndex(pageIndex + 1)}>
-              다음
-            </button>
-          </div>
+          <Button
+            w="328px"
+            h="48px"
+            rounded="full"
+            colorScheme="brand"
+            backgroundColor="brand.300"
+            onClick={() => setPageIndex(pageIndex + 1)}
+          >
+            다음
+          </Button>
         )}
       {pageIndex === formMeta.length - 1 && (
-        <div>
-          <button type="button" onClick={submitSurvey}>
-            완료
-          </button>
-        </div>
+        <Button
+          w="328px"
+          h="48px"
+          rounded="full"
+          colorScheme="brand"
+          backgroundColor="brand.300"
+          onClick={submitSurvey}
+        >
+          완료
+        </Button>
       )}
     </div>
   );
