@@ -2,15 +2,11 @@
 
 .container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .barcontainer {
   height: 3px;
   width: 100%;
   background: $gray-300;
-}
-
-.bar {
-  background: #9cb6ff;
 }
