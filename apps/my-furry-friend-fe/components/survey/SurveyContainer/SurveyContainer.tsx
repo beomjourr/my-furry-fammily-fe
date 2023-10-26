@@ -8,6 +8,8 @@ import {
 import { useMemo } from 'react';
 import { useAtom } from 'jotai';
 import classNames from 'classnames';
+import useSWRMutation from 'swr/mutation';
+import { saveSurvey } from '../../../service/survey';
 import {
   SurveyData,
   surveyCurrentPageIndex,
@@ -251,6 +253,7 @@ const formMeta = [
 export function SurveyContainer() {
   const [data, setData] = useAtom(surveyData);
   const [pageIndex, setPageIndex] = useAtom(surveyCurrentPageIndex);
+  const { trigger } = useSWRMutation('/pet-infos', saveSurvey);
   const currentValue = useMemo(
     () => data[formMeta[pageIndex].key as keyof SurveyData],
     [data, pageIndex],
@@ -270,7 +273,19 @@ export function SurveyContainer() {
   };
 
   const submitSurvey = () => {
-    // todo post api
+    trigger({
+      pet_allergy: data.allergy,
+      pet_birth_date: data.birth,
+      pet_disease: data.disease,
+      pet_favorite_maker: data.bodyType,
+      pet_neutering: data.isNeutering === 'true',
+      pet_shape: data.bodyType,
+      pet_species: data.species,
+      pet_time_with: data.howLong,
+      pet_type: data.dogOrCat,
+      pet_weight: parseFloat(data.weight ?? '0'),
+      request_text: data.requestCurator,
+    });
   };
 
   return (
