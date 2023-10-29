@@ -18,6 +18,7 @@ export default function Index() {
           top="12px"
           left="12px"
           padding="12px"
+          zIndex={999}
         >
           <Box display="flex" alignItems="center" marginBottom="3px">
             <Box
