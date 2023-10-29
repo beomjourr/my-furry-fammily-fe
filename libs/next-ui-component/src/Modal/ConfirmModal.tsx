@@ -11,7 +11,7 @@ import {
   ModalHeader,
 } from '@chakra-ui/react';
 
-interface ConfirmModalProps {
+export interface ConfirmModalProps {
   isOpen: boolean;
   onClose: () => void;
   modalHeaderContent?: string;
@@ -24,7 +24,7 @@ interface ConfirmModalProps {
   onClickCancel?: () => void;
 }
 
-function ConfirmModal({
+export function ConfirmModal({
   isOpen,
   onClose,
   modalHeaderContent,
