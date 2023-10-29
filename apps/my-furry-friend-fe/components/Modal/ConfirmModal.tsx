@@ -9,7 +9,6 @@ import {
   ModalBody,
   Button,
   ModalHeader,
-  Portal,
 } from '@chakra-ui/react';
 
 interface ConfirmModalProps {
@@ -20,9 +19,9 @@ interface ConfirmModalProps {
   isCenterPosition?: boolean;
   isCloseOnOverlayClick?: boolean;
   confirmMessage?: string;
-  cancleMessage?: string;
+  cancelMessage?: string;
   onClickConfirm?: () => void;
-  onClickCancle?: () => void;
+  onClickCancel?: () => void;
 }
 
 function ConfirmModal({
@@ -33,60 +32,58 @@ function ConfirmModal({
   isCenterPosition = true,
   isCloseOnOverlayClick = false,
   confirmMessage = '확인',
-  cancleMessage = '취소',
+  cancelMessage = '취소',
   onClickConfirm,
-  onClickCancle,
+  onClickCancel,
 }: ConfirmModalProps) {
   const modalContentProps = isCenterPosition
     ? { borderRadius: '20px', width: '80%' }
     : { bottom: 0, borderRadius: '20px 20px 0 0' };
 
   return (
-    <Portal>
-      <Modal
-        isOpen={isOpen}
-        onClose={onClose}
-        motionPreset="slideInBottom"
-        isCentered
-        closeOnOverlayClick={isCloseOnOverlayClick}
-      >
-        <ModalOverlay />
-        <ModalContent {...modalContentProps} position="absolute">
-          {modalHeaderContent && (
-            <ModalHeader textAlign="center">{modalHeaderContent}</ModalHeader>
-          )}
-          <ModalBody padding={8} textAlign="center" paddingBlock={5}>
-            {modalBodyContent}
-          </ModalBody>
-          <ModalFooter
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            flexDirection="column"
-            h={120}
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      motionPreset="slideInBottom"
+      isCentered
+      closeOnOverlayClick={isCloseOnOverlayClick}
+    >
+      <ModalOverlay />
+      <ModalContent {...modalContentProps} position="absolute">
+        {modalHeaderContent && (
+          <ModalHeader textAlign="center">{modalHeaderContent}</ModalHeader>
+        )}
+        <ModalBody padding={8} textAlign="center" paddingBlock={5}>
+          {modalBodyContent}
+        </ModalBody>
+        <ModalFooter
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+          flexDirection="column"
+          h={120}
+        >
+          <Button
+            onClick={onClickConfirm || onClose}
+            w="100%"
+            maxH={40}
+            overflow="hidden"
+            colorScheme="brand"
+            backgroundColor="brand.300"
           >
-            <Button
-              onClick={onClickConfirm || onClose}
-              w="100%"
-              maxH={40}
-              overflow="hidden"
-              colorScheme="brand"
-              backgroundColor="brand.300"
-            >
-              {confirmMessage}
-            </Button>
-            <Button
-              onClick={onClickCancle || onClose}
-              w="100%"
-              maxH={40}
-              overflow="hidden"
-            >
-              {cancleMessage}
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-    </Portal>
+            {confirmMessage}
+          </Button>
+          <Button
+            onClick={onClickCancel || onClose}
+            w="100%"
+            maxH={40}
+            overflow="hidden"
+          >
+            {cancelMessage}
+          </Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
   );
 }
 
