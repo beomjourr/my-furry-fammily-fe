@@ -8,3 +8,4 @@ export * from './Progressbar/Progressbar';
 export * from './Textarea/Textarea';
 export * from './ImageProfile/ImageProfile';
 export * from './Input/Input';
+export * from './Modal/ConfirmModal';
