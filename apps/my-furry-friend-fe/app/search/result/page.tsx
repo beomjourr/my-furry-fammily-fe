@@ -5,6 +5,8 @@ import { Box, Card, Text } from '@chakra-ui/react';
 import { Header } from '../../../components/Header/Header';
 import styles from './page.module.scss';
 
+const APP_KEY = process.env.NEXT_PUBLIC_KAKAO_LOGIN_KEY || '';
+
 export default function Index() {
   return (
     <div className={styles.container}>
@@ -66,7 +68,7 @@ export default function Index() {
             </Text>
           </Box>
         </Card>
-        <KakaoMap />
+        <KakaoMap appKey={APP_KEY} />
       </div>
     </div>
   );

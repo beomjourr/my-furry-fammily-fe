@@ -4,9 +4,15 @@ import React from 'react';
 import { Map, useKakaoLoader } from 'react-kakao-maps-sdk';
 import { Spinner } from '@chakra-ui/react';
 
-export function KakaoMap({ children }: { children?: React.ReactNode }) {
+export function KakaoMap({
+  appKey,
+  children,
+}: {
+  appKey: string;
+  children?: React.ReactNode;
+}) {
   const [loading, error] = useKakaoLoader({
-    appkey: '23172c0f75d5e36e75bc0313d5701da4', // 발급 받은 APPKEY
+    appkey: appKey,
   });
 
   return (
