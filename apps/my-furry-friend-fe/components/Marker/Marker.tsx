@@ -33,6 +33,6 @@ export function Marker(props: Props) {
   }, [type, isActive]);
 
   return (
-    <MapMarker {...otherProps} image={image} onClick={() => onClick(id)} />
+    <MapMarker {...otherProps} image={image} onClick={() => onClick?.(id)} />
   );
 }
