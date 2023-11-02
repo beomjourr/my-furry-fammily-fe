@@ -1,20 +1,31 @@
 'use client';
 
 import { KakaoMap } from '@my-furry-family/next-ui-component';
-import { Box, Card, Text } from '@chakra-ui/react';
+import { Box, Button, Card, Image, Text } from '@chakra-ui/react';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Header } from '../../../components/Header/Header';
+import { Marker } from '../../../components/Marker/Marker';
 import styles from './page.module.scss';
 
-const APP_KEY = process.env.NEXT_PUBLIC_KAKAO_LOGIN_KEY || '';
+const APP_KEY = process.env.NEXT_PUBLIC_KAKAO_APP_KEY || '';
 
 export default function Index() {
+  const [active, setActive] = useState<string | undefined>(undefined);
+  const router = useRouter();
+
   return (
     <div className={styles.container}>
-      <Header isBack className={styles.header}>
+      <Header
+        isBack
+        className={styles.header}
+        onBackClick={() => router.push('/')}
+      >
         {/* Input 추가 예정 */}
       </Header>
-      <div className="relative w-full h-full">
+      <div className="relative w-full h-full overflow-hidden">
         <Card
+          backgroundColor="white"
           height="82px"
           position="absolute"
           top="12px"
@@ -68,7 +79,77 @@ export default function Index() {
             </Text>
           </Box>
         </Card>
-        <KakaoMap appKey={APP_KEY} />
+        {active && (
+          <Card
+            height="194px"
+            width="95%"
+            position="absolute"
+            bottom="16px"
+            left="10px"
+            padding="16px"
+            zIndex={999}
+            rounded={16}
+          >
+            <Box display="flex">
+              <Box marginRight="16px">
+                <Image
+                  boxSize="100px"
+                  style={{ objectFit: 'cover' }}
+                  src="https://bit.ly/dan-abramov"
+                  alt="Dan Abramov"
+                  rounded={16}
+                />
+              </Box>
+              <Box
+                display="flex"
+                flexDirection="column"
+                justifyContent="center"
+              >
+                <Text fontSize="16px" fontWeight={600} marginBottom="2px">
+                  리안동물병원
+                </Text>
+                <Text fontSize="14px" fontWeight={400} marginBottom="2px">
+                  서울특별시 강남구
+                </Text>
+                <Text fontSize="12px" fontWeight={400} color="gray.600">
+                  중성화 · 내과 전문
+                </Text>
+              </Box>
+            </Box>
+            <Button
+              colorScheme="brand"
+              backgroundColor="brand.300"
+              marginTop="16px"
+              variant="solid"
+              rounded={100}
+            >
+              자세히 보러가기
+            </Button>
+          </Card>
+        )}
+        <KakaoMap appKey={APP_KEY} onClick={() => setActive(undefined)}>
+          <Marker
+            id="1"
+            type="1"
+            isActive={active === '1'}
+            position={{ lng: 127.1566638, lat: 35.8374724 }}
+            onClick={(id) => setActive(id)}
+          />
+          <Marker
+            id="2"
+            type="2"
+            isActive={active === '2'}
+            position={{ lng: 127.1576638, lat: 35.8374724 }}
+            onClick={(id) => setActive(id)}
+          />
+          <Marker
+            id="3"
+            type="3"
+            isActive={active === '3'}
+            position={{ lng: 127.1586638, lat: 35.8374724 }}
+            onClick={(id) => setActive(id)}
+          />
+        </KakaoMap>
       </div>
     </div>
   );
