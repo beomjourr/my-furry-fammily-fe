@@ -9,3 +9,4 @@ export * from './Textarea/Textarea';
 export * from './ImageProfile/ImageProfile';
 export * from './Input/Input';
 export * from './Modal/ConfirmModal';
+export * from './CardButton/CardButton';

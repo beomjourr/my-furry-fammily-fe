@@ -1,0 +1,93 @@
+@import '../../../../libs/design-system/base.scss';
+
+.container {
+  display: flex !important;
+  flex-direction: column !important;
+  border-radius: 10px !important;
+  border: 1px solid var(--gray-scale-gray-400, #E3E3E8) !important;
+  background: var(--system-color-white, #FFF) !important;
+  box-shadow: none !important;
+  flex-shrink: 0 !important;
+  margin: 5px !important;
+  overflow: hidden;
+}
+
+.small.container {
+  width: 104px;
+  height: 100px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex-basis: calc(33.333% - 10px);
+
+  .cardBody {
+    padding: 0 !important;
+  }
+  .buttonContent {
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    color: var(--gray-scale-gray-700, #545459);
+    font-family: Pretendard;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+  .icon {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    width: 36px;
+    height: 36px;
+  }
+}
+
+.large.container {
+  width: 160px;
+  height: 149px;
+  padding: 16px;
+  align-items: flex-start;
+  gap: 17px;
+  flex-basis: calc(50% - 10px);
+
+  .cardBody {
+    padding: 0 !important;
+  }
+  .contentWrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .badge {
+    font-family: Pretendard;
+    font-size: 10px !important;
+    font-style: normal;
+    font-weight: 500 !important;
+    line-height: normal;
+    overflow: hidden;
+    display: flex !important;
+    padding: 4px;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    border-radius: 4px;
+  }
+  .buttonContent {
+    white-space: pre-wrap;
+    color: var(--gray-scale-gray-700, #545459);
+    font-family: Pretendard;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+  .icon {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    width: 36px;
+    height: 36px;
+  }
+}
