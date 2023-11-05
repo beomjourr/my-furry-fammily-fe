@@ -31,10 +31,10 @@ export function HomeTab() {
       </TabList>
       <TabPanels>
         <TabPanel>
-          <HomeCardButton tab="진료별" />
+          <HomeCardButton tab="지역별" />
         </TabPanel>
         <TabPanel>
-          <HomeCardButton tab="지역별" />
+          <HomeCardButton tab="진료별" />
         </TabPanel>
         <TabPanel>
           <HomeCardButton tab="규모별" />
