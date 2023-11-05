@@ -42,7 +42,9 @@ export function LargeCardButton({
       <CardBody className={styles.cardBody}>
         <div className={styles.contentWrap}>
           <Badge
-            colorScheme={badgeColor}
+            colorScheme="badge"
+            backgroundColor={`badge.background.${badgeColor}`}
+            color={`badge.text.${badgeColor}`}
             className={styles.badge}
             textTransform="none"
           >
