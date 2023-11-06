@@ -14,6 +14,7 @@ export function SearchInput(props: InputProps) {
       backgroundColor="#F5F5F7"
       border="none"
       outline="none"
+      size="lg"
     >
       <InputLeftElement pointerEvents="none">
         <SearchIcon color="gray.300" />
