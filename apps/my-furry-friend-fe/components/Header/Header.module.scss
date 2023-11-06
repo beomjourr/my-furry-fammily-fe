@@ -3,6 +3,8 @@
 .container {
     @include header;
 
+    align-items: center;
+
     .left {
         margin-left: 8px;
     }
