@@ -1,10 +1,9 @@
-.container {
-    @apply flex flex-wrap w-full h-full bg-white relative;
+@import '../../../libs/design-system/base.scss';
 
-    max-width: 600px;
-    margin: 0 auto;
+.container {
+    @include container
 }
 
-.main_container {
-    @apply flex flex-col w-full h-full;
+.search-container {
+    margin: 0 20px 12px 16px;
 }

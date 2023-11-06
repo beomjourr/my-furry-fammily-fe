@@ -1,19 +1,31 @@
 import React from 'react';
-import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
+import {
+  Input,
+  InputGroup,
+  InputLeftElement,
+  InputProps,
+} from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 
-interface SerachInputProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
-  size?: 'lg' | 'md' | 'sm' | 'xs';
-}
-
-export function SearchInput(props: SerachInputProps) {
+export function SearchInput(props: InputProps) {
   return (
-    <InputGroup w="90%">
+    <InputGroup
+      borderRadius="10px"
+      backgroundColor="#F5F5F7"
+      border="none"
+      outline="none"
+      size="lg"
+    >
       <InputLeftElement pointerEvents="none">
         <SearchIcon color="gray.300" />
       </InputLeftElement>
-      <Input {...props} />
+      <Input
+        fontSize="14px"
+        fontWeight="400"
+        border="none"
+        color="#9A9AA1"
+        {...props}
+      />
     </InputGroup>
   );
 }
