@@ -37,8 +37,8 @@ export function ConfirmModal({
   onClickCancel,
 }: ConfirmModalProps) {
   const modalContentProps = isCenterPosition
-    ? { borderRadius: '20px', width: '80%' }
-    : { bottom: 0, borderRadius: '20px 20px 0 0' };
+    ? { borderRadius: '16px', width: '80%' }
+    : { bottom: 0, borderRadius: '16px 16px 0 0' };
 
   return (
     <Modal
@@ -53,7 +53,14 @@ export function ConfirmModal({
         {modalHeaderContent && (
           <ModalHeader textAlign="center">{modalHeaderContent}</ModalHeader>
         )}
-        <ModalBody padding={8} textAlign="center" paddingBlock={5}>
+        <ModalBody
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          flexDirection="column"
+          padding="36px 16px"
+          textAlign="center"
+        >
           {modalBodyContent}
         </ModalBody>
         <ModalFooter
@@ -61,23 +68,38 @@ export function ConfirmModal({
           justifyContent="space-between"
           alignItems="center"
           flexDirection="column"
-          h={120}
+          padding="16px"
+          gap="10px"
         >
           <Button
             onClick={onClickConfirm || onClose}
             w="100%"
-            maxH={40}
+            h="48px"
+            display="flex"
+            justify-content="center"
+            align-items="center"
+            align-self="stretch"
+            padding="0px 16px"
             overflow="hidden"
             colorScheme="brand"
             backgroundColor="brand.300"
+            borderRadius="10px"
           >
             {confirmMessage}
           </Button>
           <Button
             onClick={onClickCancel || onClose}
             w="100%"
-            maxH={40}
+            h="48px"
+            display="flex"
+            justify-content="center"
+            align-items="center"
+            align-self="stretch"
+            padding="0px 16px"
             overflow="hidden"
+            backgroundColor="#f5f5f7"
+            color="#9A9AA1"
+            borderRadius="10px"
           >
             {cancelMessage}
           </Button>
