@@ -46,7 +46,7 @@ export default function Index() {
           <SearchInput placeholder="병원명으로 검색해보세요." />
         </div>
       </Header>
-      <div className="relative w-full h-full overflow-hidden">
+      <div className="relative w-full overflow-hidden flex-1">
         <Card
           backgroundColor="white"
           height="82px"
