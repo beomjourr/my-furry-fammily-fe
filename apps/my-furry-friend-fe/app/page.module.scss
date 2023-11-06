@@ -4,3 +4,7 @@
     max-width: 600px;
     margin: 0 auto;
 }
+
+.main_container {
+    @apply flex flex-col w-full h-full;
+}
