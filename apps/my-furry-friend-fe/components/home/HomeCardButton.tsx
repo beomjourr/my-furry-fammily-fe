@@ -14,6 +14,7 @@ import {
   LargeCardButton,
   SmallCardButton,
 } from '@my-furry-family/next-ui-component';
+import { useRouter } from 'next/navigation';
 import styles from './HomeCardButton.module.scss';
 
 interface HomeCardButtonProps {
@@ -85,6 +86,7 @@ export function HomeCardButton({
   tab = '지역별',
 }: HomeCardButtonProps): React.ReactNode {
   let homeCardButtons: React.ReactNode[] = [];
+  const router = useRouter();
 
   if (tab === '지역별') {
     homeCardButtons = tab1CardMetaData.map((data, index) => {
@@ -95,7 +97,11 @@ export function HomeCardButton({
           badgeColor={badgeColors[index % badgeColors.length]}
           buttonContent={data.buttonContent}
           iconPath={data.iconPath.src}
-          onClick={() => {}}
+          onClick={() => {
+            if (data.buttonContent === '내 주변\n동물병원 찾기') {
+              router.push('/search/result');
+            }
+          }}
         />
       );
     });

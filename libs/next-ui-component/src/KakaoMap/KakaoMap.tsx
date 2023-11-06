@@ -16,13 +16,13 @@ export function KakaoMap({
     mouseEvent: kakao.maps.event.MouseEvent,
   ) => void;
 }) {
-  const [loading, error] = useKakaoLoader({
+  const [loading] = useKakaoLoader({
     appkey: appKey,
   });
 
   return (
     <>
-      {!loading && !error && (
+      {!loading && (
         <Map
           center={{ lng: 127.1566638, lat: 35.8374724 }}
           style={{ width: '100%', height: '100%' }}
@@ -34,11 +34,6 @@ export function KakaoMap({
       {loading && (
         <div className="w-full h-full flex justify-center items-center">
           <Spinner></Spinner>
-        </div>
-      )}
-      {error && (
-        <div className="w-full h-full flex justify-center items-center bg-white">
-          지도를 불러오는데 실패하였습니다.
         </div>
       )}
     </>

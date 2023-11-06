@@ -18,9 +18,10 @@ export interface LargeCardButtonProps {
 export function SmallCardButton({
   buttonContent,
   iconPath,
+  onClick,
 }: SmallCardButtonProps): React.ReactNode {
   return (
-    <Card className={`${styles.small} ${styles.container}`}>
+    <Card className={`${styles.small} ${styles.container}`} onClick={onClick}>
       <CardBody className={styles.cardBody}>
         <Text className={styles.buttonContent}>{buttonContent}</Text>
         {iconPath && (
@@ -36,9 +37,10 @@ export function LargeCardButton({
   badgeColor,
   buttonContent,
   iconPath,
+  onClick,
 }: LargeCardButtonProps): React.ReactNode {
   return (
-    <Card className={`${styles.large} ${styles.container}`}>
+    <Card className={`${styles.large} ${styles.container}`} onClick={onClick}>
       <CardBody className={styles.cardBody}>
         <div className={styles.contentWrap}>
           <Badge

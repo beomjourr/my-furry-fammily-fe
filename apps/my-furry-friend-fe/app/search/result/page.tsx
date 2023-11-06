@@ -1,18 +1,39 @@
 'use client';
 
-import { KakaoMap } from '@my-furry-family/next-ui-component';
-import { Box, Button, Card, Image, Text } from '@chakra-ui/react';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { KakaoMap, SearchInput } from '@my-furry-family/next-ui-component';
+import { Box, Button, Card, Image, Text, useToast } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import useSWRImmutable from 'swr/immutable';
 import { Header } from '../../../components/Header/Header';
 import { Marker } from '../../../components/Marker/Marker';
 import styles from './page.module.scss';
+import { searchHospital } from '../../../service/search';
 
 const APP_KEY = process.env.NEXT_PUBLIC_KAKAO_APP_KEY || '';
 
 export default function Index() {
+  const searchParams = useSearchParams();
+  const keyword = searchParams.get('keyword');
+  const { data, isLoading } = useSWRImmutable(
+    `/search-hospital?keyword=${keyword}`,
+    searchHospital,
+    {
+      errorRetryCount: 3,
+    },
+  );
   const [active, setActive] = useState<string | undefined>(undefined);
   const router = useRouter();
+  const toast = useToast();
+
+  useEffect(() => {
+    toast({
+      title: '반경 5km 내로 표시됩니다.',
+      status: 'info',
+      duration: 5000,
+      colorScheme: 'gray',
+    });
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -21,7 +42,9 @@ export default function Index() {
         className={styles.header}
         onBackClick={() => router.push('/')}
       >
-        {/* Input 추가 예정 */}
+        <div className="w-full mr-[16px] ml-[10px]">
+          <SearchInput placeholder="병원명으로 검색해보세요." />
+        </div>
       </Header>
       <div className="relative w-full h-full overflow-hidden">
         <Card

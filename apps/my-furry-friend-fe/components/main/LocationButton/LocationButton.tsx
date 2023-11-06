@@ -33,12 +33,10 @@ function LocationButton({ onClick, location }: LocationButtonProps) {
   }, [location]);
 
   return (
-    <header>
-      <button type="button" className={styles.button} onClick={onClick}>
-        <Image src={gps} alt="gps" />
-        <p>{address || '내 위치를 설정해주세요'}</p>
-      </button>
-    </header>
+    <button type="button" className={styles.button} onClick={onClick}>
+      <Image src={gps} alt="gps" />
+      <p>{address || '내 위치를 설정해주세요'}</p>
+    </button>
   );
 }
 
