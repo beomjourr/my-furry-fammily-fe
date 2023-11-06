@@ -1,4 +1,7 @@
 @import '../../../libs/design-system/base.scss';
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 html {
   font-family: Pretendard, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,

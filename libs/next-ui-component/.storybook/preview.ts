@@ -16,6 +16,20 @@ const theme = extendTheme({
       800: '#0031A5',
       900: '#001F8F',
     },
+    badge: {
+      background: {
+        orange: '#FCF2E3',
+        purple: '#F8F2FF',
+        pink: '#FFF1F7',
+        blue: '#EDF2FF',
+      },
+      text: {
+        orange: '#E4800C',
+        purple: '#74499D',
+        pink: '#E44ADE',
+        blue: '#55499D',
+      },
+    },
   },
 });
 

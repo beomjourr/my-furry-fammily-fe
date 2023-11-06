@@ -1,0 +1,15 @@
+@import '../../../../../libs/design-system/base.scss';
+
+.container {
+    @include container;
+}
+
+.header {
+    height: 68px;
+}
+
+.gray {
+    margin-left: 2px;
+    color: #9A9AA1;
+    font-size: 10px;
+}

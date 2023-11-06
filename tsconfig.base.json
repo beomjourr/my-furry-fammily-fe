@@ -17,6 +17,9 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
+    "types": [
+      "kakao.maps.d.ts"
+    ],
     "paths": {
       "@my-furry-family/common-utils": [
         "libs/common-utils/src/index.ts"
