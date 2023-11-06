@@ -1,31 +1,19 @@
-import { useState } from 'react';
+import React from 'react';
 import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
-import styles from './SearchInput.module.scss';
 
-export interface SerachInputProps {
-  placeholder?: string;
-  onChange?: (value: string) => void;
+interface SerachInputProps
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
+  size?: 'lg' | 'md' | 'sm' | 'xs';
 }
 
-export function SearchInput({ placeholder, onChange }: SerachInputProps) {
-  const [value, setValue] = useState('');
-
+export function SearchInput(props: SerachInputProps) {
   return (
-    <div className={styles.container}>
-      <InputGroup w="90%">
-        <InputLeftElement pointerEvents="none">
-          <SearchIcon color="gray.300" />
-        </InputLeftElement>
-        <Input
-          type="text"
-          placeholder={placeholder}
-          value={value}
-          onChange={(e) => {
-            setValue(e.target.value);
-          }}
-        />
-      </InputGroup>
-    </div>
+    <InputGroup w="90%">
+      <InputLeftElement pointerEvents="none">
+        <SearchIcon color="gray.300" />
+      </InputLeftElement>
+      <Input {...props} />
+    </InputGroup>
   );
 }
