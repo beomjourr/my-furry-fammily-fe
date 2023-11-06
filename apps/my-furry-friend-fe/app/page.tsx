@@ -29,11 +29,8 @@ export default function Home() {
 
   return (
     <div className={styles.main_container}>
-      <LocationButton onClick={handleModalOpen} />
-      <main>
-        <div>latitude : {location.latitude}</div>
-        <div>longitude: {location.longitude}</div>
-      </main>
+      <LocationButton onClick={handleModalOpen} location={location} />
+      <main />
       <RequestLocationModal
         isOpen={isOpen}
         onClose={handleModalClose}
