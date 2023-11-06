@@ -11,3 +11,4 @@ export * from './Input/Input';
 export * from './Modal/ConfirmModal';
 export * from './CardButton/CardButton';
 export * from './KakaoMap/KakaoMap';
+export * from './SearchInput/SearchInput';
