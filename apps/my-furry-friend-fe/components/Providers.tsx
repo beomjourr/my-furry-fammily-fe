@@ -19,6 +19,15 @@ const theme = extendTheme({
       800: '#0031A5',
       900: '#001F8F',
     },
+    gray: {
+      300: '#F5F5F7',
+      400: '#E3E3E8',
+      500: '#BCBCC4',
+      600: '#9A9AA1',
+      700: '#545459',
+      800: '#323236',
+      900: '#0F0F12',
+    },
     badge: {
       background: {
         orange: '#FCF2E3',
@@ -31,6 +40,21 @@ const theme = extendTheme({
         purple: '#74499D',
         pink: '#E44ADE',
         blue: '#55499D',
+      },
+    },
+  },
+  components: {
+    Alert: {
+      variants: {
+        toast: {
+          container: {
+            bg: 'gray.700',
+            color: 'white',
+          },
+          title: {
+            fontWeight: '400',
+          },
+        },
       },
     },
   },

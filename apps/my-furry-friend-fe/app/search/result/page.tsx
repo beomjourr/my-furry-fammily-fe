@@ -29,9 +29,8 @@ export default function Index() {
   useEffect(() => {
     toast({
       title: '반경 5km 내로 표시됩니다.',
-      status: 'info',
       duration: 5000,
-      colorScheme: 'gray',
+      variant: 'toast',
     });
   }, []);
 

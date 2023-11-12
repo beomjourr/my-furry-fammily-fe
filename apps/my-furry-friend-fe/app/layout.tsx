@@ -1,5 +1,5 @@
 import './global.scss';
-import { Providers } from '../components/providers';
+import { Providers } from '../components/Providers';
 
 export const metadata = {
   title: 'Welcome to furry-family-fe',
