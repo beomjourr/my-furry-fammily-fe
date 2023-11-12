@@ -8,10 +8,10 @@ import ActivePinImage2 from '@my-furry-family/images/map_pin_selected2.png';
 import ActivePinImage3 from '@my-furry-family/images/map_pin_selected3.png';
 
 interface Props extends Omit<MapMarkerProps, 'image' | 'onClick'> {
-  id: string;
+  id: number;
   type: '1' | '2' | '3';
   isActive: boolean;
-  onClick?: (id: string) => void;
+  onClick?: (id: number) => void;
 }
 
 const imageMeta = {

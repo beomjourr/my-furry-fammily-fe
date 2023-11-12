@@ -3,26 +3,35 @@
 import { KakaoMap, SearchInput } from '@my-furry-family/next-ui-component';
 import { Box, Button, Card, Image, Text, useToast } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import useSWRImmutable from 'swr/immutable';
+import { AnimalHospital } from '../../../types/apis';
+import useLocation from '../../../hooks/useLocation';
 import { Header } from '../../../components/Header/Header';
 import { Marker } from '../../../components/Marker/Marker';
 import styles from './page.module.scss';
 import { searchHospital } from '../../../service/search';
 
 const APP_KEY = process.env.NEXT_PUBLIC_KAKAO_APP_KEY || '';
+const defaultCenter = {
+  lat: 37.5548375992165,
+  lng: 126.971732581232,
+} as const;
 
 export default function Index() {
-  const searchParams = useSearchParams();
-  const keyword = searchParams.get('keyword');
+  const { location } = useLocation();
   const { data, isLoading } = useSWRImmutable(
-    `/search-hospital?keyword=${keyword}`,
+    [
+      `/animal-hospitals/search`,
+      location.latitude === 0 ? defaultCenter.lat : location.latitude,
+      location.longitude === 0 ? defaultCenter.lng : location.longitude,
+    ],
     searchHospital,
     {
       errorRetryCount: 3,
     },
   );
-  const [active, setActive] = useState<string | undefined>(undefined);
+  const [active, setActive] = useState<AnimalHospital | undefined>(undefined);
   const router = useRouter();
   const toast = useToast();
 
@@ -129,13 +138,13 @@ export default function Index() {
                 justifyContent="center"
               >
                 <Text fontSize="16px" fontWeight={600} marginBottom="2px">
-                  리안동물병원
+                  {active.name}
                 </Text>
                 <Text fontSize="14px" fontWeight={400} marginBottom="2px">
-                  서울특별시 강남구
+                  {active.street_address}
                 </Text>
                 <Text fontSize="12px" fontWeight={400} color="gray.600">
-                  중성화 · 내과 전문
+                  {active.categories.join('·')}
                 </Text>
               </Box>
             </Box>
@@ -150,28 +159,30 @@ export default function Index() {
             </Button>
           </Card>
         )}
-        <KakaoMap appKey={APP_KEY} onClick={() => setActive(undefined)}>
-          <Marker
-            id="1"
-            type="1"
-            isActive={active === '1'}
-            position={{ lng: 127.1566638, lat: 35.8374724 }}
-            onClick={(id) => setActive(id)}
-          />
-          <Marker
-            id="2"
-            type="2"
-            isActive={active === '2'}
-            position={{ lng: 127.1576638, lat: 35.8374724 }}
-            onClick={(id) => setActive(id)}
-          />
-          <Marker
-            id="3"
-            type="3"
-            isActive={active === '3'}
-            position={{ lng: 127.1586638, lat: 35.8374724 }}
-            onClick={(id) => setActive(id)}
-          />
+        <KakaoMap
+          appKey={APP_KEY}
+          center={{
+            lat:
+              location.latitude === 0 ? defaultCenter.lat : location.latitude,
+            lng:
+              location.longitude === 0 ? defaultCenter.lng : location.longitude,
+          }}
+          onClick={() => setActive(undefined)}
+        >
+          {!isLoading &&
+            data &&
+            data.data.map((item) => {
+              return (
+                <Marker
+                  key={item.id}
+                  id={item.id}
+                  type="1"
+                  isActive={active?.id === item.id}
+                  position={{ lng: item.longitude, lat: item.latitude }}
+                  onClick={() => setActive(item)}
+                />
+              );
+            })}
         </KakaoMap>
       </div>
     </div>
