@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
 import { MapMarker, MapMarkerProps } from 'react-kakao-maps-sdk';
-import PinImage from '@my-furry-family/images/map_pin.png';
-import PinImage2 from '@my-furry-family/images/map_pin2.png';
-import PinImage3 from '@my-furry-family/images/map_pin3.png';
-import ActivePinImage from '@my-furry-family/images/map_pin_selected.png';
-import ActivePinImage2 from '@my-furry-family/images/map_pin_selected2.png';
-import ActivePinImage3 from '@my-furry-family/images/map_pin_selected3.png';
+import PinImage from '@my-furry-family/images/map_pin.svg';
+import PinImage2 from '@my-furry-family/images/map_pin2.svg';
+import PinImage3 from '@my-furry-family/images/map_pin3.svg';
+import ActivePinImage from '@my-furry-family/images/map_pin_selected.svg';
+import ActivePinImage2 from '@my-furry-family/images/map_pin_selected2.svg';
+import ActivePinImage3 from '@my-furry-family/images/map_pin_selected3.svg';
 
 interface Props extends Omit<MapMarkerProps, 'image' | 'onClick'> {
   id: string;
