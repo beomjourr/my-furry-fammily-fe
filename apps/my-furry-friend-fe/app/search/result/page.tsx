@@ -23,8 +23,8 @@ export default function Index() {
   const { data, isLoading } = useSWRImmutable(
     [
       `/animal-hospitals/search`,
-      location.latitude === 0 ? defaultCenter.lat : location.latitude,
-      location.longitude === 0 ? defaultCenter.lng : location.longitude,
+      location.latitude || defaultCenter.lat,
+      location.longitude || defaultCenter.lng,
     ],
     searchHospital,
     {
@@ -162,10 +162,8 @@ export default function Index() {
         <KakaoMap
           appKey={APP_KEY}
           center={{
-            lat:
-              location.latitude === 0 ? defaultCenter.lat : location.latitude,
-            lng:
-              location.longitude === 0 ? defaultCenter.lng : location.longitude,
+            lat: location.latitude || defaultCenter.lat,
+            lng: location.longitude || defaultCenter.lng,
           }}
           onClick={() => setActive(undefined)}
         >
