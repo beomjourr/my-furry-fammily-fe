@@ -15,6 +15,7 @@ import {
   SmallCardButton,
 } from '@my-furry-family/next-ui-component';
 import { useRouter } from 'next/navigation';
+import { useMemo } from 'react';
 import styles from './HomeCardButton.module.scss';
 
 interface HomeCardButtonProps {
@@ -85,53 +86,66 @@ const tab3CardMetaData = [
 export function HomeCardButton({
   tab = '지역별',
 }: HomeCardButtonProps): React.ReactNode {
-  let homeCardButtons: React.ReactNode[] = [];
   const router = useRouter();
-
-  if (tab === '지역별') {
-    homeCardButtons = tab1CardMetaData.map((data, index) => {
+  const homeCardButtons = useMemo((): React.ReactNode => {
+    if (tab === '지역별') {
       return (
-        <LargeCardButton
-          key={index}
-          badgeText={data.badgeText}
-          badgeColor={badgeColors[index % badgeColors.length]}
-          buttonContent={data.buttonContent}
-          iconPath={data.iconPath.src}
-          onClick={() => {
-            if (data.buttonContent === '내 주변\n동물병원 찾기') {
-              router.push('/search/result');
-            }
-          }}
-        />
+        <>
+          {tab1CardMetaData.map((data, index) => {
+            return (
+              <LargeCardButton
+                key={index}
+                badgeText={data.badgeText}
+                badgeColor={badgeColors[index % badgeColors.length]}
+                buttonContent={data.buttonContent}
+                iconPath={data.iconPath.src}
+                onClick={() => {
+                  if (data.buttonContent === '내 주변\n동물병원 찾기') {
+                    router.push('/search/result');
+                  }
+                }}
+              />
+            );
+          })}
+        </>
       );
-    });
-  }
-  if (tab === '진료별') {
-    homeCardButtons = tab2CardMetaData.map((data, index) => {
+    }
+    if (tab === '진료별') {
       return (
-        <SmallCardButton
-          key={index}
-          buttonContent={data.buttonContent}
-          iconPath={data.iconPath.src}
-          onClick={() => {}}
-        />
+        <>
+          {tab2CardMetaData.map((data, index) => {
+            return (
+              <SmallCardButton
+                key={index}
+                buttonContent={data.buttonContent}
+                iconPath={data.iconPath.src}
+                onClick={() => {}}
+              />
+            );
+          })}
+        </>
       );
-    });
-  }
-  if (tab === '규모별') {
-    homeCardButtons = tab3CardMetaData.map((data, index) => {
+    }
+    if (tab === '규모별') {
       return (
-        <LargeCardButton
-          key={index}
-          badgeText={data.badgeText}
-          badgeColor={badgeColors[index % badgeColors.length]}
-          buttonContent={data.buttonContent}
-          iconPath={data.iconPath.src}
-          onClick={() => {}}
-        />
+        <>
+          {tab3CardMetaData.map((data, index) => {
+            return (
+              <LargeCardButton
+                key={index}
+                badgeText={data.badgeText}
+                badgeColor={badgeColors[index % badgeColors.length]}
+                buttonContent={data.buttonContent}
+                iconPath={data.iconPath.src}
+                onClick={() => {}}
+              />
+            );
+          })}
+        </>
       );
-    });
-  }
+    }
+    return null;
+  }, [router, tab]);
 
   return <div className={styles.container}>{homeCardButtons}</div>;
 }
