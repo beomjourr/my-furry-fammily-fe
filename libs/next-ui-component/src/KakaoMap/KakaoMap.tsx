@@ -6,12 +6,10 @@ import { Spinner } from '@chakra-ui/react';
 
 export function KakaoMap({
   appKey,
-  center,
   children,
   onClick,
 }: {
   appKey: string;
-  center: { lng: number; lat: number };
   children?: React.ReactNode;
   onClick?: (
     target: kakao.maps.Map,
@@ -26,7 +24,7 @@ export function KakaoMap({
     <>
       {!loading && (
         <Map
-          center={center}
+          center={{ lng: 127.1566638, lat: 35.8374724 }}
           style={{ width: '100%', height: '100%' }}
           onClick={onClick}
         >

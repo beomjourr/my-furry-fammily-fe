@@ -11,21 +11,3 @@ export interface PetInfo {
   pet_favorite_maker: string | null;
   request_text: string | null;
 }
-
-export interface AnimalHospital {
-  id: number;
-  name: string;
-  street_address: string;
-  latitude: number;
-  longitude: number;
-  tell: string;
-  categories: string[];
-  veterinarian_numbers: number;
-  scale: string;
-  distance: string;
-}
-
-export interface AnimalHospitalSearchResponse {
-  data: AnimalHospital[];
-  timestamp: number[];
-}

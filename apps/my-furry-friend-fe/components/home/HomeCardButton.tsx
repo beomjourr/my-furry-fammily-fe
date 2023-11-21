@@ -2,7 +2,10 @@
 
 'use client';
 
-import Support24Icon from '@my-furry-family/images/card/24-support.svg';
+import Badge24Icon from '@my-furry-family/images/card/24-badge.svg';
+import Badge1ChaIcon from '@my-furry-family/images/card/1cha-badge.svg';
+import Badge2ChaIcon from '@my-furry-family/images/card/2cha-badge.svg';
+import Badge3ChaIcon from '@my-furry-family/images/card/3cha-badge.svg';
 import BoneImg from '@my-furry-family/images/card/bone.svg';
 import EyeIcon from '@my-furry-family/images/card/eye.svg';
 import HospitalIcon from '@my-furry-family/images/card/hospital.svg';
@@ -15,6 +18,7 @@ import {
   SmallCardButton,
 } from '@my-furry-family/next-ui-component';
 import { useRouter } from 'next/navigation';
+import { useMemo } from 'react';
 import styles from './HomeCardButton.module.scss';
 
 interface HomeCardButtonProps {
@@ -63,75 +67,88 @@ const tab3CardMetaData = [
   {
     badgeText: '동네병원',
     buttonContent: '1차 동물병원',
-    iconPath: Support24Icon,
+    iconPath: Badge1ChaIcon,
   },
   {
     badgeText: '동네병원보다 큰 병원',
     buttonContent: '2차 동물병원',
-    iconPath: Support24Icon,
+    iconPath: Badge2ChaIcon,
   },
   {
     badgeText: '대학병원',
     buttonContent: '3차 동물병원',
-    iconPath: Support24Icon,
+    iconPath: Badge3ChaIcon,
   },
   {
     badgeText: '언제든 열려있는',
     buttonContent: '24시간 병원',
-    iconPath: Support24Icon,
+    iconPath: Badge24Icon,
   },
 ];
 
 export function HomeCardButton({
   tab = '지역별',
 }: HomeCardButtonProps): React.ReactNode {
-  let homeCardButtons: React.ReactNode[] = [];
   const router = useRouter();
-
-  if (tab === '지역별') {
-    homeCardButtons = tab1CardMetaData.map((data, index) => {
+  const homeCardButtons = useMemo((): React.ReactNode => {
+    if (tab === '지역별') {
       return (
-        <LargeCardButton
-          key={index}
-          badgeText={data.badgeText}
-          badgeColor={badgeColors[index % badgeColors.length]}
-          buttonContent={data.buttonContent}
-          iconPath={data.iconPath.src}
-          onClick={() => {
-            if (data.buttonContent === '내 주변\n동물병원 찾기') {
-              router.push('/search/result');
-            }
-          }}
-        />
+        <>
+          {tab1CardMetaData.map((data, index) => {
+            return (
+              <LargeCardButton
+                key={index}
+                badgeText={data.badgeText}
+                badgeColor={badgeColors[index % badgeColors.length]}
+                buttonContent={data.buttonContent}
+                iconPath={data.iconPath.src}
+                onClick={() => {
+                  if (data.buttonContent === '내 주변\n동물병원 찾기') {
+                    router.push('/search/result');
+                  }
+                }}
+              />
+            );
+          })}
+        </>
       );
-    });
-  }
-  if (tab === '진료별') {
-    homeCardButtons = tab2CardMetaData.map((data, index) => {
+    }
+    if (tab === '진료별') {
       return (
-        <SmallCardButton
-          key={index}
-          buttonContent={data.buttonContent}
-          iconPath={data.iconPath.src}
-          onClick={() => {}}
-        />
+        <>
+          {tab2CardMetaData.map((data, index) => {
+            return (
+              <SmallCardButton
+                key={index}
+                buttonContent={data.buttonContent}
+                iconPath={data.iconPath.src}
+                onClick={() => {}}
+              />
+            );
+          })}
+        </>
       );
-    });
-  }
-  if (tab === '규모별') {
-    homeCardButtons = tab3CardMetaData.map((data, index) => {
+    }
+    if (tab === '규모별') {
       return (
-        <LargeCardButton
-          key={index}
-          badgeText={data.badgeText}
-          badgeColor={badgeColors[index % badgeColors.length]}
-          buttonContent={data.buttonContent}
-          iconPath={data.iconPath.src}
-          onClick={() => {}}
-        />
+        <>
+          {tab3CardMetaData.map((data, index) => {
+            return (
+              <LargeCardButton
+                key={index}
+                badgeText={data.badgeText}
+                badgeColor={badgeColors[index % badgeColors.length]}
+                buttonContent={data.buttonContent}
+                iconPath={data.iconPath.src}
+                onClick={() => {}}
+              />
+            );
+          })}
+        </>
       );
-    });
-  }
+    }
+    return null;
+  }, [router, tab]);
 
   return <div className={styles.container}>{homeCardButtons}</div>;
 }
