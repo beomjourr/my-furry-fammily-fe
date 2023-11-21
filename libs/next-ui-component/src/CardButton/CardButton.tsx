@@ -122,9 +122,10 @@ export function LargeCardButton({
           gap="10px"
         >
           <Badge
-            colorScheme={badgeColor}
-            className={styles.badge}
-            textTransform="none"
+            sx={largeCardBadgeStyles}
+            colorScheme="badge"
+            backgroundColor={`badge.background.${badgeColor}`}
+            color={`badge.text.${badgeColor}`}
           >
             {badgeText}
           </Badge>
