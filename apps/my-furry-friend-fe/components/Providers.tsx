@@ -57,6 +57,31 @@ const theme = extendTheme({
         },
       },
     },
+    Checkbox: {
+      baseStyle: {
+        control: {
+          borderColor: 'gray.400',
+          _checked: {
+            bg: '#E6E9F9',
+            borderColor: '#6282DB',
+            _hover: {
+              bg: '#E6E9F9',
+              borderColor: '#6282DB',
+            },
+          },
+          _hover: {
+            bg: '#E6E9F9',
+            borderColor: '#6282DB',
+          },
+          _focus: {
+            boxShadow: 'none',
+            _checked: {
+              boxShadow: 'none',
+            },
+          },
+        },
+      },
+    },
   },
 });
 

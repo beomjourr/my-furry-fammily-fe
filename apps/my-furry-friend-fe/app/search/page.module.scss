@@ -1,0 +1,49 @@
+@import '../../../../libs/design-system/base.scss';
+
+.container {
+    @include container;
+}
+
+.filter_button {
+  display: flex;
+  gap: 12px;
+}
+
+.modal_body {
+  width: 100%;
+
+  &_title {
+    min-width: 90px;
+
+    &_text {
+      color: #6282DB;
+      font-size: 14px;
+      font-weight: 600;
+
+      width: 100%;
+      border-radius: 0;
+
+      background: #E6E9F9;
+      height: 40px;
+
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+
+      padding-left: 10px;
+    }
+  }
+
+  &_content {
+    display: flex;
+    border-top: 1px solid #F5F5F7;
+  }
+
+  &_checkbox {
+    flex:1;
+    display: flex;
+    flex-direction: column;
+    padding: 14px 10px;
+    border-left: 1px solid #F5F5F7;
+  }
+}

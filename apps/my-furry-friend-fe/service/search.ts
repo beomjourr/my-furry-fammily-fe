@@ -1,7 +1,11 @@
 import { fetcher } from '../utils/fetcher';
+import { SearchHospitalParams } from '../types/apis';
 
-export async function searchHospital(url: string) {
-  const response = fetcher.get(url);
-
-  return response;
+export function searchHospital(
+  url: string,
+  params: Partial<SearchHospitalParams>,
+) {
+  return fetcher.get(url, {
+    params,
+  });
 }
