@@ -1,9 +1,7 @@
 import { atom } from 'jotai';
 
 interface Search {
-  regions?: string[];
-  categories?: string[];
-  scales?: string[];
+  [key: string]: string[];
 }
 
 export const search = atom<Search>({

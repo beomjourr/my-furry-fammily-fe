@@ -24,7 +24,7 @@ export function KakaoMap({
     <>
       {!loading && (
         <Map
-          center={{ lng: 127.1566638, lat: 35.8374724 }}
+          center={{ lng: 127.03662, lat: 37.507095 }}
           style={{ width: '100%', height: '100%' }}
           onClick={onClick}
         >

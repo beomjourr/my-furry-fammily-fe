@@ -11,13 +11,3 @@ export interface PetInfo {
   pet_favorite_maker: string | null;
   request_text: string | null;
 }
-
-export interface SearchHospitalParams {
-  name: string | null;
-  regions: string[] | null;
-  scales: string[] | null;
-  categories: string[] | null;
-  latitudes: number | null;
-  longitude: number | null;
-  distance: number | null;
-}

@@ -2,25 +2,30 @@ import React, { useEffect, useState } from 'react';
 import { Box, Button, Card, Image, Text, useToast } from '@chakra-ui/react';
 import { useSearchParams } from 'next/navigation';
 import useSWRImmutable from 'swr/immutable';
+import { useAtom } from 'jotai/index';
 import { KakaoMap } from '@my-furry-family/next-ui-component';
 import styles from '../../app/search/result/page.module.scss';
-import { Marker } from '../Marker/Marker';
 import { searchHospital } from '../../service/search';
+import { search } from '../../store/search';
+import { Marker } from '../Marker/Marker';
 
 const APP_KEY = process.env.NEXT_PUBLIC_KAKAO_APP_KEY || '';
 
 function Map() {
   const searchParams = useSearchParams();
   const keyword = searchParams.get('keyword');
+  const [active, setActive] = useState<number | undefined>(undefined);
+  const toast = useToast();
+  const [searchFilter] = useAtom(search);
   const { data, isLoading } = useSWRImmutable(
     `/animal-hospitals/search`,
-    (key) => searchHospital(key, { name: keyword }),
+    (key) => searchHospital(key, { name: keyword, ...searchFilter }),
     {
       errorRetryCount: 3,
     },
   );
-  const [active, setActive] = useState<string | undefined>(undefined);
-  const toast = useToast();
+
+  console.log('data', data);
 
   useEffect(() => {
     toast({
@@ -117,27 +122,17 @@ function Map() {
         </Card>
       )}
       <KakaoMap appKey={APP_KEY} onClick={() => setActive(undefined)}>
-        <Marker
-          id="1"
-          type="1"
-          isActive={active === '1'}
-          position={{ lng: 127.1566638, lat: 35.8374724 }}
-          onClick={(id) => setActive(id)}
-        />
-        <Marker
-          id="2"
-          type="2"
-          isActive={active === '2'}
-          position={{ lng: 127.1576638, lat: 35.8374724 }}
-          onClick={(id) => setActive(id)}
-        />
-        <Marker
-          id="3"
-          type="3"
-          isActive={active === '3'}
-          position={{ lng: 127.1586638, lat: 35.8374724 }}
-          onClick={(id) => setActive(id)}
-        />
+        {data?.data?.data?.map((item) => (
+          <Marker
+            key={item.id}
+            isActive={active === item.id}
+            position={{
+              lng: item.longitude,
+              lat: item.latitude,
+            }}
+            onClick={() => setActive(item.id)}
+          />
+        ))}
       </KakaoMap>
     </div>
   );

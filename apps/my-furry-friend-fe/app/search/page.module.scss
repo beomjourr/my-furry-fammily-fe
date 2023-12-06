@@ -9,6 +9,12 @@
   gap: 12px;
 }
 
+.modal_header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
 .modal_body {
   width: 100%;
 

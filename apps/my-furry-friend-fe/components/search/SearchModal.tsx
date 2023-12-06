@@ -12,6 +12,7 @@ import {
 } from '@chakra-ui/react';
 import useSWR from 'swr';
 import { useAtom } from 'jotai';
+import { CloseIcon } from '@chakra-ui/icons';
 import { searchCategories } from '../../service/categories';
 import { searchScales } from '../../service/scales';
 import styles from '../../app/search/page.module.scss';
@@ -41,8 +42,26 @@ function SearchModal({ isOpen, onClose, selectedFilter }: SearchModalProps) {
     },
   );
 
-  console.log(selectedFilter);
-  console.log(searchFilter);
+  console.log('selectedFilter', selectedFilter);
+  console.log('searchFilter', searchFilter);
+
+  console.log('ob', searchFilter[selectedFilter.key]);
+
+  const handleCheckboxChange = (value: string) => {
+    if (searchFilter[selectedFilter.key]?.includes(value)) {
+      setSearchFilter((prev) => ({
+        ...prev,
+        [selectedFilter.key]: prev[selectedFilter.key].filter(
+          (item) => item !== value,
+        ),
+      }));
+    } else {
+      setSearchFilter((prev) => ({
+        ...prev,
+        [selectedFilter.key]: [...prev[selectedFilter.key], value],
+      }));
+    }
+  };
 
   return (
     <Modal
@@ -53,7 +72,27 @@ function SearchModal({ isOpen, onClose, selectedFilter }: SearchModalProps) {
     >
       <ModalOverlay />
       <ModalContent position="absolute" bottom={0}>
-        <ModalHeader>header</ModalHeader>
+        <ModalHeader>
+          <div className={styles.modal_header}>
+            {searchFilter[selectedFilter.key]?.map((item) => (
+              <Button
+                key={item}
+                backgroundColor="#F5F5F7"
+                fontSize="12px"
+                height="32px"
+                borderRadius="16px"
+                rightIcon={
+                  <CloseIcon color="#9A9AA1" width="12px" height="12px" />
+                }
+                onClick={() => {
+                  handleCheckboxChange(item);
+                }}
+              >
+                {item}
+              </Button>
+            ))}
+          </div>
+        </ModalHeader>
         <ModalBody
           display="flex"
           justifyContent="center"
@@ -73,15 +112,22 @@ function SearchModal({ isOpen, onClose, selectedFilter }: SearchModalProps) {
               <div className={styles.modal_body_checkbox}>
                 <CheckboxGroup>
                   <Stack spacing="20px">
-                    <Checkbox iconColor="#6282DB" iconSize="16px">
-                      Checkbox
-                    </Checkbox>
-                    <Checkbox iconColor="#6282DB" iconSize="16px">
-                      Checkbox
-                    </Checkbox>
-                    <Checkbox iconColor="#6282DB" iconSize="16px">
-                      Checkbox
-                    </Checkbox>
+                    {data?.data?.data?.scales?.map((item: string) => (
+                      <Checkbox
+                        key={item}
+                        checked={
+                          // searchFilter[selectedFilter.key]?.includes(item)
+                        }
+                        iconColor="#6282DB"
+                        iconSize="16px"
+                        value={item}
+                        onChange={(e) => {
+                          handleCheckboxChange(e.target.value);
+                        }}
+                      >
+                        {item}
+                      </Checkbox>
+                    ))}
                   </Stack>
                 </CheckboxGroup>
               </div>
