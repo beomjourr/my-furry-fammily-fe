@@ -8,6 +8,7 @@ import MapImage from '@my-furry-family/images/map.svg';
 import styles from './page.module.scss';
 import SearchModal from '../../components/search/SearchModal';
 import Map from '../../components/map/Map';
+import SearchList from '../../components/search/SearchList';
 
 const filters = [
   {
@@ -90,7 +91,7 @@ function Page() {
         </div>
       </ButtonGroup>
 
-      {displayMap ? <Map /> : <div>리스트</div>}
+      {displayMap ? <Map /> : <SearchList />}
 
       <SearchModal
         isOpen={isOpen}
