@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 import { fetcher } from '../utils/fetcher';
 
-interface HospitalResponse {
+export interface HospitalResponse {
   id: number;
   name: string;
   street_address: string;

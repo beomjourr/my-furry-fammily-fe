@@ -1,34 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, Card, Image, Text, useToast } from '@chakra-ui/react';
-import { useAtom } from 'jotai/index';
-import useSWR from 'swr';
 import { KakaoMap } from '@my-furry-family/next-ui-component';
-import { searchHospital } from '../../service/search';
-import { search, searchKeyword } from '../../store/search';
 import { Marker } from '../Marker/Marker';
+import { HospitalResponse } from '../../service/search';
 
 const APP_KEY = process.env.NEXT_PUBLIC_KAKAO_APP_KEY || '';
 
-function Map() {
-  const [active, setActive] = useState<number | undefined>(undefined);
-  const toast = useToast();
-  const [searchFilter] = useAtom(search);
-  const [keyword] = useAtom(searchKeyword);
-  const isSearchFilterValue = Object.values(searchFilter).some(
-    (item) => item.length > 0,
-  );
+interface MapProps {
+  hospitalData?: HospitalResponse[];
+}
 
-  const { data } = useSWR(
-    ['/animal-hospitals/search', keyword, searchFilter],
-    (key) =>
-      searchHospital({
-        ...(keyword ? { name: keyword } : {}),
-        ...(isSearchFilterValue ? { ...searchFilter } : {}),
-      }),
-    {
-      errorRetryCount: 3,
-    },
-  );
+function Map({ hospitalData }: MapProps) {
+  const [active, setActive] = useState<HospitalResponse | undefined>(undefined);
+  const toast = useToast();
 
   useEffect(() => {
     toast({
@@ -89,10 +73,10 @@ function Map() {
             </Box>
             <Box display="flex" flexDirection="column" justifyContent="center">
               <Text fontSize="16px" fontWeight={600} marginBottom="2px">
-                리안동물병원
+                {active.name}
               </Text>
               <Text fontSize="14px" fontWeight={400} marginBottom="2px">
-                서울특별시 강남구
+                {active.street_address}
               </Text>
               <Text fontSize="12px" fontWeight={400} color="gray.600">
                 중성화 · 내과 전문
@@ -111,20 +95,18 @@ function Map() {
         </Card>
       )}
       <KakaoMap appKey={APP_KEY} onClick={() => setActive(undefined)}>
-        {data?.data.data.cooperationAnimalHospitals
-          .concat(data?.data.data.nonCooperationAnimalHospitals)
-          .map((item) => (
-            <Marker
-              key={item.id}
-              isCooperation={item.is_cooperation}
-              isActive={active === item.id}
-              position={{
-                lng: item.longitude,
-                lat: item.latitude,
-              }}
-              onClick={() => setActive(item.id)}
-            />
-          ))}
+        {hospitalData?.map((item) => (
+          <Marker
+            key={item.id}
+            isCooperation={item.is_cooperation}
+            isActive={active?.id === item.id}
+            position={{
+              lng: item.longitude,
+              lat: item.latitude,
+            }}
+            onClick={() => setActive(item)}
+          />
+        ))}
       </KakaoMap>
     </div>
   );

@@ -4,13 +4,15 @@ import React from 'react';
 import { Button, ButtonGroup } from '@chakra-ui/react';
 import Image from 'next/image';
 import { useAtom } from 'jotai/index';
+import useSWR from 'swr';
 import MapImage from '@my-furry-family/images/map.svg';
 import styles from './page.module.scss';
 import SearchModal from '../../components/search/SearchModal';
 import Map from '../../components/map/Map';
 import SearchList from '../../components/search/SearchList';
-import { search } from '../../store/search';
+import { search, searchKeyword, selectedFilters } from '../../store/search';
 import SearchFilterButton from '../../components/search/SearchFilterButton';
+import { searchHospital } from '../../service/search';
 
 const filters = [
   {
@@ -31,10 +33,29 @@ function Page() {
   const [isOpen, setIsOpen] = React.useState(false);
   const [displayMap, setDisplayMap] = React.useState(false);
   const [searchFilter] = useAtom(search);
-  const [selectedFilter, setSelectedFilter] = React.useState<{
-    key: string;
-    value: string;
-  }>({ key: '', value: '' });
+  const [selectedFilter, setSelectedFilter] = useAtom(selectedFilters);
+  const [keyword] = useAtom(searchKeyword);
+  const isSearchFilterValue = Object.values(searchFilter).some(
+    (item) => item.length > 0,
+  );
+
+  const { data } = useSWR(
+    ['/animal-hospitals/search', keyword, searchFilter],
+    (key) =>
+      searchHospital({
+        ...(keyword ? { name: keyword } : {}),
+        ...(isSearchFilterValue
+          ? {
+              [selectedFilter.key]: searchFilter[selectedFilter.key].map(
+                (item) => item.key,
+              ),
+            }
+          : {}),
+      }),
+    {
+      errorRetryCount: 3,
+    },
+  );
 
   const handleFilterClick = (filter: { key: string; value: string }) => {
     setSelectedFilter(filter);
@@ -80,7 +101,19 @@ function Page() {
         </div>
       </ButtonGroup>
 
-      {displayMap ? <Map /> : <SearchList />}
+      {displayMap ? (
+        <Map
+          hospitalData={data?.data.data.cooperationAnimalHospitals.concat(
+            data?.data.data.nonCooperationAnimalHospitals,
+          )}
+        />
+      ) : (
+        <SearchList
+          hospitalData={data?.data.data.cooperationAnimalHospitals.concat(
+            data?.data.data.nonCooperationAnimalHospitals,
+          )}
+        />
+      )}
 
       <SearchModal
         isOpen={isOpen}

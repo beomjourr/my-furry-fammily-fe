@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { fetcher } from '../../utils/fetcher';
 
+// TODO: 데이터 등록하려고 만든 페이지
 function Page() {
   const [data, setData] = useState({
     name: '테스트 동물병원',
@@ -10,7 +11,7 @@ function Page() {
     veterinarian_numbers: 1,
     scale: 'SMALL',
     street_address: '서울 강남구 강남대로 374',
-    region: '강남구',
+    region: 'GANGNAM',
     latitude: 37.507019,
     longitude: 127.03772,
     is_cooperation: false,

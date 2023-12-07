@@ -26,7 +26,7 @@ interface SearchModalProps {
 }
 
 function SearchModal({ isOpen, onClose, selectedFilter }: SearchModalProps) {
-  const [searchFilter, setSearchFilter] = useAtom(search);
+  const [, setSearchFilter] = useAtom(search);
   const [localSearchFilter, setLocalSearchFilter] = React.useState<Search>({
     regions: [],
     categories: [],
@@ -53,12 +53,16 @@ function SearchModal({ isOpen, onClose, selectedFilter }: SearchModalProps) {
     onClose();
   };
 
-  const handleCheckboxChange = (value: string) => {
-    if (localSearchFilter[selectedFilter.key]?.includes(value)) {
+  const handleCheckboxChange = (value: { key: string; value: string }) => {
+    if (
+      localSearchFilter[selectedFilter.key]?.some(
+        (filter) => filter.key === value.key,
+      )
+    ) {
       setLocalSearchFilter((prev) => ({
         ...prev,
         [selectedFilter.key]: prev[selectedFilter.key].filter(
-          (item) => item !== value,
+          (item) => item.key !== value.key,
         ),
       }));
     } else {
@@ -82,7 +86,7 @@ function SearchModal({ isOpen, onClose, selectedFilter }: SearchModalProps) {
           <div className={styles.modal_header}>
             {localSearchFilter[selectedFilter.key]?.map((item) => (
               <Button
-                key={item}
+                key={item.key}
                 backgroundColor="#F5F5F7"
                 fontSize="12px"
                 height="32px"
@@ -94,7 +98,7 @@ function SearchModal({ isOpen, onClose, selectedFilter }: SearchModalProps) {
                   handleCheckboxChange(item);
                 }}
               >
-                {item}
+                {item.value}
               </Button>
             ))}
           </div>
@@ -128,14 +132,14 @@ function SearchModal({ isOpen, onClose, selectedFilter }: SearchModalProps) {
                     (item: { key: string; value: string }) => (
                       <Checkbox
                         key={item.key}
-                        isChecked={localSearchFilter[
-                          selectedFilter.key
-                        ]?.includes(item.value)}
+                        isChecked={localSearchFilter[selectedFilter.key]?.some(
+                          (filter) => filter.key === item.key,
+                        )}
                         iconColor="#6282DB"
                         iconSize="16px"
                         value={item.key}
                         onChange={() => {
-                          handleCheckboxChange(item.value);
+                          handleCheckboxChange(item);
                         }}
                       >
                         {item.value}

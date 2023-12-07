@@ -4,10 +4,16 @@ import {
   InputGroup,
   InputLeftElement,
   InputProps,
+  InputRightElement,
+  Spinner,
 } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 
-export function SearchInput(props: InputProps) {
+interface SearchInputProps extends InputProps {
+  isLoading?: boolean;
+}
+
+export function SearchInput(props: SearchInputProps) {
   return (
     <InputGroup
       borderRadius="10px"
@@ -17,7 +23,7 @@ export function SearchInput(props: InputProps) {
       size="lg"
     >
       <InputLeftElement pointerEvents="none">
-        <SearchIcon color="gray.300" />
+        <SearchIcon color="#9A9AA1" />
       </InputLeftElement>
       <Input
         fontSize="14px"
@@ -26,6 +32,11 @@ export function SearchInput(props: InputProps) {
         color="#9A9AA1"
         {...props}
       />
+      {props.isLoading && (
+        <InputRightElement>
+          <Spinner color="#9A9AA1" />
+        </InputRightElement>
+      )}
     </InputGroup>
   );
 }

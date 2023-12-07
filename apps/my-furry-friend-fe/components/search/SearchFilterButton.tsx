@@ -6,7 +6,7 @@ interface SearchFilterButtonProps {
   filter: { key: string; value: string };
   onFilterClick: (filter: { key: string; value: string }) => void;
   badgeCount: number;
-  filterValue: string[];
+  filterValue: { key: string; value: string }[];
 }
 
 function SearchFilterButton({
@@ -38,7 +38,7 @@ function SearchFilterButton({
       onClick={() => onFilterClick(filter)}
     >
       {hasFilterValue ? (
-        <span>{filterValue[0]}</span>
+        <span>{filterValue[0].value}</span>
       ) : (
         <span>{filter.value}</span>
       )}
