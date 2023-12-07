@@ -1,31 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, Card, Image, Text, useToast } from '@chakra-ui/react';
-import { useSearchParams } from 'next/navigation';
-import useSWRImmutable from 'swr/immutable';
 import { useAtom } from 'jotai/index';
+import useSWR from 'swr';
 import { KakaoMap } from '@my-furry-family/next-ui-component';
-import styles from '../../app/search/result/page.module.scss';
 import { searchHospital } from '../../service/search';
-import { search } from '../../store/search';
+import { search, searchKeyword } from '../../store/search';
 import { Marker } from '../Marker/Marker';
 
 const APP_KEY = process.env.NEXT_PUBLIC_KAKAO_APP_KEY || '';
 
 function Map() {
-  const searchParams = useSearchParams();
-  const keyword = searchParams.get('keyword');
   const [active, setActive] = useState<number | undefined>(undefined);
   const toast = useToast();
   const [searchFilter] = useAtom(search);
-  const { data, isLoading } = useSWRImmutable(
-    `/animal-hospitals/search`,
-    (key) => searchHospital(key, { name: keyword, ...searchFilter }),
+  const [keyword] = useAtom(searchKeyword);
+
+  const { data } = useSWR(
+    ['/animal-hospitals/search', keyword, searchFilter],
+    (key) =>
+      searchHospital({
+        name: keyword,
+        ...searchFilter,
+      }),
     {
       errorRetryCount: 3,
     },
   );
-
-  console.log('data', data);
 
   useEffect(() => {
     toast({
@@ -39,7 +39,6 @@ function Map() {
     <div className="relative w-full overflow-hidden flex-1">
       <Card
         backgroundColor="white"
-        height="82px"
         position="absolute"
         top="12px"
         left="12px"
@@ -61,19 +60,6 @@ function Map() {
             alignItems="center"
           >
             진료비 공개병원
-            <span className={styles.gray}>(2인 이상)</span>
-          </Text>
-        </Box>
-        <Box display="flex" alignItems="center">
-          <Box bgColor="brand.200" rounded="full" width="10px" height="10px" />
-          <Text
-            marginLeft="5px"
-            fontSize="12px"
-            display="flex"
-            alignItems="center"
-          >
-            진료비 비공개병원
-            <span className={styles.gray}>(1인)</span>
           </Text>
         </Box>
       </Card>

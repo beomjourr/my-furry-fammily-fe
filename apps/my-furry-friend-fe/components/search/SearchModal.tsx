@@ -2,7 +2,6 @@ import React from 'react';
 import {
   Button,
   Checkbox,
-  CheckboxGroup,
   Modal,
   ModalBody,
   ModalContent,
@@ -27,25 +26,17 @@ interface SearchModalProps {
 function SearchModal({ isOpen, onClose, selectedFilter }: SearchModalProps) {
   const [searchFilter, setSearchFilter] = useAtom(search);
 
-  const { data, isLoading } = useSWR(
-    `/animal-hospitals/${selectedFilter.key}`,
-    (key) => {
-      switch (selectedFilter.key) {
-        case 'regions':
-          return;
-        case 'categories':
-          return searchCategories(key);
-        case 'scales':
-          return searchScales(key);
-        default:
-      }
-    },
-  );
-
-  console.log('selectedFilter', selectedFilter);
-  console.log('searchFilter', searchFilter);
-
-  console.log('ob', searchFilter[selectedFilter.key]);
+  const { data } = useSWR(`/animal-hospitals/${selectedFilter.key}`, (key) => {
+    switch (selectedFilter.key) {
+      case 'regions':
+        return;
+      case 'categories':
+        return searchCategories();
+      case 'scales':
+        return searchScales();
+      default:
+    }
+  });
 
   const handleCheckboxChange = (value: string) => {
     if (searchFilter[selectedFilter.key]?.includes(value)) {
@@ -110,26 +101,24 @@ function SearchModal({ isOpen, onClose, selectedFilter }: SearchModalProps) {
               </div>
 
               <div className={styles.modal_body_checkbox}>
-                <CheckboxGroup>
-                  <Stack spacing="20px">
-                    {data?.data?.data?.scales?.map((item: string) => (
-                      <Checkbox
-                        key={item}
-                        checked={
-                          // searchFilter[selectedFilter.key]?.includes(item)
-                        }
-                        iconColor="#6282DB"
-                        iconSize="16px"
-                        value={item}
-                        onChange={(e) => {
-                          handleCheckboxChange(e.target.value);
-                        }}
-                      >
-                        {item}
-                      </Checkbox>
-                    ))}
-                  </Stack>
-                </CheckboxGroup>
+                <Stack spacing="20px">
+                  {data?.data?.data?.scales?.map((item: string) => (
+                    <Checkbox
+                      key={item}
+                      isChecked={searchFilter[selectedFilter.key]?.includes(
+                        item,
+                      )}
+                      iconColor="#6282DB"
+                      iconSize="16px"
+                      value={item}
+                      onChange={() => {
+                        handleCheckboxChange(item);
+                      }}
+                    >
+                      {item}
+                    </Checkbox>
+                  ))}
+                </Stack>
               </div>
             </div>
           </div>

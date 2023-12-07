@@ -1,5 +1,5 @@
 import { fetcher } from '../utils/fetcher';
 
-export function searchCategories(url: string) {
-  return fetcher.get(url);
+export function searchCategories() {
+  return fetcher.get('/animal-hospitals/categories');
 }

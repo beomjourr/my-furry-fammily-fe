@@ -9,3 +9,5 @@ export const search = atom<Search>({
   categories: [],
   scales: [],
 });
+
+export const searchKeyword = atom<string>('');

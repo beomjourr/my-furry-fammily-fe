@@ -26,10 +26,9 @@ interface SearchHospitalParams {
 }
 
 export function searchHospital(
-  url: string,
   params: Partial<SearchHospitalParams>,
 ): Promise<AxiosResponse<{ data: HospitalResponse[] }>> {
-  return fetcher.get(url, {
+  return fetcher.get('/animal-hospitals/search', {
     params,
   });
 }
