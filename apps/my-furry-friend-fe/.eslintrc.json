@@ -32,7 +32,8 @@
   ],
   "rules": {
     "@next/next/no-html-link-for-pages": "off",
-    "consistent-return": "off"
+    "consistent-return": "off",
+    "react/no-array-index-key": "warn"
   },
   "env": {
     "jest": true

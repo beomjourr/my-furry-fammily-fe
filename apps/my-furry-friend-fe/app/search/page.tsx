@@ -2,13 +2,15 @@
 
 import React from 'react';
 import { Button, ButtonGroup } from '@chakra-ui/react';
-import { ChevronDownIcon } from '@chakra-ui/icons';
 import Image from 'next/image';
+import { useAtom } from 'jotai/index';
 import MapImage from '@my-furry-family/images/map.svg';
 import styles from './page.module.scss';
 import SearchModal from '../../components/search/SearchModal';
 import Map from '../../components/map/Map';
 import SearchList from '../../components/search/SearchList';
+import { search } from '../../store/search';
+import SearchFilterButton from '../../components/search/SearchFilterButton';
 
 const filters = [
   {
@@ -28,6 +30,7 @@ const filters = [
 function Page() {
   const [isOpen, setIsOpen] = React.useState(false);
   const [displayMap, setDisplayMap] = React.useState(false);
+  const [searchFilter] = useAtom(search);
   const [selectedFilter, setSelectedFilter] = React.useState<{
     key: string;
     value: string;
@@ -47,27 +50,13 @@ function Page() {
       <ButtonGroup padding="6px 16px" justifyContent="space-between">
         <div className={styles.filter_button}>
           {filters.map((filter) => (
-            <Button
+            <SearchFilterButton
               key={filter.key}
-              border="1px solid #E3E3E8"
-              maxHeight="32px"
-              borderRadius="16px"
-              backgroundColor="#ffffff"
-              color="#545459"
-              fontSize="12px"
-              padding="9px 12px"
-              fontWeight="400"
-              _focus={{
-                bg: '#E6E9F9',
-                border: '1px solid #6282DB',
-                borderColor: '#6282DB',
-                color: '#6282DB',
-              }}
-              rightIcon={<ChevronDownIcon w="22px" h="22px" color="#9A9AA1" />}
-              onClick={() => handleFilterClick(filter)}
-            >
-              {filter.value}
-            </Button>
+              filter={filter}
+              onFilterClick={handleFilterClick}
+              badgeCount={searchFilter[filter.key].length}
+              filterValue={searchFilter[filter.key]}
+            />
           ))}
         </div>
         <div>

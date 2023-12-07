@@ -13,6 +13,7 @@ interface HospitalResponse {
   veterinarian_numbers: number;
   scale: string;
   distance: number;
+  is_cooperation: boolean;
 }
 
 interface SearchHospitalParams {
@@ -25,9 +26,14 @@ interface SearchHospitalParams {
   distance: number | null;
 }
 
-export function searchHospital(
-  params: Partial<SearchHospitalParams>,
-): Promise<AxiosResponse<{ data: HospitalResponse[] }>> {
+export function searchHospital(params?: Partial<SearchHospitalParams>): Promise<
+  AxiosResponse<{
+    data: {
+      cooperationAnimalHospitals: HospitalResponse[];
+      nonCooperationAnimalHospitals: HospitalResponse[];
+    };
+  }>
+> {
   return fetcher.get('/animal-hospitals/search', {
     params,
   });

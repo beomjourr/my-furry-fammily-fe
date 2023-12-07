@@ -1,8 +1,8 @@
 import { AxiosResponse } from 'axios';
 import { fetcher } from '../utils/fetcher';
 
-export function searchScales(): Promise<
+export function searchRegions(): Promise<
   AxiosResponse<{ data: { key: string; value: string }[] }>
 > {
-  return fetcher.get('/animal-hospitals/scales');
+  return fetcher.get('/animal-hospitals/regions');
 }

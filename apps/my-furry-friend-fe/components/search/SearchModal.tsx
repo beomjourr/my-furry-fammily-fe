@@ -7,6 +7,7 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
+  Skeleton,
   Stack,
 } from '@chakra-ui/react';
 import useSWR from 'swr';
@@ -15,7 +16,8 @@ import { CloseIcon } from '@chakra-ui/icons';
 import { searchCategories } from '../../service/categories';
 import { searchScales } from '../../service/scales';
 import styles from '../../app/search/page.module.scss';
-import { search } from '../../store/search';
+import { Search, search } from '../../store/search';
+import { searchRegions } from '../../service/regions';
 
 interface SearchModalProps {
   isOpen: boolean;
@@ -25,29 +27,42 @@ interface SearchModalProps {
 
 function SearchModal({ isOpen, onClose, selectedFilter }: SearchModalProps) {
   const [searchFilter, setSearchFilter] = useAtom(search);
-
-  const { data } = useSWR(`/animal-hospitals/${selectedFilter.key}`, (key) => {
-    switch (selectedFilter.key) {
-      case 'regions':
-        return;
-      case 'categories':
-        return searchCategories();
-      case 'scales':
-        return searchScales();
-      default:
-    }
+  const [localSearchFilter, setLocalSearchFilter] = React.useState<Search>({
+    regions: [],
+    categories: [],
+    scales: [],
   });
 
+  const { data, isLoading } = useSWR(
+    `/animal-hospitals/${selectedFilter.key}`,
+    (key) => {
+      switch (selectedFilter.key) {
+        case 'regions':
+          return searchRegions();
+        case 'categories':
+          return searchCategories();
+        case 'scales':
+          return searchScales();
+        default:
+      }
+    },
+  );
+
+  const handleSelectClick = () => {
+    setSearchFilter(localSearchFilter);
+    onClose();
+  };
+
   const handleCheckboxChange = (value: string) => {
-    if (searchFilter[selectedFilter.key]?.includes(value)) {
-      setSearchFilter((prev) => ({
+    if (localSearchFilter[selectedFilter.key]?.includes(value)) {
+      setLocalSearchFilter((prev) => ({
         ...prev,
         [selectedFilter.key]: prev[selectedFilter.key].filter(
           (item) => item !== value,
         ),
       }));
     } else {
-      setSearchFilter((prev) => ({
+      setLocalSearchFilter((prev) => ({
         ...prev,
         [selectedFilter.key]: [...prev[selectedFilter.key], value],
       }));
@@ -65,7 +80,7 @@ function SearchModal({ isOpen, onClose, selectedFilter }: SearchModalProps) {
       <ModalContent position="absolute" bottom={0}>
         <ModalHeader>
           <div className={styles.modal_header}>
-            {searchFilter[selectedFilter.key]?.map((item) => (
+            {localSearchFilter[selectedFilter.key]?.map((item) => (
               <Button
                 key={item}
                 backgroundColor="#F5F5F7"
@@ -102,22 +117,31 @@ function SearchModal({ isOpen, onClose, selectedFilter }: SearchModalProps) {
 
               <div className={styles.modal_body_checkbox}>
                 <Stack spacing="20px">
-                  {data?.data?.data?.scales?.map((item: string) => (
-                    <Checkbox
-                      key={item}
-                      isChecked={searchFilter[selectedFilter.key]?.includes(
-                        item,
-                      )}
-                      iconColor="#6282DB"
-                      iconSize="16px"
-                      value={item}
-                      onChange={() => {
-                        handleCheckboxChange(item);
-                      }}
-                    >
-                      {item}
-                    </Checkbox>
-                  ))}
+                  {isLoading && (
+                    <Stack>
+                      {Array.from({ length: 10 }).map((_, index) => (
+                        <Skeleton key={index} height="20px" />
+                      ))}
+                    </Stack>
+                  )}
+                  {data?.data?.data?.map(
+                    (item: { key: string; value: string }) => (
+                      <Checkbox
+                        key={item.key}
+                        isChecked={localSearchFilter[
+                          selectedFilter.key
+                        ]?.includes(item.value)}
+                        iconColor="#6282DB"
+                        iconSize="16px"
+                        value={item.key}
+                        onChange={() => {
+                          handleCheckboxChange(item.value);
+                        }}
+                      >
+                        {item.value}
+                      </Checkbox>
+                    ),
+                  )}
                 </Stack>
               </div>
             </div>
@@ -125,7 +149,7 @@ function SearchModal({ isOpen, onClose, selectedFilter }: SearchModalProps) {
           <div
             style={{
               width: '100%',
-              padding: '0 16px',
+              padding: '16px',
             }}
           >
             <Button
@@ -134,6 +158,7 @@ function SearchModal({ isOpen, onClose, selectedFilter }: SearchModalProps) {
               borderRadius="24px"
               backgroundColor="#6282DB"
               color="#ffffff"
+              onClick={handleSelectClick}
             >
               선택 완료
             </Button>

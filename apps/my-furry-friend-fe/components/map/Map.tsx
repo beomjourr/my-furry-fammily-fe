@@ -14,13 +14,16 @@ function Map() {
   const toast = useToast();
   const [searchFilter] = useAtom(search);
   const [keyword] = useAtom(searchKeyword);
+  const isSearchFilterValue = Object.values(searchFilter).some(
+    (item) => item.length > 0,
+  );
 
   const { data } = useSWR(
     ['/animal-hospitals/search', keyword, searchFilter],
     (key) =>
       searchHospital({
-        name: keyword,
-        ...searchFilter,
+        ...(keyword ? { name: keyword } : {}),
+        ...(isSearchFilterValue ? { ...searchFilter } : {}),
       }),
     {
       errorRetryCount: 3,
@@ -108,17 +111,20 @@ function Map() {
         </Card>
       )}
       <KakaoMap appKey={APP_KEY} onClick={() => setActive(undefined)}>
-        {data?.data?.data?.map((item) => (
-          <Marker
-            key={item.id}
-            isActive={active === item.id}
-            position={{
-              lng: item.longitude,
-              lat: item.latitude,
-            }}
-            onClick={() => setActive(item.id)}
-          />
-        ))}
+        {data?.data.data.cooperationAnimalHospitals
+          .concat(data?.data.data.nonCooperationAnimalHospitals)
+          .map((item) => (
+            <Marker
+              key={item.id}
+              isCooperation={item.is_cooperation}
+              isActive={active === item.id}
+              position={{
+                lng: item.longitude,
+                lat: item.latitude,
+              }}
+              onClick={() => setActive(item.id)}
+            />
+          ))}
       </KakaoMap>
     </div>
   );

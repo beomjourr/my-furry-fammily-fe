@@ -1,6 +1,6 @@
 import { atom } from 'jotai';
 
-interface Search {
+export interface Search {
   [key: string]: string[];
 }
 
