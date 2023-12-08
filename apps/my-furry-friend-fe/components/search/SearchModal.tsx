@@ -33,14 +33,38 @@ function SearchModal({ isOpen, onClose, selectedFilter }: SearchModalProps) {
     scales: [],
   });
 
+  const selectedFilterName = React.useMemo(() => {
+    switch (selectedFilter.key) {
+      case 'regions':
+        return '지역';
+      case 'categories':
+        return '진료';
+      case 'scales':
+        return '규모';
+      default:
+        return '';
+    }
+  }, [selectedFilter.key]);
+
   const { data, isLoading } = useSWR(
     `/animal-hospitals/${selectedFilter.key}`,
-    (key) => {
+    () => {
       switch (selectedFilter.key) {
         case 'regions':
           return searchRegions();
         case 'categories':
-          return searchCategories();
+          return searchCategories().then((res) => {
+            // TODO 임시
+            return {
+              ...res,
+              data: {
+                data: res.data.data.categories.map((item: string) => ({
+                  key: item,
+                  value: item,
+                })),
+              },
+            };
+          });
         case 'scales':
           return searchScales();
         default:
@@ -186,7 +210,7 @@ function SearchModal({ isOpen, onClose, selectedFilter }: SearchModalProps) {
               color="#ffffff"
               onClick={handleSelectClick}
             >
-              선택 완료
+              {`${selectedFilterName} 선택 완료`}
             </Button>
           </div>
         </ModalBody>

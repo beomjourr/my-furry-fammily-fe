@@ -1,27 +1,43 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useAtom } from 'jotai';
 import { checkDevice } from '../utils/checkDevice';
-import { currentLocation } from '../store/location';
+import {
+  currentLocationState,
+  locationPermissionState,
+  locationState,
+} from '../store/location';
 
 const useLocation = () => {
-  const [isGranted, setIsGranted] = useState<boolean>(false);
-  const [location, setLocation] = useAtom(currentLocation);
+  const [location, setLocation] = useAtom(locationState);
+  const [currentLocation, setCurrentLocation] = useAtom(currentLocationState);
+  const [permission, setPermission] = useAtom(locationPermissionState);
 
   const requestLocation = () => {
     window?.ReactNativeWebView?.postMessage('REQUEST_LOCATION');
   };
 
+  const requestCurrentLocation = () => {
+    window?.ReactNativeWebView?.postMessage('REQUEST_CURRENT_LOCATION');
+  };
+
   const listenMessage = useCallback(
     (e: MessageEvent | (Event & { data?: string })) => {
       const { data, type } = JSON.parse(e.data);
-      if (type === 'RESPONSE_LOCATION') {
-        setLocation(data);
-      }
-      if (type === 'GRANTED_LOCATION') {
-        setIsGranted(true);
+      switch (type) {
+        case 'RESPONSE_LOCATION':
+          setLocation(data);
+          break;
+        case 'RESPONSE_CURRENT_LOCATION':
+          setCurrentLocation(data);
+          break;
+        case 'RESPONSE_PERMISSION':
+          setPermission(data);
+          break;
+        default:
+          break;
       }
     },
-    [setIsGranted, setLocation],
+    [setCurrentLocation, setLocation, setPermission],
   );
 
   useEffect(() => {
@@ -34,7 +50,13 @@ const useLocation = () => {
     }
   }, [listenMessage]);
 
-  return { location, isGranted, setIsGranted, requestLocation };
+  return {
+    permission,
+    location,
+    currentLocation,
+    requestLocation,
+    requestCurrentLocation,
+  };
 };
 
 export default useLocation;
