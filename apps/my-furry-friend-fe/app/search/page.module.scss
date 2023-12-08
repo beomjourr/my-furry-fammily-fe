@@ -1,0 +1,73 @@
+@import '../../../../libs/design-system/base.scss';
+
+.container {
+    @include container;
+}
+
+.filter_button {
+  display: flex;
+  gap: 12px;
+
+  &_group {
+    position: sticky;
+    top: 0;
+    background: #fff;
+  }
+}
+
+.modal_header {
+  max-height: 100px;
+  overflow-y: scroll;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.modal_body {
+  width: 100%;
+
+  &_title {
+    min-width: 90px;
+
+    &_text {
+      color: #6282DB;
+      font-size: 14px;
+      font-weight: 600;
+
+      width: 100%;
+      border-radius: 0;
+
+      background: #E6E9F9;
+      height: 40px;
+
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+
+      padding-left: 10px;
+    }
+  }
+
+  &_content {
+    height: 500px;
+    margin-bottom: 20px;
+    overflow-y: scroll;
+    display: flex;
+    border-top: 1px solid #F5F5F7;
+  }
+
+  &_checkbox {
+    flex:1;
+    display: flex;
+    flex-direction: column;
+    padding: 14px 10px;
+    border-left: 1px solid #F5F5F7;
+  }
+}
+
+.search_list_title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #0F0F12;
+  padding: 16px 20px 0;
+}

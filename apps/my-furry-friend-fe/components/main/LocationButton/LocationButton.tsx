@@ -24,7 +24,8 @@ function LocationButton({ onClick, location }: LocationButtonProps) {
           },
         },
       );
-      setAddress(response.data.documents[0].address.region_3depth_name);
+      const [region] = response.data.documents;
+      setAddress(region?.address?.region_3depth_name);
     };
 
     if (location) {
