@@ -48,6 +48,13 @@ function SearchModal({ isOpen, onClose, selectedFilter }: SearchModalProps) {
     },
   );
 
+  const allChecked = data?.data?.data?.every(
+    (item: { key: string; value: string }) =>
+      localSearchFilter[selectedFilter.key]?.some(
+        (filter) => filter.key === item.key,
+      ),
+  );
+
   const handleSelectClick = () => {
     setSearchFilter(localSearchFilter);
     onClose();
@@ -128,6 +135,21 @@ function SearchModal({ isOpen, onClose, selectedFilter }: SearchModalProps) {
                       ))}
                     </Stack>
                   )}
+                  <Checkbox
+                    iconColor="#6282DB"
+                    iconSize="16px"
+                    isChecked={allChecked}
+                    onChange={(e) =>
+                      setLocalSearchFilter((prev) => ({
+                        ...prev,
+                        [selectedFilter.key]: e.target.checked
+                          ? data?.data?.data
+                          : [],
+                      }))
+                    }
+                  >
+                    전체보기
+                  </Checkbox>
                   {data?.data?.data?.map(
                     (item: { key: string; value: string }) => (
                       <Checkbox
