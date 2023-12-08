@@ -81,30 +81,28 @@ function Page() {
             />
           ))}
         </div>
-        <div>
-          <Button
-            border="1px solid #E3E3E8"
-            width="32px"
-            height="32px"
-            borderRadius="16px"
-            backgroundColor="#ffffff"
-            padding="0"
-            _focus={{
-              bg: '#E6E9F9',
-              border: '1px solid #6282DB',
-              borderColor: '#6282DB',
-              color: '#6282DB',
-            }}
-            onClick={() => setDisplayMap(!displayMap)}
-          >
-            <Image
-              src={displayMap ? ListIcon : MapIcon}
-              width={20}
-              height={20}
-              alt="icon"
-            />
-          </Button>
-        </div>
+        <Button
+          border="1px solid #E3E3E8"
+          width="32px"
+          height="32px"
+          borderRadius="16px"
+          backgroundColor="#ffffff"
+          padding="0"
+          _focus={{
+            bg: '#E6E9F9',
+            border: '1px solid #6282DB',
+            borderColor: '#6282DB',
+            color: '#6282DB',
+          }}
+          onClick={() => setDisplayMap(!displayMap)}
+        >
+          <Image
+            src={displayMap ? ListIcon : MapIcon}
+            width={20}
+            height={20}
+            alt="icon"
+          />
+        </Button>
       </ButtonGroup>
 
       {isLoading && (
