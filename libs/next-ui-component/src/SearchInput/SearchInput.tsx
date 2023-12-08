@@ -13,7 +13,7 @@ interface SearchInputProps extends InputProps {
   isLoading?: boolean;
 }
 
-export function SearchInput(props: SearchInputProps) {
+export function SearchInput({ isLoading, ...rest }: SearchInputProps) {
   return (
     <InputGroup
       borderRadius="10px"
@@ -30,9 +30,9 @@ export function SearchInput(props: SearchInputProps) {
         fontWeight="400"
         border="none"
         color="#9A9AA1"
-        {...props}
+        {...rest}
       />
-      {props.isLoading && (
+      {isLoading && (
         <InputRightElement>
           <Spinner color="#9A9AA1" />
         </InputRightElement>

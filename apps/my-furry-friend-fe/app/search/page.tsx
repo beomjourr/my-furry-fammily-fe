@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Button, ButtonGroup } from '@chakra-ui/react';
+import { Button, ButtonGroup, Skeleton, Stack } from '@chakra-ui/react';
 import Image from 'next/image';
 import { useAtom } from 'jotai/index';
 import useSWR from 'swr';
@@ -39,7 +39,7 @@ function Page() {
     (item) => item.length > 0,
   );
 
-  const { data } = useSWR(
+  const { data, isLoading } = useSWR(
     ['/animal-hospitals/search', keyword, searchFilter],
     (key) =>
       searchHospital({
@@ -100,6 +100,16 @@ function Page() {
           </Button>
         </div>
       </ButtonGroup>
+
+      {isLoading && (
+        <>
+          {Array.from({ length: 10 }).map((_, index) => (
+            <Stack key={index} spacing="20px" padding="16px">
+              <Skeleton height="98px" />
+            </Stack>
+          ))}
+        </>
+      )}
 
       {displayMap ? (
         <Map

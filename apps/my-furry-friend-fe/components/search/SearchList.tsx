@@ -18,10 +18,10 @@ function SearchListCardWrapper({
   hospitalData,
 }: SearchListCardWrapperProps) {
   return (
-    <div>
+    <>
       <div className={styles.search_list_title}>{title}</div>
       {hospitalData?.map((data) => <SearchCard key={data.id} data={data} />)}
-    </div>
+    </>
   );
 }
 
