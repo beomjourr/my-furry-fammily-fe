@@ -69,7 +69,11 @@ function Page() {
 
   return (
     <div className={styles.container}>
-      <ButtonGroup padding="6px 16px" justifyContent="space-between">
+      <ButtonGroup
+        className={styles.filter_button_group}
+        padding="6px 16px"
+        justifyContent="space-between"
+      >
         <div className={styles.filter_button}>
           {filters.map((filter) => (
             <SearchFilterButton
