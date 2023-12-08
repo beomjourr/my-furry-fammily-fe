@@ -5,7 +5,8 @@ import { Button, ButtonGroup, Skeleton, Stack } from '@chakra-ui/react';
 import Image from 'next/image';
 import { useAtom } from 'jotai/index';
 import useSWR from 'swr';
-import MapImage from '@my-furry-family/images/map.svg';
+import MapIcon from '@my-furry-family/images/map.svg';
+import ListIcon from '@my-furry-family/images/list.svg';
 import styles from './page.module.scss';
 import SearchModal from '../../components/search/SearchModal';
 import Map from '../../components/map/Map';
@@ -96,7 +97,12 @@ function Page() {
             }}
             onClick={() => setDisplayMap(!displayMap)}
           >
-            <Image src={MapImage} width={20} height={20} alt="map" />
+            <Image
+              src={displayMap ? ListIcon : MapIcon}
+              width={20}
+              height={20}
+              alt="icon"
+            />
           </Button>
         </div>
       </ButtonGroup>
