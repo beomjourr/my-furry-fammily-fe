@@ -53,18 +53,7 @@ function SearchModal({ isOpen, onClose, selectedFilter }: SearchModalProps) {
         case 'regions':
           return searchRegions();
         case 'categories':
-          return searchCategories().then((res) => {
-            // TODO 임시
-            return {
-              ...res,
-              data: {
-                data: res.data.data.categories.map((item: string) => ({
-                  key: item,
-                  value: item,
-                })),
-              },
-            };
-          });
+          return searchCategories();
         case 'scales':
           return searchScales();
         default:
