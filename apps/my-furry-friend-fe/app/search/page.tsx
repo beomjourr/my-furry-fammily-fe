@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, ButtonGroup, Skeleton, Stack } from '@chakra-ui/react';
 import Image from 'next/image';
 import { useAtom } from 'jotai/index';
@@ -14,6 +14,7 @@ import SearchList from '../../components/search/SearchList';
 import { search, searchKeyword, selectedFilters } from '../../store/search';
 import SearchFilterButton from '../../components/search/SearchFilterButton';
 import { searchHospital } from '../../service/search';
+import useLocation from '../../hooks/useLocation';
 
 const filters = [
   {
@@ -33,9 +34,13 @@ const filters = [
 function Page() {
   const [isOpen, setIsOpen] = React.useState(false);
   const [displayMap, setDisplayMap] = React.useState(false);
+  const [boundsLocation, setBoundsLocation] = useState<
+    { lat: number; lng: number }[] | undefined
+  >(undefined);
   const [searchFilter] = useAtom(search);
   const [selectedFilter, setSelectedFilter] = useAtom(selectedFilters);
   const [keyword] = useAtom(searchKeyword);
+  const { currentLocation } = useLocation();
   const isSearchFilterValue = Object.values(searchFilter).some(
     (item) => item.length > 0,
   );
@@ -57,6 +62,27 @@ function Page() {
       errorRetryCount: 3,
     },
   );
+
+  useEffect(() => {
+    if (!data) {
+      return;
+    }
+
+    if (
+      data?.data.data.cooperationAnimalHospitals.concat(
+        data?.data.data.nonCooperationAnimalHospitals,
+      ).length > 0
+    ) {
+      setBoundsLocation(
+        data?.data.data.cooperationAnimalHospitals
+          .concat(data?.data.data.nonCooperationAnimalHospitals)
+          .map((item) => ({
+            lat: item.latitude,
+            lng: item.longitude,
+          })),
+      );
+    }
+  }, [data]);
 
   const handleFilterClick = (filter: { key: string; value: string }) => {
     setSelectedFilter(filter);
@@ -124,6 +150,8 @@ function Page() {
           hospitalData={data?.data.data.cooperationAnimalHospitals.concat(
             data?.data.data.nonCooperationAnimalHospitals,
           )}
+          currentLocation={currentLocation}
+          boundsLocation={boundsLocation}
         />
       ) : (
         <SearchList

@@ -5,7 +5,7 @@ import gps from '@my-furry-family/images/gps.svg';
 import styles from './LocationButton.module.scss';
 
 interface LocationButtonProps extends HTMLAttributes<HTMLButtonElement> {
-  location: {
+  location?: {
     latitude: number;
     longitude: number;
   };
@@ -17,7 +17,7 @@ function LocationButton({ onClick, location }: LocationButtonProps) {
   useEffect(() => {
     const fetchAddress = async () => {
       const response = await axios.get(
-        `https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${location.longitude}&y=${location.latitude}`,
+        `https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${location?.longitude}&y=${location?.latitude}`,
         {
           headers: {
             Authorization: `KakaoAK ${process.env.NEXT_PUBLIC_KAKAO_APP_REST_API_KEY}`,

@@ -1,16 +1,17 @@
-import { useCallback, useEffect } from 'react';
-import { useAtom } from 'jotai';
+import { useCallback, useEffect, useState } from 'react';
 import { checkDevice } from '../utils/checkDevice';
-import {
-  currentLocationState,
-  locationPermissionState,
-  locationState,
-} from '../store/location';
+
+interface Location {
+  latitude: number;
+  longitude: number;
+}
 
 const useLocation = () => {
-  const [location, setLocation] = useAtom(locationState);
-  const [currentLocation, setCurrentLocation] = useAtom(currentLocationState);
-  const [permission, setPermission] = useAtom(locationPermissionState);
+  const [location, setLocation] = useState<Location | undefined>(undefined);
+  const [currentLocation, setCurrentLocation] = useState<Location | undefined>(
+    undefined,
+  );
+  const [permission, setPermission] = useState<Location | undefined>(undefined);
 
   const requestLocation = () => {
     window?.ReactNativeWebView?.postMessage('REQUEST_LOCATION');
@@ -19,6 +20,10 @@ const useLocation = () => {
   const requestCurrentLocation = () => {
     window?.ReactNativeWebView?.postMessage('REQUEST_CURRENT_LOCATION');
   };
+
+  useEffect(() => {
+    requestCurrentLocation();
+  }, []);
 
   const listenMessage = useCallback(
     (e: MessageEvent | (Event & { data?: string })) => {

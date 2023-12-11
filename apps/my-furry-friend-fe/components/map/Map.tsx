@@ -8,9 +8,17 @@ const APP_KEY = process.env.NEXT_PUBLIC_KAKAO_APP_KEY || '';
 
 interface MapProps {
   hospitalData?: HospitalResponse[];
+  setLocation?: (position: { lat: number; lng: number }) => void;
+  currentLocation?: { latitude: number; longitude: number };
+  boundsLocation?: { lat: number; lng: number }[] | undefined;
 }
 
-function Map({ hospitalData }: MapProps) {
+function Map({
+  hospitalData,
+  setLocation,
+  currentLocation,
+  boundsLocation,
+}: MapProps) {
   const [active, setActive] = useState<HospitalResponse | undefined>(undefined);
   const toast = useToast();
 
@@ -94,7 +102,16 @@ function Map({ hospitalData }: MapProps) {
           </Button>
         </Card>
       )}
-      <KakaoMap appKey={APP_KEY} onClick={() => setActive(undefined)}>
+      <KakaoMap
+        appKey={APP_KEY}
+        onClick={() => setActive(undefined)}
+        center={{
+          lng: currentLocation?.longitude || 126.9783882,
+          lat: currentLocation?.latitude || 37.5666103,
+        }}
+        setPosition={setLocation}
+        boundsLocation={boundsLocation}
+      >
         {hospitalData?.map((item) => (
           <Marker
             key={item.id}
