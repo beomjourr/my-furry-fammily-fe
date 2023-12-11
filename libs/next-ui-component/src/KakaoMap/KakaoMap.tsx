@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Map, useKakaoLoader } from 'react-kakao-maps-sdk';
 import { Spinner } from '@chakra-ui/react';
 import { MapProps } from 'react-kakao-maps-sdk/dist/components/Map';
@@ -29,30 +29,36 @@ export function KakaoMap({
     appkey: appKey,
   });
 
-  const handleSetPosition = (map: kakao.maps.Map) => {
-    if (!setPosition) {
-      return;
-    }
+  const handleSetPosition = useCallback(
+    (map: kakao.maps.Map) => {
+      if (!setPosition) {
+        return;
+      }
 
-    setPosition?.({
-      lat: map.getCenter().getLat(),
-      lng: map.getCenter().getLng(),
-    });
-  };
+      setPosition?.({
+        lat: map.getCenter().getLat(),
+        lng: map.getCenter().getLng(),
+      });
+    },
+    [setPosition],
+  );
 
-  const handleBoundsLocation = (map: kakao.maps.Map) => {
-    if (!boundsLocation) {
-      return;
-    }
+  const handleBoundsLocation = useCallback(
+    (map: kakao.maps.Map) => {
+      if (!boundsLocation) {
+        return;
+      }
 
-    const bounds = new window.kakao.maps.LatLngBounds();
+      const bounds = new window.kakao.maps.LatLngBounds();
 
-    boundsLocation?.forEach((point) => {
-      bounds.extend(new window.kakao.maps.LatLng(point.lat, point.lng));
-    });
+      boundsLocation?.forEach((point) => {
+        bounds.extend(new window.kakao.maps.LatLng(point.lat, point.lng));
+      });
 
-    map.setBounds(bounds);
-  };
+      map.setBounds(bounds);
+    },
+    [boundsLocation],
+  );
 
   return (
     <>
@@ -62,7 +68,7 @@ export function KakaoMap({
           style={{ width: '100%', height: '100%' }}
           onClick={onClick}
           onDragEnd={handleSetPosition}
-          onTileLoaded={handleBoundsLocation}
+          onCreate={handleBoundsLocation}
           {...rest}
         >
           {children}
