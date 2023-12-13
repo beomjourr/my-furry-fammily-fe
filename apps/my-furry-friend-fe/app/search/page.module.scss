@@ -12,6 +12,23 @@
     position: sticky;
     top: 0;
     background: $background-color;
+    padding: 6px 16px;
+    justify-content: space-between;
+  }
+
+  &_icon {
+    border: 1px solid #e3e3e8;
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    background: #ffffff;
+    padding: 0;
+
+    &:focus {
+      background: #e6e9f9;
+      border: 1px solid #6282DB;
+      color: #6282DB;
+    }
   }
 }
 

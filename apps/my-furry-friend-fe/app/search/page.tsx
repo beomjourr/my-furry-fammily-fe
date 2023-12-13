@@ -95,11 +95,7 @@ function Page() {
 
   return (
     <div className={styles.container}>
-      <ButtonGroup
-        className={styles.filter_button_group}
-        padding="6px 16px"
-        justifyContent="space-between"
-      >
+      <ButtonGroup className={styles.filter_button_group}>
         <div className={styles.filter_button}>
           {filters.map((filter) => (
             <SearchFilterButton
@@ -112,18 +108,7 @@ function Page() {
           ))}
         </div>
         <Button
-          border="1px solid #E3E3E8"
-          width="32px"
-          height="32px"
-          borderRadius="16px"
-          backgroundColor="#ffffff"
-          padding="0"
-          _focus={{
-            bg: '#E6E9F9',
-            border: '1px solid #6282DB',
-            borderColor: '#6282DB',
-            color: '#6282DB',
-          }}
+          className={styles.filter_button_icon}
           onClick={() => setDisplayMap(!displayMap)}
         >
           <Image
