@@ -120,7 +120,7 @@ function Page() {
         </Button>
       </ButtonGroup>
 
-      {isLoading && (
+      {isLoading && !displayMap && (
         <>
           {Array.from({ length: 10 }).map((_, index) => (
             <Stack key={index} spacing="20px" padding="16px">
