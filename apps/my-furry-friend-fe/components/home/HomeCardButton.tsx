@@ -1,7 +1,8 @@
-/* eslint-disable react/no-array-index-key */
-
 'use client';
 
+import { useRouter } from 'next/navigation';
+import { useMemo } from 'react';
+import { useAtom } from 'jotai/index';
 import Badge24Icon from '@my-furry-family/images/card/24-badge.svg';
 import Badge1ChaIcon from '@my-furry-family/images/card/1cha-badge.svg';
 import Badge2ChaIcon from '@my-furry-family/images/card/2cha-badge.svg';
@@ -17,9 +18,8 @@ import {
   LargeCardButton,
   SmallCardButton,
 } from '@my-furry-family/next-ui-component';
-import { useRouter } from 'next/navigation';
-import { useMemo } from 'react';
 import styles from './HomeCardButton.module.scss';
+import { selectedFilters } from '../../store/search';
 
 interface HomeCardButtonProps {
   tab: '지역별' | '진료별' | '규모별';
@@ -65,21 +65,25 @@ const tab2CardMetaData = [
 
 const tab3CardMetaData = [
   {
+    key: 'SMALL',
     badgeText: '동네병원',
     buttonContent: '1차 동물병원',
     iconPath: Badge1ChaIcon,
   },
   {
+    key: 'MEDIUM',
     badgeText: '동네병원보다 큰 병원',
     buttonContent: '2차 동물병원',
     iconPath: Badge2ChaIcon,
   },
   {
+    key: 'LARGE',
     badgeText: '대학병원',
     buttonContent: '3차 동물병원',
     iconPath: Badge3ChaIcon,
   },
   {
+    key: 'ALWAYS',
     badgeText: '언제든 열려있는',
     buttonContent: '24시간 병원',
     iconPath: Badge24Icon,
@@ -90,6 +94,8 @@ export function HomeCardButton({
   tab = '지역별',
 }: HomeCardButtonProps): React.ReactNode {
   const router = useRouter();
+  const [, setSelectedFilter] = useAtom(selectedFilters);
+
   const homeCardButtons = useMemo((): React.ReactNode => {
     if (tab === '지역별') {
       return (
@@ -140,7 +146,9 @@ export function HomeCardButton({
                 badgeColor={badgeColors[index % badgeColors.length]}
                 buttonContent={data.buttonContent}
                 iconPath={data.iconPath.src}
-                onClick={() => {}}
+                onClick={() => {
+                  router.push(`/search/result?scale=${data.key}`);
+                }}
               />
             );
           })}

@@ -2,7 +2,8 @@
 
 import useSWR from 'swr';
 import { useAtom } from 'jotai/index';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Map from '../../../components/map/Map';
 import { searchHospital } from '../../../service/search';
 import { searchKeyword } from '../../../store/search';
@@ -14,17 +15,21 @@ export default function Index() {
     { lat: number; lng: number } | undefined
   >(undefined);
   const { currentLocation } = useLocation();
+  const searchParams = useSearchParams();
+  const scale = searchParams.get('scale');
+  const category = searchParams.get('category');
+  const region = searchParams.get('region');
 
   const { data } = useSWR(
-    ['/animal-hospitals/search', keyword, location],
+    ['/animal-hospitals/search', keyword, location, scale, category, region],
     (key) =>
       searchHospital({
+        ...(scale ? { scales: [scale] } : {}),
+        ...(category ? { categories: [category] } : {}),
+        ...(region ? { regions: [region] } : {}),
         ...(keyword ? { name: keyword } : {}),
         ...(location
-          ? {
-              latitude: location.lat,
-              longitude: location.lng,
-            }
+          ? { latitude: location.lat, longitude: location.lng }
           : {}),
         distance: 5,
       }),

@@ -10,14 +10,17 @@ interface MapProps {
   hospitalData?: HospitalResponse[];
   setLocation?: (position: { lat: number; lng: number }) => void;
   currentLocation?: { latitude: number; longitude: number };
+  boundsLocation?: { lat: number; lng: number }[];
 }
 
-function Map({ hospitalData, setLocation, currentLocation }: MapProps) {
+function Map({
+  hospitalData,
+  setLocation,
+  currentLocation,
+  boundsLocation,
+}: MapProps) {
   const [active, setActive] = useState<HospitalResponse | undefined>(undefined);
   const toast = useToast();
-  const [boundsLocation, setBoundsLocation] = useState<
-    { lat: number; lng: number }[] | undefined
-  >(undefined);
 
   useEffect(() => {
     toast({
@@ -26,19 +29,6 @@ function Map({ hospitalData, setLocation, currentLocation }: MapProps) {
       variant: 'toast',
     });
   }, []);
-
-  useEffect(() => {
-    if (hospitalData?.length === 0) {
-      return;
-    }
-
-    setBoundsLocation(
-      hospitalData?.map((item) => ({
-        lat: item.latitude,
-        lng: item.longitude,
-      })),
-    );
-  }, [hospitalData]);
 
   return (
     <div className="relative w-full overflow-hidden flex-1">
