@@ -30,7 +30,7 @@ function SearchModal({ isOpen, onClose, selectedFilter }: SearchModalProps) {
   const [localSearchFilter, setLocalSearchFilter] = React.useState<Search>({
     regions: [],
     categories: [],
-    scales: [],
+    values: [],
   });
 
   const selectedFilterName = React.useMemo(() => {
@@ -39,7 +39,7 @@ function SearchModal({ isOpen, onClose, selectedFilter }: SearchModalProps) {
         return '지역';
       case 'categories':
         return '진료';
-      case 'scales':
+      case 'values':
         return '규모';
       default:
         return '';
@@ -54,7 +54,7 @@ function SearchModal({ isOpen, onClose, selectedFilter }: SearchModalProps) {
           return searchRegions();
         case 'categories':
           return searchCategories();
-        case 'scales':
+        case 'values':
           return searchScales();
         default:
       }

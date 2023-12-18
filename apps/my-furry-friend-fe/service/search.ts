@@ -19,7 +19,7 @@ export interface HospitalResponse {
 interface SearchHospitalParams {
   name: string | null;
   regions: string[] | null;
-  scales: string[] | null;
+  values: string[] | null;
   categories: string[] | null;
   latitudes: number | null;
   longitude: number | null;
