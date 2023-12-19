@@ -19,3 +19,5 @@ export const selectedFilters = atom<{
   key: '',
   value: '',
 });
+
+export const searchRecentFocusState = atom<boolean>(false);

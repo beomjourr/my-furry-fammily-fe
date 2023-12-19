@@ -1,20 +1,35 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import { Button, ButtonGroup, Skeleton, Stack } from '@chakra-ui/react';
+import {
+  Button,
+  ButtonGroup,
+  CloseButton,
+  Skeleton,
+  Stack,
+  Tag,
+  TagCloseButton,
+  TagLabel,
+} from '@chakra-ui/react';
 import Image from 'next/image';
 import { useAtom } from 'jotai/index';
 import useSWR from 'swr';
+import { atomWithStorage } from 'jotai/utils';
 import MapIcon from '@my-furry-family/images/map.svg';
 import ListIcon from '@my-furry-family/images/list.svg';
 import styles from './page.module.scss';
 import SearchModal from '../../components/search/SearchModal';
-import Map from '../../components/map/Map';
-import SearchList from '../../components/search/SearchList';
-import { search, searchKeyword, selectedFilters } from '../../store/search';
+import {
+  search,
+  searchKeyword,
+  searchRecentFocusState,
+  selectedFilters,
+} from '../../store/search';
 import SearchFilterButton from '../../components/search/SearchFilterButton';
 import { searchHospital } from '../../service/search';
 import useLocation from '../../hooks/useLocation';
+import SearchList from '../../components/search/SearchList';
+import Map from '../../components/map/Map';
 
 const filters = [
   {
@@ -31,7 +46,13 @@ const filters = [
   },
 ];
 
+const searchRecentStorage = atomWithStorage<string[]>('search-recent', []);
+
 function Page() {
+  const [searchRecent, setSearchRecent] = useAtom(searchRecentStorage);
+  const [searchRecentFocus, setSearchRecentFocus] = useAtom(
+    searchRecentFocusState,
+  );
   const [isOpen, setIsOpen] = React.useState(false);
   const [displayMap, setDisplayMap] = React.useState(false);
   const [boundsLocation, setBoundsLocation] = React.useState<
@@ -39,7 +60,7 @@ function Page() {
   >(undefined);
   const [searchFilter] = useAtom(search);
   const [selectedFilter, setSelectedFilter] = useAtom(selectedFilters);
-  const [keyword] = useAtom(searchKeyword);
+  const [keyword, setKeyword] = useAtom(searchKeyword);
   const { currentLocation } = useLocation();
   const isSearchFilterValue = Object.values(searchFilter).some(
     (item) => item.length > 0,
@@ -59,6 +80,17 @@ function Page() {
           : {}),
       }),
     {
+      onSuccess: () => {
+        setSearchRecent((prev) => {
+          if (keyword) {
+            if (prev.includes(keyword)) {
+              return prev;
+            }
+            return [keyword, ...prev];
+          }
+          return prev;
+        });
+      },
       errorRetryCount: 3,
     },
   );
@@ -130,7 +162,34 @@ function Page() {
         </>
       )}
 
-      {displayMap ? (
+      {searchRecentFocus ? (
+        <div className={styles.search_recent}>
+          <div className={styles.search_recent_title}>
+            <h2>최근 검색어</h2>
+            <CloseButton onClick={() => setSearchRecentFocus(false)} />
+          </div>
+          <div className={styles.search_recent_list}>
+            {searchRecent?.map((item, index) => (
+              <Tag
+                key={`${item}-${index}`}
+                role="button"
+                className={styles.search_recent_item}
+                onClick={() => {
+                  setKeyword(item);
+                }}
+              >
+                <TagLabel>{item}</TagLabel>
+                <TagCloseButton
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSearchRecent((prev) => prev.filter((i) => i !== item));
+                  }}
+                />
+              </Tag>
+            ))}
+          </div>
+        </div>
+      ) : displayMap ? (
         <Map
           hospitalData={data?.data.data.cooperationAnimalHospitals.concat(
             data?.data.data.nonCooperationAnimalHospitals,

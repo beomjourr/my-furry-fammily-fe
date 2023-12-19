@@ -90,35 +90,75 @@
   padding: 16px 20px 0;
 }
 
-.search_filter {
+.search {
+  &_filter{
+    &_button {
+      max-height: 32px;
+      border-radius: 16px;
+      font-size: 12px;
+      padding: 9px 12px;
+      font-weight: 400;
+      position: relative;
 
-  &_button {
-    max-height: 32px;
-    border-radius: 16px;
-    font-size: 12px;
-    padding: 9px 12px;
-    font-weight: 400;
-    position: relative;
+      :focus {
+        background: #e6e9f9;
+        border: 1px solid #6282DB;
+        color: #e6e9f9;
+      }
+    }
 
-    :focus {
-      background: #e6e9f9;
-      border: 1px solid #6282DB;
-      color: #e6e9f9;
+    &_badge {
+      position:absolute;
+      width: 18px;
+      height: 18px;
+      border-radius: 9px;
+      top: -5px;
+      right: -5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFFFFF;
+      font-size:10px;
+      background: #6282db;
     }
   }
 
-  &_badge {
-    position:absolute;
-    width: 18px;
-    height: 18px;
-    border-radius: 9px;
-    top: -5px;
-    right: -5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #FFFFFF;
-    font-size:10px;
-    background: #6282db;
+  &_recent {
+    background: $background-color;
+    top: 0;
+
+    padding: 0 16px;
+    margin-top: 2px;
+
+    &_title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      font-size: 14px;
+      font-weight: 500;
+      color: $gray-900;
+      padding: 16px 0;
+    }
+
+    &_list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    &_item {
+      background: #FFFFFF;
+
+      border: 1px solid #E3E3E8;
+      border-radius: 16px;
+
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 400;
+      color: $gray-900;
+    }
+
   }
 }
+
