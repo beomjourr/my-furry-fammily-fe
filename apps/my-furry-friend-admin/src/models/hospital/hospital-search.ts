@@ -1,5 +1,5 @@
-import { axiosInstance } from '../../lib/axios.ts';
 import { AxiosResponse } from 'axios';
+import { axiosInstance } from '../../lib/axios.ts';
 
 export interface HospitalRequestParams {
   name: string;

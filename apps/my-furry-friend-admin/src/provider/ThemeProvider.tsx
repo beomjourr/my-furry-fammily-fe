@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 // Open Source: https://github.com/pacocoursey/next-themes
 
@@ -17,6 +18,7 @@ const colorSchemes = ['light', 'dark'];
 const MEDIA = '(prefers-color-scheme: dark)';
 const isServer = typeof window === 'undefined';
 const ThemeContext = createContext<UseThemeProps | undefined>(undefined);
+// eslint-disable-next-line @typescript-eslint/no-empty-function
 const defaultContext: UseThemeProps = { setTheme: (_) => {}, themes: [] };
 
 export const useTheme = () => useContext(ThemeContext) ?? defaultContext;
@@ -229,7 +231,7 @@ const ThemeScript = memo(
 
     const updateDOM = (
       name: string,
-      literal: boolean = false,
+      literal = false,
       setColorScheme = true,
     ) => {
       const resolvedName = value ? value[name] : name;
@@ -299,7 +301,9 @@ const getTheme = (key: string, fallback?: string) => {
   let theme;
   try {
     theme = localStorage.getItem(key) || undefined;
-  } catch (e) {}
+  } catch (e) {
+    console.error(e);
+  }
   return theme || fallback;
 };
 

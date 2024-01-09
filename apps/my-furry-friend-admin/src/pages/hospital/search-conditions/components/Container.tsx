@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { Segmented } from 'antd';
 import { QueryKey } from '../../../../constants/query-key.ts';
 import { getHospitalSearchConditions } from '../../../../models/hospital/hospital-search.ts';
 import BasicTable from '../../../../components/common/table/DefaultTable.tsx';
-import { Segmented } from 'antd';
 
 const Container = () => {
   const [selected, setSelected] = useState<string | number>('categories');

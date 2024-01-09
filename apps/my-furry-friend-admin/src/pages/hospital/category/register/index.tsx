@@ -1,11 +1,11 @@
 import { Form, message } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
-import SubmitButton from '../../../../components/common/button/SubmitButton.tsx';
-import Default from './components/default.tsx';
 import { useMutation } from '@tanstack/react-query';
+import SubmitButton from '../../../../components/common/button/SubmitButton.tsx';
 import { patchHospitalCategory } from '../../../../models/hospital/hospital-search.ts';
 import { QueryKey } from '../../../../constants/query-key.ts';
 import { queryClient } from '../../../../main.tsx';
+import Default from './components/default.tsx';
 
 interface FormValues {
   id: number;

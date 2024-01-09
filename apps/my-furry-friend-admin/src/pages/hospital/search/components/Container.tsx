@@ -2,9 +2,9 @@
 //   <Suspense fallback={<div>loading...</div>}>
 import { useSearchParams } from 'react-router-dom';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { TableProps } from 'antd';
 import { QueryKey } from '../../../../constants/query-key.ts';
 import { getHospitalSearch } from '../../../../models/hospital/hospital-search.ts';
-import { TableProps } from 'antd';
 import BasicTable from '../../../../components/common/table/DefaultTable.tsx';
 import useBreakPoint from '../../../../hooks/useBreakPoint.ts';
 

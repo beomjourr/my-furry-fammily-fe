@@ -1,11 +1,11 @@
 import { Layout } from 'antd';
+import { Outlet } from 'react-router-dom';
+import { Suspense, useState } from 'react';
 import BreadcrumbPageHeader from '../common/breadcrumb/BreadcrumbPageHeader.tsx';
 import SideMenu from '../common/side-menu/SideMenu.tsx';
-import { Outlet } from 'react-router-dom';
-import Header from './Header.tsx';
 import ListSkeleton from '../common/spinner/Spinner.tsx';
-import { Suspense, useState } from 'react';
 import ErrorBoundary from '../error-boundary/ErrorBoundary.tsx';
+import Header from './Header.tsx';
 
 const { Content } = Layout;
 

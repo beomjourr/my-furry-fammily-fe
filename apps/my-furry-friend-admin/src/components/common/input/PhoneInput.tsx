@@ -1,6 +1,6 @@
 import { Form, FormInstance, Input } from 'antd';
-import rules from '../../../lib/rules.ts';
 import { useEffect } from 'react';
+import rules from '../../../lib/rules.ts';
 
 interface PhoneInputProps {
   form: FormInstance;

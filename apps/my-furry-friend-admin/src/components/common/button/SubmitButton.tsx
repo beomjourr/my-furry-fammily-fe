@@ -21,9 +21,6 @@ const SubmitButton = ({ isLoading }: SubmitButtonProps) => {
         >
           등록
         </Button>
-        <Button type="default" size="large" onClick={() => {}}>
-          취소
-        </Button>
       </Space>
     </Row>
   );
