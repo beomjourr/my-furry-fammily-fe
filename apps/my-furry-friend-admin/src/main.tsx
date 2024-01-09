@@ -1,16 +1,36 @@
-import { StrictMode } from 'react';
-import * as ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { ThemeProvider as StyledComponentsThemeProvider } from 'styled-components';
+import { ThemeProvider } from './provider/ThemeProvider.tsx';
+import { GlobalStyles } from './styles/global.ts';
+import DefaultRoutes from './routes/routes.tsx';
+import AntdConfigProvider from './provider/AntdConfigProvider';
+import { theme } from './styles/theme.ts';
 
-import App from './app/app';
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      staleTime: 1000 * 60 * 5,
+      gcTime: 1000 * 60 * 60 * 24,
+    },
+  },
+});
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement,
-);
-root.render(
-  <StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </StrictMode>,
-);
+const Main = () => {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
+      <StyledComponentsThemeProvider theme={theme}>
+        <ThemeProvider attribute="class">
+          <AntdConfigProvider>
+            <GlobalStyles />
+            <DefaultRoutes />
+          </AntdConfigProvider>
+        </ThemeProvider>
+      </StyledComponentsThemeProvider>
+    </QueryClientProvider>
+  );
+};
+
+export default Main;
