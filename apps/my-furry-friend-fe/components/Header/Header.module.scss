@@ -1,11 +1,11 @@
 @import '../../../../libs/design-system/base.scss';
 
 .container {
-    @include header;
+  @include header;
 
-    align-items: center;
+  align-items: center;
 
-    .left {
-        margin-left: 8px;
-    }
+  .left {
+    margin-left: 8px;
+  }
 }

@@ -1,6 +1,5 @@
 import { Accordion, AccordionPanel } from '@chakra-ui/react';
 import AccordionWrapper from '../AccodionItemWrapper';
-import styles from './panels.module.scss';
 import Line from '../Divider';
 
 interface PriceItemProp {

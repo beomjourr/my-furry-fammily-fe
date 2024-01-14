@@ -5,7 +5,6 @@ import {
   AccordionItem,
   AccordionPanel,
   Box,
-  Divider,
   Flex,
   ListItem,
   UnorderedList,
@@ -24,7 +23,7 @@ import blog from '@my-furry-family/images/blog.svg';
 import arrow from '@my-furry-family/images/arrow_right.svg';
 import Image from 'next/image';
 import AccordionWrapper from '../AccodionItemWrapper';
-import styles from './panels.module.scss';
+
 import Line from '../Divider';
 
 const TAGS = ['내새꾸 추천병원', 'MRI 보유', 'CT 촬영가능'];
