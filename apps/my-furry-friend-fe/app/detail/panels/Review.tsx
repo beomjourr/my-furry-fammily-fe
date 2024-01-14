@@ -1,6 +1,6 @@
 import { Box, Flex } from '@chakra-ui/react';
 import Image from 'next/image';
-import star from '@my-furry-family/images/star.svg';
+import star from '@my-furry-family/images/star_review.svg';
 import './review.module.scss';
 
 function ReviewItem() {
@@ -73,7 +73,7 @@ function Review() {
         <div>
           <Flex
             style={{
-              gap: '4px',
+              gap: '32px',
               marginTop: '50px',
 
               alignItems: 'center',
@@ -88,8 +88,16 @@ function Review() {
             >
               네이버 후기{' '}
             </div>
-            <Image src={star} alt="star" />
-            <div>4.5</div>
+            <div
+              style={{
+                display: 'flex',
+                gap: '7px',
+                justifyContent: 'center',
+              }}
+            >
+              <Image src={star} alt="star" width={18} height={18} />
+              <div style={{ fontSize: '14px', fontWeight: 400 }}>4.0</div>
+            </div>
           </Flex>
           <div
             style={{
