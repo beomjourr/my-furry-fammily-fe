@@ -4,12 +4,14 @@ import { ConfirmModal } from '@my-furry-family/next-ui-component';
 interface RequestLocationModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onClickCancel: () => void;
   onClickConfirm: () => void;
 }
 
 function RequestLocationModal({
   isOpen,
   onClose,
+  onClickCancel,
   onClickConfirm,
 }: RequestLocationModalProps) {
   return (
@@ -24,10 +26,12 @@ function RequestLocationModal({
         </>
       }
       onClose={onClose}
+      isCloseOnOverlayClick
       isCenterPosition={false}
-      confirmMessage="동의하기"
-      cancelMessage="다음에 할게요"
+      confirmMessage="직접 주소 입력하기"
+      cancelMessage="취소"
       onClickConfirm={onClickConfirm}
+      onClickCancel={onClickCancel}
     />
   );
 }

@@ -61,7 +61,7 @@ function Page() {
   const [searchFilter] = useAtom(search);
   const [selectedFilter, setSelectedFilter] = useAtom(selectedFilters);
   const [keyword, setKeyword] = useAtom(searchKeyword);
-  const { currentLocation } = useLocation();
+  const { location, searchLocation } = useLocation();
   const isSearchFilterValue = Object.values(searchFilter).some(
     (item) => item.length > 0,
   );
@@ -194,8 +194,9 @@ function Page() {
           hospitalData={data?.data.data.cooperationAnimalHospitals.concat(
             data?.data.data.nonCooperationAnimalHospitals,
           )}
-          currentLocation={currentLocation}
+          location={location}
           boundsLocation={boundsLocation}
+          searchLocation={searchLocation}
         />
       ) : (
         <SearchList
