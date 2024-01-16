@@ -1,16 +1,15 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useAtom } from 'jotai/index';
 import { checkDevice } from '../utils/checkDevice';
-
-interface Location {
-  latitude: number;
-  longitude: number;
-}
+import {
+  Location,
+  locationState,
+  searchLocationState,
+} from '../store/location';
 
 const useLocation = () => {
-  const [location, setLocation] = useState<Location | undefined>(undefined);
-  const [currentLocation, setCurrentLocation] = useState<Location | undefined>(
-    undefined,
-  );
+  const [location, setLocation] = useAtom(locationState);
+  const [searchLocation, setSearchLocation] = useAtom(searchLocationState);
   const [permission, setPermission] = useState<Location | undefined>(undefined);
 
   const requestLocation = () => {
@@ -21,20 +20,21 @@ const useLocation = () => {
     window?.ReactNativeWebView?.postMessage('REQUEST_CURRENT_LOCATION');
   };
 
-  useEffect(() => {
-    requestCurrentLocation();
-  }, []);
+  // useEffect(() => {
+  //   requestLocation();
+  // }, []);
 
   const listenMessage = useCallback(
     (e: MessageEvent | (Event & { data?: string })) => {
       const { data, type } = JSON.parse(e.data);
+
       switch (type) {
         case 'RESPONSE_LOCATION':
           setLocation(data);
           break;
-        case 'RESPONSE_CURRENT_LOCATION':
-          setCurrentLocation(data);
-          break;
+        // case 'RESPONSE_CURRENT_LOCATION':
+        //   setCurrentLocation(data);
+        //   break;
         case 'RESPONSE_PERMISSION':
           setPermission(data);
           break;
@@ -42,7 +42,7 @@ const useLocation = () => {
           break;
       }
     },
-    [setCurrentLocation, setLocation, setPermission],
+    [setLocation],
   );
 
   useEffect(() => {
@@ -58,7 +58,8 @@ const useLocation = () => {
   return {
     permission,
     location,
-    currentLocation,
+    searchLocation,
+    setSearchLocation,
     requestLocation,
     requestCurrentLocation,
   };

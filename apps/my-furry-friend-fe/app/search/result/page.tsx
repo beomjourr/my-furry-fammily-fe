@@ -2,7 +2,7 @@
 
 import useSWR from 'swr';
 import { useAtom } from 'jotai/index';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Map from '../../../components/map/Map';
 import { searchHospital } from '../../../service/search';
@@ -14,11 +14,31 @@ export default function Index() {
   const [location, setLocation] = useState<
     { lat: number; lng: number } | undefined
   >(undefined);
-  const { currentLocation } = useLocation();
+  const { location: userLocation, searchLocation } = useLocation();
   const searchParams = useSearchParams();
   const scale = searchParams.get('scale');
   const category = searchParams.get('category');
   const region = searchParams.get('region');
+
+  useEffect(() => {
+    if (userLocation && !searchLocation) {
+      setLocation({
+        lat: userLocation.latitude,
+        lng: userLocation.longitude,
+      });
+    }
+
+    if (searchLocation && !userLocation) {
+      setLocation({
+        lat: searchLocation.latitude,
+        lng: searchLocation.longitude,
+      });
+    }
+
+    if (!userLocation && !searchLocation) {
+      setLocation(undefined);
+    }
+  }, [searchLocation, userLocation]);
 
   const { data } = useSWR(
     ['/animal-hospitals/search', keyword, location, scale, category, region],
@@ -44,7 +64,8 @@ export default function Index() {
         data?.data.data.nonCooperationAnimalHospitals,
       )}
       setLocation={setLocation}
-      currentLocation={currentLocation}
+      location={userLocation}
+      searchLocation={searchLocation}
     />
   );
 }

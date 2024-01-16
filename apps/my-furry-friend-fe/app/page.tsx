@@ -13,23 +13,29 @@ import { HomeTab } from '../components/home/HomeTab';
 export default function Home() {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const { permission, location, requestLocation } = useLocation();
+  const { location, requestLocation, setSearchLocation } = useLocation();
 
   const handleModalClose = () => {
     setIsOpen(false);
   };
 
   const handleModalOpen = () => {
-    if (permission) {
-      requestLocation();
-      return;
-    }
+    // if (permission) {
+    //   requestLocation();
+    //   return;
+    // }
     setIsOpen(true);
   };
 
   const handleModalConfirm = () => {
-    requestLocation();
+    // setSearchLocation(undefined);
+    // requestLocation();
     handleModalClose();
+  };
+
+  const handleAddress = () => {
+    handleModalClose();
+    router.push(`/address`);
   };
 
   const handleSearch = () => {
@@ -58,7 +64,8 @@ export default function Home() {
       <RequestLocationModal
         isOpen={isOpen}
         onClose={handleModalClose}
-        onClickConfirm={handleModalConfirm}
+        onClickConfirm={handleAddress}
+        onClickCancel={handleModalConfirm}
       />
     </div>
   );
