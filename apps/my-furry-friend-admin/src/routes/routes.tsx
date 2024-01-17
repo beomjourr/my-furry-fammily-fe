@@ -5,6 +5,7 @@ import Home from '../pages/home';
 import { hospitalRoutes } from './hospital.routes.tsx';
 import { errorRoute } from './error.routes.tsx';
 import { userRoutes } from './user.routes.tsx';
+import { authRoute } from './auth.routes.tsx';
 
 export const defaultMenuItems = [
   {
@@ -75,6 +76,7 @@ const routes = [
     children: contentRoutes,
   },
   ...errorRoute,
+  ...authRoute,
 ];
 
 const Routes = () => {
