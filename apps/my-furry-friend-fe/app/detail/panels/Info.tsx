@@ -8,6 +8,7 @@ import {
   Flex,
   ListItem,
   UnorderedList,
+  useToast,
 } from '@chakra-ui/react';
 import star from '@my-furry-family/images/star.svg';
 import starGray from '@my-furry-family/images/star_gray.svg';
@@ -23,9 +24,15 @@ import facebook from '@my-furry-family/images/facebook.svg';
 import blog from '@my-furry-family/images/blog.svg';
 import arrow from '@my-furry-family/images/arrow_right.svg';
 import Image from 'next/image';
+import { KakaoMap } from '@my-furry-family/next-ui-component';
+import { useRouter } from 'next/navigation';
+import { useRef } from 'react';
+import { Marker } from '../../../components/Marker/Marker';
 import AccordionWrapper from '../AccodionItemWrapper';
 
 import Line from '../Divider';
+
+const APP_KEY = process.env.NEXT_PUBLIC_KAKAO_APP_KEY || '';
 
 const TAGS = ['내새꾸 추천병원', 'MRI 보유', 'CT 촬영가능'];
 const SUBJECTS = ['안과'];
@@ -68,7 +75,10 @@ const INFO = {
   homepage: '',
 };
 
-function Info() {
+function Info({ data }: any) {
+  const addresstextRef = useRef<HTMLDivElement>(null);
+  const toast = useToast();
+
   return (
     <>
       <div
@@ -82,14 +92,14 @@ function Info() {
         이미지
       </div>
       <div>
-        {TAGS.map((tag, i) => (
-          <span key={tag} style={i === 0 ? activeTagStyle : tagStyle}>
-            {tag}
-          </span>
-        ))}
+        {data?.is_cooperation && (
+          <span style={activeTagStyle}>내새꾸 추천병원</span>
+        )}
+        {data?.has_mri && <span style={tagStyle}>MRI 보유</span>}
+        {data?.has_ct && <span style={tagStyle}>CT 촬영가능</span>}
       </div>
       <Box m="10px 0">
-        <div style={{ fontWeight: 600, fontSize: '18px' }}>리안 동물 병원</div>
+        <div style={{ fontWeight: 600, fontSize: '18px' }}>{data?.name}</div>
         <Flex
           style={{
             gap: '4px',
@@ -169,7 +179,9 @@ function Info() {
                   fontWeight="500"
                 >
                   <Image src={clock} alt="clock" />
-                  <span style={{ color: '#6282DB', fontSize: 14 }}>진료중</span>
+                  <span style={{ color: '#6282DB', fontSize: 14 }}>
+                    {data?.now_operation_status}
+                  </span>
                   <span style={{ fontWeight: 500 }}>화 10:30 - 19:00</span>
                 </Flex>
                 <AccordionIcon />
@@ -244,11 +256,18 @@ function Info() {
                 padding: '41px 0',
               }}
             >
-              전문과목 정보가 없습니다.
+              {data?.categories?.length > 0
+                ? data?.categories.map((item: string, index: number) => {
+                    return (
+                      <span key={index} style={tagStyle}>
+                        {item}
+                      </span>
+                    );
+                  })
+                : '전문과목 정보가 없습니다'}
             </Flex>
           )}
         </AccordionWrapper>
-
         <Line />
         <AccordionWrapper
           title="병원소개"
@@ -261,16 +280,7 @@ function Info() {
             fontWeight: 300,
           }}
         >
-          <div style={{ padding: '16px 22px' }}>
-            저희 리안동물병원은 고객님들을 위해 강아지와 고양이 대기실을 완전
-            분리하였습니다.또한 지하와 1층에 전용 주차장이 있어 주차가
-            편리합니다.저희 리안동물병원은 아픈애기들 치료 뿐만 아니라 보호자님
-            마음까지 위로해드리는 가슴 따뜻한 병원이 되고자 합니다. 애기들이
-            아플때나 아프지 않을 때에도 언제나 부담없이 오셔서 따듯한 차 한잔과
-            반려동물에 대한 정보를 나눌 수 있는 편한 공간이 되도록 하겠습니다.
-            작은 생명도 소중하게 생각하는 마음과 정직한 진료, 차별화된 서비스로
-            보답하겠습니다.
-          </div>
+          <div style={{ padding: '16px 22px' }}>{data?.info_description}</div>
         </AccordionWrapper>
 
         <Line />
@@ -282,19 +292,52 @@ function Info() {
               borderRadius: '10px',
             }}
           >
-            이미지
+            <KakaoMap
+              appKey={APP_KEY}
+              center={{
+                lng: data?.location?.longitude,
+                lat: data?.location?.latitude,
+              }}
+              // setPosition={setLocation}
+            >
+              <Marker
+                isActive
+                isCooperation={false}
+                position={{
+                  lng: data?.location?.longitude,
+                  lat: data?.location?.latitude,
+                }}
+                onClick={() => {}}
+              />
+            </KakaoMap>
           </Box>
           <Flex gap="10px" padding="16px 0">
             <Flex
               gap="10px"
               style={{ flex: 1, display: 'flex', alignItems: 'center' }}
             >
-              <Image src={map} alt="map" /> 서울시 강남구 테헤란로 212-3 4층
-              (역삼동,리안빌딩)
+              <Image src={map} alt="map" />
+              <div ref={addresstextRef}>{data?.location?.street_address}</div>
             </Flex>
             <button
               type="button"
-              onClick={() => {}}
+              onClick={() => {
+                if (addresstextRef.current) {
+                  const text = addresstextRef.current.textContent; // Get the text content from the element
+                  navigator.clipboard
+                    .writeText(text || '')
+                    .then(() => {
+                      toast({
+                        title: '클립보드에 복사되었습니다.',
+                        duration: 3000,
+                        variant: 'toast',
+                      });
+                    })
+                    .catch((err) => {
+                      console.error('Failed to copy text: ', err);
+                    });
+                }
+              }}
               style={{
                 color: '#6282DB',
                 fontSize: '12px',
