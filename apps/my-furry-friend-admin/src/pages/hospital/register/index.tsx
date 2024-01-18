@@ -30,15 +30,7 @@ const HospitalRegister = ({ type }: HospitalProps) => {
   const [form] = useForm<FormValues>();
   const navigate = useNavigate();
 
-  const { data: hospitalData } = useQuery({
-    queryKey: [QueryKey.hospitalSearch, id],
-    queryFn: () => getHospital(id!),
-    enabled: type === 'edit' && !!id,
-  });
-
-  const { mutate: postHospitalMutate, isPending: isPostPending } = useMutation({
-    mutationFn: (data: Omit<Partial<HospitalRequestData>, 'id'>) =>
-      postHospital(data),
+  const options = {
     onSuccess: () => {
       message.success('성공적으로 처리되었습니다.');
       queryClient.invalidateQueries({
@@ -49,25 +41,25 @@ const HospitalRegister = ({ type }: HospitalProps) => {
     onError: () => {
       message.error('오류가 발생했습니다.');
     },
+  };
+
+  const { data: hospitalData } = useQuery({
+    queryKey: [QueryKey.hospitalSearch, id],
+    queryFn: () => getHospital(id!),
+    enabled: type === 'edit' && !!id,
+  });
+
+  const { mutate: postHospitalMutate, isPending: isPostPending } = useMutation({
+    mutationFn: (data: Omit<Partial<HospitalRequestData>, 'id'>) =>
+      postHospital(data),
+    ...options,
   });
 
   const { mutate: patchHospitalMutate, isPending: isPatchPending } =
     useMutation({
       mutationFn: (data: Partial<HospitalRequestData>) =>
         patchHospital(id!, data),
-      onSuccess: () => {
-        message.success('성공적으로 처리되었습니다.');
-        queryClient.invalidateQueries({
-          queryKey: [QueryKey.hospitalSearch],
-        });
-        queryClient.invalidateQueries({
-          queryKey: [QueryKey.hospitalSearch, id],
-        });
-        navigate('/hospital/search');
-      },
-      onError: () => {
-        message.error('오류가 발생했습니다.');
-      },
+      ...options,
     });
 
   const initFormValues = useCallback(() => {

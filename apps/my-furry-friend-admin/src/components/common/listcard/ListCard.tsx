@@ -41,7 +41,7 @@ const ListCard = (props: React.PropsWithChildren<ListCardProps>) => {
       span={24}
     >
       <Card bodyStyle={{ padding: 0 }}>
-        <CardHeader onClick={handleHeadClick} cardtitle={title}>
+        <CardHeader onClick={handleHeadClick} title={title}>
           {title && (
             <CardTitle>
               {required && <CardTitleRequired>*</CardTitleRequired>}
@@ -70,12 +70,12 @@ const ListCard = (props: React.PropsWithChildren<ListCardProps>) => {
 
 export default ListCard;
 
-const CardHeader = styled.div<{ cardtitle?: string }>`
+const CardHeader = styled.div<{ title?: string }>`
   cursor: pointer;
   align-items: center;
   padding: 20px 32px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-  display: ${({ cardtitle }) => (cardtitle ? 'flex' : 'none')};
+  display: ${({ title }) => (title ? 'flex' : 'none')};
 `;
 
 const CardTitle = styled.div`
