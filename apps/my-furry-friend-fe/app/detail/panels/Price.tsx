@@ -1,4 +1,5 @@
-import { Accordion, AccordionPanel, Box } from '@chakra-ui/react';
+import { Accordion, Box } from '@chakra-ui/react';
+import _, { groupBy } from 'lodash';
 import AccordionWrapper from '../AccodionItemWrapper';
 import Line from '../Divider';
 
@@ -29,7 +30,8 @@ function PriceItem({ title, price }: PriceItemProp) {
   );
 }
 
-function Price() {
+function Price({ data }: any) {
+  const hospitalFeesGroupBy = groupBy(data?.clinic_fees, 'clinic_type_name');
   return (
     <>
       <Accordion
@@ -38,136 +40,38 @@ function Price() {
           margin: '-16px 0 0',
         }}
       >
-        <AccordionWrapper
-          title="병원소개"
-          single
-          panelStyle={{
-            background: '#F9F9F9',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '16px',
-          }}
-        >
-          <PriceItem title="초진 진찰료" price="6600원" />
-          <PriceItem title="재진 진찰료" price="7900원" />
-          <PriceItem title="상담료 진찰료" price="7900원 ~ 13000원" />
-        </AccordionWrapper>
-        <Line />
-        <AccordionWrapper
-          title="예방접종비"
-          essential
-          panelStyle={{
-            background: '#F9F9F9',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '16px',
-          }}
-        >
-          1
-        </AccordionWrapper>
-        <Line />
-        <AccordionWrapper
-          title="검사비"
-          panelStyle={{
-            background: '#F9F9F9',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '16px',
-          }}
-        >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat.
-        </AccordionWrapper>
-        <Line />
-        <AccordionWrapper
-          title=" 중성화 수술 (여자)"
-          panelStyle={{
-            background: '#F9F9F9',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '16px',
-          }}
-        >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat.
-        </AccordionWrapper>
-        <Line />
-        <AccordionWrapper
-          title="중성화 수술 (남자)"
-          panelStyle={{
-            background: '#F9F9F9',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '16px',
-          }}
-        >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat.
-        </AccordionWrapper>
-        <Line />
-        <AccordionWrapper
-          title="스케일링"
-          panelStyle={{
-            background: '#F9F9F9',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '16px',
-          }}
-        >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat.
-        </AccordionWrapper>
-        <Line />
-        <AccordionWrapper
-          title="슬개골 탈구 (한쪽)"
-          panelStyle={{
-            background: '#F9F9F9',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '16px',
-          }}
-        >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat.
-        </AccordionWrapper>
-        <Line />
-        <AccordionWrapper
-          title="슬개골 탈구 (양쪽)"
-          panelStyle={{
-            background: '#F9F9F9',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '16px',
-          }}
-        >
-          1
-        </AccordionWrapper>
-        <Line />
-        <AccordionWrapper
-          title="건강검진"
-          panelStyle={{
-            background: '#F9F9F9',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '16px',
-          }}
-        >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat.
-        </AccordionWrapper>
-        <Line />
+        {Object.values(hospitalFeesGroupBy)?.map(
+          (hospitalFee: any, index: number) => {
+            const feesWrapperName = hospitalFee?.[0]?.clinic_type_name;
+            return (
+              <>
+                <AccordionWrapper
+                  title={feesWrapperName}
+                  key={index}
+                  essential={!hospitalFee?.is_required}
+                  single={hospitalFee?.is_required}
+                  panelStyle={{
+                    background: '#F9F9F9',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '16px',
+                  }}
+                >
+                  {hospitalFee?.map((item: any, index2: number) => {
+                    return (
+                      <PriceItem
+                        title={item.name}
+                        price={item.cost}
+                        key={index2}
+                      />
+                    );
+                  })}
+                </AccordionWrapper>
+                <Line />
+              </>
+            );
+          },
+        )}
       </Accordion>
       <Box
         bg="#F5F5F7"

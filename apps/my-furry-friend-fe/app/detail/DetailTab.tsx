@@ -11,7 +11,6 @@ import {
   Text,
 } from '@chakra-ui/react';
 import useSWR from 'swr';
-import { useEffect } from 'react';
 import { searchHospitalDeatilInfo } from '../../service/hospitalDetail';
 import Info from './panels/Info';
 import Review from './panels/Review';
@@ -29,9 +28,6 @@ export function DetailTab() {
     },
   );
 
-  // useEffect(() => {
-  //   console.log(data?.data?.data);
-  // }, [data]);
   return (
     <>
       <Header
@@ -69,7 +65,7 @@ export function DetailTab() {
             <Info {...hospitalData?.data} />
           </TabPanel>
           <TabPanel>
-            <Price />
+            <Price {...hospitalData?.data} />
           </TabPanel>
           <TabPanel>
             <Review />
