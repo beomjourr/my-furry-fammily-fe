@@ -24,15 +24,27 @@ const SideMenuItem = ({ onCloseDrawer, ...rest }: SideMenuItemProps) => {
     return getMenuItems();
   }, []);
 
+  const filteredItems = useMemo(() => {
+    return items.map((item) => {
+      if (item.children) {
+        const children = item.children.filter(
+          (child: { hidden: boolean }) => !child.hidden,
+        );
+        return { ...item, children };
+      }
+      return item;
+    });
+  }, [items]);
+
   return (
     <Menu
-      {...rest}
       mode="inline"
       style={{ borderRight: 0 }}
-      items={items}
+      items={filteredItems}
       selectedKeys={[location.pathname]}
       defaultOpenKeys={[location.pathname.split('/', 2).join('/')]}
       onClick={onCloseDrawer}
+      {...rest}
     />
   );
 };

@@ -20,7 +20,7 @@ export const queryClient = new QueryClient({
 const Main = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} />
+      <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
       <StyledComponentsThemeProvider theme={theme}>
         <ThemeProvider attribute="class">
           <AntdConfigProvider>

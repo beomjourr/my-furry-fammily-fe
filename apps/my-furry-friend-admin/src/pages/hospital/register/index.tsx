@@ -1,24 +1,42 @@
 import { Form, message } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useCallback, useEffect } from 'react';
 import {
+  getHospital,
   HospitalRequestData,
+  patchHospital,
   postHospital,
 } from '../../../models/hospital/hospital-search.ts';
 import SubmitButton from '../../../components/common/button/SubmitButton.tsx';
-import { queryClient } from '../../../main.tsx';
 import { QueryKey } from '../../../constants/query-key.ts';
-import Categories from './components/categories.tsx';
-import Default from './components/default.tsx';
+import { queryClient } from '../../../main.tsx';
+import Categories from './components/Categories.tsx';
+import Default from './components/Default.tsx';
+import Social from './components/Social.tsx';
 
 interface FormValues extends Omit<Partial<HospitalRequestData>, 'id'> {
-  address: string;
-  detail_address: string;
+  address?: string;
+  detail_address?: string;
 }
 
-const HospitalRegister = () => {
+interface HospitalProps {
+  type: 'create' | 'edit';
+}
+
+const HospitalRegister = ({ type }: HospitalProps) => {
+  const { id } = useParams();
   const [form] = useForm<FormValues>();
-  const { mutate, isPending } = useMutation({
+  const navigate = useNavigate();
+
+  const { data: hospitalData } = useQuery({
+    queryKey: [QueryKey.hospitalSearch, id],
+    queryFn: () => getHospital(id!),
+    enabled: type === 'edit' && !!id,
+  });
+
+  const { mutate: postHospitalMutate, isPending: isPostPending } = useMutation({
     mutationFn: (data: Omit<Partial<HospitalRequestData>, 'id'>) =>
       postHospital(data),
     onSuccess: () => {
@@ -26,36 +44,96 @@ const HospitalRegister = () => {
       queryClient.invalidateQueries({
         queryKey: [QueryKey.hospitalSearch],
       });
+      navigate('/hospital/search');
     },
     onError: () => {
       message.error('오류가 발생했습니다.');
     },
   });
 
-  const handleFinish = (values: FormValues) => {
-    form.setFieldValue(
-      'street_address',
-      `${values.address} ${values.detail_address}`,
-    );
-
-    mutate({
-      name: values.name,
-      tell: values.tell,
-      veterinarian_numbers: values.veterinarian_numbers,
-      longitude: values.longitude,
-      latitude: values.latitude,
-      scale: values.scale,
-      is_cooperation: values.is_cooperation,
-      region: values.region,
-      street_address: `${values.address} ${values.detail_address}`,
+  const { mutate: patchHospitalMutate, isPending: isPatchPending } =
+    useMutation({
+      mutationFn: (data: Partial<HospitalRequestData>) =>
+        patchHospital(id!, data),
+      onSuccess: () => {
+        message.success('성공적으로 처리되었습니다.');
+        queryClient.invalidateQueries({
+          queryKey: [QueryKey.hospitalSearch],
+        });
+        queryClient.invalidateQueries({
+          queryKey: [QueryKey.hospitalSearch, id],
+        });
+        navigate('/hospital/search');
+      },
+      onError: () => {
+        message.error('오류가 발생했습니다.');
+      },
     });
+
+  const initFormValues = useCallback(() => {
+    if (!hospitalData) {
+      return;
+    }
+
+    const {
+      id,
+      name,
+      tell,
+      veterinarian_numbers,
+      scale,
+      is_cooperation,
+      has_ct,
+      has_mri,
+      info_description,
+      location: { zip_code, region, street_address, longitude, latitude },
+      url: { homepage_url, blog_url, instagram_url, facebook_url, youtube_url },
+    } = hospitalData.data.data;
+
+    const initialValues = {
+      id,
+      name,
+      tell,
+      veterinarian_numbers,
+      scale,
+      is_cooperation,
+      has_ct,
+      has_mri,
+      info_description,
+      zip_code,
+      region,
+      street_address,
+      longitude,
+      latitude,
+      homepage_url,
+      blog_url,
+      instagram_url,
+      facebook_url,
+      youtube_url,
+    };
+
+    form.setFieldsValue(initialValues);
+  }, [form, hospitalData]);
+
+  const handleFinish = (values: FormValues) => {
+    if (id) {
+      return patchHospitalMutate(values);
+    }
+    return postHospitalMutate(values);
   };
+
+  useEffect(() => {
+    form.resetFields();
+    if (id) {
+      initFormValues();
+    }
+  }, [form, id, initFormValues]);
 
   return (
     <Form form={form} onFinish={handleFinish}>
       <Default form={form} />
       <Categories />
-      <SubmitButton isLoading={isPending} />
+      <Social />
+      <SubmitButton isLoading={isPostPending || isPatchPending} />
     </Form>
   );
 };

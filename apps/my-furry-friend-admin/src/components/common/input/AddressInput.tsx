@@ -11,16 +11,16 @@ interface AddressInputProps {
 const AddressInput = (props: AddressInputProps) => {
   const [openModal, setOpenModal] = useState(false);
   const [searchAddress, setSearchAddress] = useState('');
-
   const { data: geoData } = useKakaoAddressQuery({
     query: searchAddress,
   });
 
   const onCompletePost = (data: Address) => {
     props.form.setFieldsValue({
-      address: data.address,
-      zipCode: data.zonecode,
+      street_address: data.address,
+      zip_code: data.zonecode,
     });
+
     setSearchAddress(data.address);
 
     setOpenModal(false);
@@ -42,23 +42,16 @@ const AddressInput = (props: AddressInputProps) => {
     <>
       <Form.Item label="우편번호" required>
         <Space>
-          <Form.Item name="zipCode" noStyle rules={rules().required}>
+          <Form.Item name="zip_code" noStyle rules={rules().required}>
             <Input disabled />
           </Form.Item>
           <Button onClick={() => setOpenModal(true)}>우편번호 찾기</Button>
         </Space>
       </Form.Item>
-      <Form.Item label="주소" name="address" rules={rules().required}>
-        <Input disabled />
+      <Form.Item label="주소" name="street_address" rules={rules().required}>
+        <Input />
       </Form.Item>
 
-      <Form.Item
-        label="상세주소"
-        name="detail_address"
-        rules={rules().required}
-      >
-        <Input placeholder="상세주소를 입력해주세요." maxLength={200} />
-      </Form.Item>
       <Modal
         title="주소검색"
         open={openModal}

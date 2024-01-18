@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom';
-import { getMenuItems } from '../../routes/routes.tsx';
-import ErrorLayout from '../../components/layout/ErrorLayout.tsx';
+import { getMenuItems } from '../routes/routes.tsx';
+import ErrorLayout from '../components/layout/ErrorLayout.tsx';
 
 function Home() {
   const items = getMenuItems();

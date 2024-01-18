@@ -1,5 +1,5 @@
 import AuthLayout from '../../components/layout/AuthLayout.tsx';
-import AuthForm from '../../components/auth/authForm.tsx';
+import AuthForm from '../../components/auth/AuthForm.tsx';
 
 export default function Auth() {
   return (

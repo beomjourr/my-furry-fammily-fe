@@ -1,40 +1,30 @@
 import { BrowserRouter, Link, useRoutes } from 'react-router-dom';
-import { ShopOutlined, UserOutlined } from '@ant-design/icons';
+import { ShopOutlined } from '@ant-design/icons';
 import DefaultLayout from '../components/layout/Layout.tsx';
-import Home from '../pages/home';
+import Home from '../pages';
 import { hospitalRoutes } from './hospital.routes.tsx';
 import { errorRoute } from './error.routes.tsx';
-import { userRoutes } from './user.routes.tsx';
 import { authRoute } from './auth.routes.tsx';
 
 export const defaultMenuItems = [
-  {
-    label: '회원 관리',
-    key: '/users',
-    icon: <UserOutlined />,
-    children: [
-      { label: '운영 회원 관리', key: '/users/admin' },
-      { label: '일반 회원 관리', key: '/users/user' },
-    ],
-  },
   {
     label: '병원 관리',
     key: '/hospital',
     icon: <ShopOutlined />,
     children: [
       { label: '병원 목록', key: '/hospital/search' },
-      { label: '검색 조건 목록', key: '/hospital/search/conditions' },
-      { label: '병원 신규 등록', key: '/hospital/register' },
+      { label: '병원 등록', key: '/hospital/register/create' },
       {
-        label: '병원 카테고리 목록 등록',
-        key: '/hospital/category/list/register',
+        label: '병원 수정',
+        key: '/hospital/register/edit/:id',
+        hidden: true,
       },
-      { label: '병원 카테고리 등록', key: '/hospital/category/register' },
     ],
   },
 ];
 
-const contentRoutes = [...userRoutes, ...hospitalRoutes];
+const contentRoutes = [...hospitalRoutes];
+
 export const getMenuItems = () => {
   const filteredItems: any[] = [];
 

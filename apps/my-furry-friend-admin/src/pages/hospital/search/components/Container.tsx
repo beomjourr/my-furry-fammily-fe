@@ -1,24 +1,16 @@
-// <RetryErrorBoundary>
-//   <Suspense fallback={<div>loading...</div>}>
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { TableProps } from 'antd';
+import { Button, TableProps } from 'antd';
 import { QueryKey } from '../../../../constants/query-key.ts';
-import { getHospitalSearch } from '../../../../models/hospital/hospital-search.ts';
+import {
+  getAllHospitalSearch,
+  HospitalRequestData,
+} from '../../../../models/hospital/hospital-search.ts';
 import BasicTable from '../../../../components/common/table/DefaultTable.tsx';
 import useBreakPoint from '../../../../hooks/useBreakPoint.ts';
 
-interface RecordType {
-  id: number;
-  name: string;
-  street_address: string;
-  region: string;
-  tell: string;
-  scale: string;
-  is_cooperation: boolean;
-}
-
 const Container = () => {
+  const navigate = useNavigate();
   const screens = useBreakPoint('md');
   const [searchParams] = useSearchParams();
   const name = searchParams.get('name');
@@ -26,7 +18,7 @@ const Container = () => {
   const { data } = useSuspenseQuery({
     queryKey: [QueryKey.hospitalSearch, name, values],
     queryFn: () =>
-      getHospitalSearch({
+      getAllHospitalSearch({
         ...(name && { name }),
         ...(values.length > 0 && { values }),
       }),
@@ -37,7 +29,7 @@ const Container = () => {
     },
   });
 
-  const columns: TableProps<RecordType>['columns'] = [
+  const columns: TableProps<HospitalRequestData>['columns'] = [
     {
       key: 'id',
       title: 'id',
@@ -96,7 +88,6 @@ const Container = () => {
       title: '협력여부',
       dataIndex: 'is_cooperation',
       render: (value: boolean) => (value ? '협력 병원' : '일반 병원'),
-      fixed: 'right',
       width: 100,
       filterMultiple: false,
       filters: [
@@ -105,6 +96,17 @@ const Container = () => {
       ],
       onFilter: (value, record) => record.is_cooperation === value,
       responsive: ['md'],
+    },
+    {
+      title: '수정',
+      dataIndex: 'id',
+      fixed: 'right',
+      width: 60,
+      render: (id: number) => (
+        <Button onClick={() => navigate(`/hospital/register/edit/${id}`)}>
+          수정
+        </Button>
+      ),
     },
   ];
 
