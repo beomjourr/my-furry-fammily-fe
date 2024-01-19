@@ -72,7 +72,6 @@ const SideMenu = ({
           collapsible
           collapsed={collapsed}
         >
-          <div>Menu Header</div>
           <SideMenuItem />
         </Sider>
       ) : (

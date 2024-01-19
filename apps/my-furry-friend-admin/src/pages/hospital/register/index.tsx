@@ -1,4 +1,4 @@
-import { Form, message } from 'antd';
+import { App, Form } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -10,7 +10,7 @@ import {
   postHospital,
 } from '../../../models/hospital/hospital-search.ts';
 import SubmitButton from '../../../components/common/button/SubmitButton.tsx';
-import { QueryKey } from '../../../constants/query-key.ts';
+import { HospitalQueryKey } from '../../../constants/query-key.ts';
 import { queryClient } from '../../../main.tsx';
 import Categories from './components/Categories.tsx';
 import Default from './components/Default.tsx';
@@ -27,6 +27,7 @@ interface HospitalProps {
 
 const HospitalRegister = ({ type }: HospitalProps) => {
   const { id } = useParams();
+  const { message } = App.useApp();
   const [form] = useForm<FormValues>();
   const navigate = useNavigate();
 
@@ -34,7 +35,7 @@ const HospitalRegister = ({ type }: HospitalProps) => {
     onSuccess: () => {
       message.success('성공적으로 처리되었습니다.');
       queryClient.invalidateQueries({
-        queryKey: [QueryKey.hospitalSearch],
+        queryKey: [HospitalQueryKey.hospitalSearch],
       });
       navigate('/hospital/search');
     },
@@ -44,7 +45,7 @@ const HospitalRegister = ({ type }: HospitalProps) => {
   };
 
   const { data: hospitalData } = useQuery({
-    queryKey: [QueryKey.hospitalSearch, id],
+    queryKey: [HospitalQueryKey.hospitalSearch, id],
     queryFn: () => getHospital(id!),
     enabled: type === 'edit' && !!id,
   });
@@ -125,6 +126,7 @@ const HospitalRegister = ({ type }: HospitalProps) => {
       <Default form={form} />
       <Categories />
       <Social />
+      {type === 'edit' && <div>수정</div>}
       <SubmitButton isLoading={isPostPending || isPatchPending} />
     </Form>
   );

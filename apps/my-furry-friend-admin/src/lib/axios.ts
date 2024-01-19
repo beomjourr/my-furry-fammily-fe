@@ -29,6 +29,12 @@ axiosInstance.interceptors.request.use(
   },
 );
 
+const redirectAuth = () => {
+  sessionStorage.removeItem('access_token');
+  localStorage.removeItem('refresh_token');
+  window.location.href = '/auth';
+};
+
 axiosInstance.interceptors.response.use(
   (response) => {
     return response;
@@ -36,7 +42,7 @@ axiosInstance.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    if (error.response.status < 500 && error.response.status >= 400) {
+    if (error.response.status === 401) {
       const refreshToken = localStorage.getItem('refresh_token');
 
       if (refreshToken) {
@@ -52,7 +58,13 @@ axiosInstance.interceptors.response.use(
 
           return axiosInstance(originalRequest);
         }
+      } else {
+        redirectAuth();
       }
+    }
+
+    if (error.response.status === 404) {
+      redirectAuth();
     }
 
     return Promise.reject(error);

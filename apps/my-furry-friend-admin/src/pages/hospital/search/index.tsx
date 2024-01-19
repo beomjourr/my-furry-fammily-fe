@@ -4,8 +4,6 @@ const HospitalContainer = React.lazy(
   () => import('./components/Container.tsx'),
 );
 
-const HospitalSearch = () => {
+export default function HospitalSearch() {
   return <HospitalContainer />;
-};
-
-export default HospitalSearch;
+}

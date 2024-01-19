@@ -11,6 +11,8 @@ export const postLogin = ({ account_id, password }: LoginRequest) => {
 
 export const getRefreshToken = (refreshToken: string) => {
   return axiosInstance.get('/auth/admin/refresh', {
-    params: refreshToken,
+    params: {
+      refreshToken,
+    },
   });
 };

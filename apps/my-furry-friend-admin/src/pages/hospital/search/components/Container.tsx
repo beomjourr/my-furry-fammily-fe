@@ -1,7 +1,7 @@
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { Button, TableProps } from 'antd';
-import { QueryKey } from '../../../../constants/query-key.ts';
+import { HospitalQueryKey } from '../../../../constants/query-key.ts';
 import {
   getAllHospitalSearch,
   HospitalRequestData,
@@ -16,7 +16,7 @@ const Container = () => {
   const name = searchParams.get('name');
   const values = searchParams.getAll('scale');
   const { data } = useSuspenseQuery({
-    queryKey: [QueryKey.hospitalSearch, name, values],
+    queryKey: [HospitalQueryKey.hospitalSearch, name, values],
     queryFn: () =>
       getAllHospitalSearch({
         ...(name && { name }),

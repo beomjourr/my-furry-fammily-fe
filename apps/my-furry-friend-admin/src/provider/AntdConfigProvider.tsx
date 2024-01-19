@@ -1,4 +1,4 @@
-import { ConfigProvider, theme as AntdTheme } from 'antd';
+import { App, ConfigProvider, theme as AntdTheme } from 'antd';
 import { useTheme as useStyledComponentsTheme } from 'styled-components';
 import { useTheme } from './ThemeProvider.tsx';
 
@@ -24,7 +24,7 @@ const AntdConfigProvider = ({ children }: { children: React.ReactNode }) => {
             : [AntdTheme.defaultAlgorithm],
       }}
     >
-      {children}
+      <App>{children}</App>
     </ConfigProvider>
   );
 };

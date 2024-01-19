@@ -5,7 +5,7 @@ import {
   getHospitalRegions,
   getHospitalScales,
 } from '../../../../models/hospital/hospital-search.ts';
-import { QueryKey } from '../../../../constants/query-key.ts';
+import { HospitalQueryKey } from '../../../../constants/query-key.ts';
 
 interface CategoriesProps {
   show?: boolean;
@@ -13,11 +13,11 @@ interface CategoriesProps {
 
 const Categories = ({ show = true }: CategoriesProps) => {
   const { data: scalesData } = useQuery({
-    queryKey: [QueryKey.hospitalScales],
+    queryKey: [HospitalQueryKey.hospitalScales],
     queryFn: () => getHospitalScales(),
   });
   const { data: regionsData } = useQuery({
-    queryKey: [QueryKey.hospitalRegions],
+    queryKey: [HospitalQueryKey.hospitalRegions],
     queryFn: () => getHospitalRegions(),
   });
 

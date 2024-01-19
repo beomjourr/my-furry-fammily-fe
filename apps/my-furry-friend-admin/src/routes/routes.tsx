@@ -1,10 +1,16 @@
 import { BrowserRouter, Link, useRoutes } from 'react-router-dom';
-import { ShopOutlined } from '@ant-design/icons';
+import {
+  ReconciliationOutlined,
+  ShopOutlined,
+  SmileOutlined,
+} from '@ant-design/icons';
 import DefaultLayout from '../components/layout/Layout.tsx';
 import Home from '../pages';
 import { hospitalRoutes } from './hospital.routes.tsx';
 import { errorRoute } from './error.routes.tsx';
 import { authRoute } from './auth.routes.tsx';
+import { animalInfoRoute } from './animal-info.routes.tsx';
+import { animalHospitalsClinicTypesRoute } from './animal-hospitals-clinic-types.routes.tsx';
 
 export const defaultMenuItems = [
   {
@@ -21,9 +27,30 @@ export const defaultMenuItems = [
       },
     ],
   },
+  {
+    label: '동물 정보 관리',
+    key: '/animal-info',
+    icon: <SmileOutlined />,
+    children: [{ label: '동물 정보 목록', key: '/animal-info/search' }],
+  },
+  {
+    label: '동물병원 진료 유형 관리',
+    key: '/animal-hospitals-clinic-types',
+    icon: <ReconciliationOutlined />,
+    children: [
+      {
+        label: '동물 진료 유형 목록',
+        key: '/animal-hospitals-clinic-types/search',
+      },
+    ],
+  },
 ];
 
-const contentRoutes = [...hospitalRoutes];
+const contentRoutes = [
+  ...hospitalRoutes,
+  ...animalInfoRoute,
+  ...animalHospitalsClinicTypesRoute,
+];
 
 export const getMenuItems = () => {
   const filteredItems: any[] = [];
