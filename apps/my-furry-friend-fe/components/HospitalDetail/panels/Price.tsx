@@ -37,10 +37,9 @@ function Price({ data }: any) {
           (hospitalFee: any, index: number) => {
             const feesWrapperName = hospitalFee?.[0]?.clinic_type_name;
             return (
-              <>
+              <div key={index}>
                 <AccordionWrapper
                   title={feesWrapperName}
-                  key={index}
                   essential={!hospitalFee?.is_required}
                   single={hospitalFee?.is_required}
                   panelStyle={{
@@ -61,7 +60,7 @@ function Price({ data }: any) {
                   })}
                 </AccordionWrapper>
                 <Line />
-              </>
+              </div>
             );
           },
         )}
