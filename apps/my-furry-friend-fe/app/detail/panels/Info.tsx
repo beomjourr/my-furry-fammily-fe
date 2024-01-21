@@ -208,75 +208,105 @@ function Info({ data }: any) {
           </Flex>
         ))}
       </Flex>
-
-      <Accordion defaultIndex={[0]} allowMultiple>
-        {INFO.operatingHour && (
-          <AccordionItem
-            style={{
-              background: '#F5F5F7',
-              borderRadius: '10px',
-              border: 'none',
-              margin: '26px 0px',
-              padding: '14px 0px',
-            }}
+      <Accordion defaultIndex={[2]} allowMultiple padding="0 16px">
+        <AccordionItem
+          background="#F5F5F7"
+          display="flex"
+          justifyContent="center"
+          alignItems="flex-start"
+          flexDirection="column"
+          gap="12px"
+          padding="16px"
+          border="none"
+          borderRadius="8px"
+          margin="0 0 16px 0"
+        >
+          <AccordionButton
+            borderRadius="10px"
+            padding="0"
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            alignSelf="stretch"
+            _hover={{ background: 'none' }}
           >
-            <h2>
-              <AccordionButton
-                style={{ borderRadius: '10px' }}
-                _hover={{ background: 'none' }}
-              >
-                <Flex
-                  as="span"
-                  flex="1"
-                  textAlign="left"
-                  gap="10px"
-                  fontSize="14px"
-                  fontWeight="500"
-                >
-                  <Image src={clock} alt="clock" />
-                  <span style={{ color: '#6282DB', fontSize: 14 }}>
-                    {data?.now_operation_status}
-                  </span>
-                  <span style={{ fontWeight: 500 }}>화 10:30 - 19:00</span>
-                </Flex>
-                <AccordionIcon />
-              </AccordionButton>
-            </h2>
-            <AccordionPanel>
-              {' '}
+            <Flex
+              as="span"
+              flex="1"
+              textAlign="left"
+              gap="10px"
+              fontSize="14px"
+              fontWeight="500"
+            >
+              <Image src={clock} alt="clock" />
+              <span style={{ color: '#6282DB', fontSize: 14 }}>
+                {data?.operating_times?.now_operation_status}
+              </span>
+              <span style={{ fontWeight: 500 }}>
+                {`${
+                  data?.operating_times?.today_operating_time?.day_of_week || ''
+                }
+                  ${
+                    data?.operating_times?.today_operating_time?.start_time ||
+                    ''
+                  } - ${
+                    data?.operating_times?.today_operating_time?.end_time || ''
+                  }
+                `}
+              </span>
+            </Flex>
+            <AccordionIcon />
+          </AccordionButton>
+          <AccordionPanel padding="0">
+            {' '}
+            {data?.operating_times?.resting_time && (
               <Box
-                style={{
-                  borderRadius: '8px',
-                  color: '#6282DB',
-                  padding: '6px 8px',
-                  background: '#E6E9F9',
-                  width: 'fit-content',
-                  fontSize: '14px',
-                  fontWeight: '500',
-                }}
+                display="flex"
+                padding="6px 8px"
+                justifyContent="center"
+                alignItems="center"
+                gap="4px"
+                color="#6282DB"
+                background="#E6E9F9"
+                fontSize="14px"
+                fontWeight="500"
               >
                 {' '}
-                휴게시간 13:00 - 14:00
+                {`휴게시간 ${
+                  data?.operating_times?.resting_time?.start_time || ''
+                } - ${data?.operating_times?.resting_time?.end_time || ''}`}
               </Box>
-              <UnorderedList
-                m="1"
-                listStyleType="none"
-                mt="10px"
-                spacing={1}
-                fontSize={14}
-                fontWeight={500}
-                color="#545459"
-              >
-                <ListItem>월 10:00 - 19:00</ListItem>
-                <ListItem>화 10:00 - 19:00</ListItem>
-                <ListItem>수 10:00 - 19:00</ListItem>
-                <ListItem>목 10:00 - 19:00</ListItem>
-                <ListItem>금 10:00 - 19:00</ListItem>
-                <ListItem>토 10:00 - 19:00</ListItem>
-              </UnorderedList>
-            </AccordionPanel>
-          </AccordionItem>
-        )}
+            )}
+            <UnorderedList
+              m="1"
+              listStyleType="none"
+              mt="10px"
+              spacing={1}
+              fontSize={14}
+              fontWeight={500}
+              color="#545459"
+            >
+              {data?.operating_times?.operating_times?.map(
+                (
+                  item: {
+                    day_of_week: string;
+                    start_time: string;
+                    end_time: string;
+                  },
+                  index: number,
+                ) => {
+                  return (
+                    <ListItem key={index}>
+                      {`${item?.day_of_week || ''} ${
+                        item?.start_time || ''
+                      } - ${item?.end_time || ''}`}
+                    </ListItem>
+                  );
+                },
+              )}
+            </UnorderedList>
+          </AccordionPanel>
+        </AccordionItem>
         <Line />
         <AccordionWrapper title="전문과목">
           {SUBJECTS.length > 1 ? (
