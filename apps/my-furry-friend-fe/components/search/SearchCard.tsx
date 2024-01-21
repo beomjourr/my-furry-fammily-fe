@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Image, Text } from '@chakra-ui/react';
+import { useRouter } from 'next/navigation';
 import { HospitalResponse } from '../../service/search';
 
 interface SearchCardProps {
@@ -7,8 +8,22 @@ interface SearchCardProps {
 }
 
 function SearchCard({ data }: SearchCardProps) {
+  const router = useRouter();
+
+  const handleSearchCardBox = (hospitalData: HospitalResponse) => {
+    if (!hospitalData?.id) return;
+    router.push(`/detail/${hospitalData.id}`);
+  };
+
   return (
-    <Box padding="16px 20px" display="flex" justifyContent="space-between">
+    <Box
+      padding="16px 20px"
+      display="flex"
+      justifyContent="space-between"
+      onClick={() => {
+        handleSearchCardBox(data);
+      }}
+    >
       <Box marginRight="16px">
         <Image
           boxSize="98px"
