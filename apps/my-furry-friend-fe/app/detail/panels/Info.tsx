@@ -20,21 +20,20 @@ import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
 import star from '@my-furry-family/images/star.svg';
 import starGray from '@my-furry-family/images/star_gray.svg';
-import phone from '@my-furry-family/images/phone.svg';
-import home from '@my-furry-family/images/home.svg';
-import review from '@my-furry-family/images/review.svg';
-import heart from '@my-furry-family/images/heart.svg';
+import PhoneIcon from '@my-furry-family/images/phone.svg';
+import HomepageIcon from '@my-furry-family/images/homepage.svg';
+import ReviewIcon from '@my-furry-family/images/review.svg';
+import HeartIcon from '@my-furry-family/images/heart.svg';
 import clock from '@my-furry-family/images/clock.svg';
 import map from '@my-furry-family/images/map_pin_gray.svg';
-import instagram from '@my-furry-family/images/instagram.svg';
-import youtube from '@my-furry-family/images/youtube.svg';
-import facebook from '@my-furry-family/images/facebook.svg';
-import blog from '@my-furry-family/images/blog.svg';
+import InstagramIcon from '@my-furry-family/images/instagram.svg';
+import YoutubeIcon from '@my-furry-family/images/youtube.svg';
+import FacebookIcon from '@my-furry-family/images/facebook.svg';
+import BlogIcon from '@my-furry-family/images/blog.svg';
 import arrow from '@my-furry-family/images/arrow_right.svg';
 import fileBlank from '@my-furry-family/images/file_blank.svg';
 import Image from 'next/image';
 import { KakaoMap } from '@my-furry-family/next-ui-component';
-import { useRouter } from 'next/navigation';
 import { useRef } from 'react';
 import { Marker } from '../../../components/Marker/Marker';
 import AccordionWrapper from '../AccodionItemWrapper';
@@ -63,16 +62,16 @@ const activeTagStyle = {
 };
 
 const MENU = [
-  { src: phone, title: '전화하기' },
-  { src: home, title: '홈페이지' },
-  { src: review, title: '리뷰작성' },
-  { src: heart, title: '찜하기' },
+  { src: PhoneIcon, title: '전화하기', disabled: false },
+  { src: HomepageIcon, title: '홈페이지', disabled: false },
+  { src: ReviewIcon, title: '리뷰작성', disabled: true },
+  { src: HeartIcon, title: '찜하기', disabled: true },
 ];
 const SNS = [
-  { src: instagram, title: '인스타그램' },
-  { src: youtube, title: '유튜브' },
-  { src: facebook, title: '페이스북' },
-  { src: blog, title: '블로그' },
+  { src: InstagramIcon, title: '인스타그램', apiData: 'instagram_url' },
+  { src: YoutubeIcon, title: '유튜브', apiData: 'youtube_url' },
+  { src: FacebookIcon, title: '페이스북', apiData: 'facebook_url' },
+  { src: BlogIcon, title: '블로그', apiData: 'blog_url' },
 ];
 const INFO = {
   rating: 4.5,
@@ -84,6 +83,28 @@ const INFO = {
 function Info({ data }: any) {
   const addresstextRef = useRef<HTMLDivElement>(null);
   const toast = useToast();
+
+  const handleMenuButton = (
+    item: { src: any; title: string },
+    apiData: any,
+  ) => {
+    if (!item) return;
+
+    switch (item.title) {
+      case '전화하기':
+        break;
+      case '홈페이지':
+        if (apiData?.url?.homepage_url) {
+          try {
+            window.open(apiData?.url?.homepage_url);
+          } catch (e) {
+            console.log(e);
+          }
+        }
+        break;
+      default:
+    }
+  };
 
   return (
     <>
@@ -193,23 +214,36 @@ function Info({ data }: any) {
       </Flex>
       <Flex m="26px 0 20px">
         {MENU.map((item) => (
-          <Flex key={item.title} flex="1" flexDirection="column">
-            <button
-              type="button"
-              onClick={() => {}}
-              style={{
-                gap: '8px',
-                flexDirection: 'column',
-                color: '#323236',
-                fontSize: '14px',
-                fontWeight: '500',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
+          <Flex
+            key={item.title}
+            flex="1"
+            flexDirection="column"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Flex
+              role="button"
+              onClick={() => {
+                handleMenuButton(item, data);
               }}
+              display="flex"
+              w="82px"
+              h="60px"
+              flexDirection="column"
+              justifyContent="center"
+              alignItems="center"
+              gap="8px"
+              background="none"
             >
-              <Image src={item.src} alt="phone" /> {item.title}{' '}
-            </button>
+              <Image src={item.src} alt="phone" />
+              <Text
+                fontSize="14px"
+                fontWeight="500"
+                color={item.disabled && '#E3E3E8'}
+              >
+                {item.title}
+              </Text>
+            </Flex>
           </Flex>
         ))}
       </Flex>
@@ -435,33 +469,55 @@ function Info({ data }: any) {
 
         <Line />
 
-        <AccordionWrapper title="SNS">
-          {SNS.length > 0 ? (
-            <Flex padding="20px 25px" color="#9A9AA1" fontSize="14px">
-              {SNS.map((item) => (
-                <Flex
-                  key={item.title}
-                  flex="1"
-                  style={{
-                    flexDirection: 'column',
-                  }}
-                >
-                  <button
-                    type="button"
-                    onClick={() => {}}
-                    style={{
-                      gap: '8px',
-                      flexDirection: 'column',
-                      fontWeight: '500',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <Image src={item.src} alt="instagram" /> {item.title}
-                  </button>
-                </Flex>
-              ))}
+        <AccordionWrapper title="SNS" panelStyle={{ margin: '0 -16px' }}>
+          {data?.url?.instagram_url ||
+          data?.url?.YoutubeIcon_url ||
+          data?.url?.FacebookIcon_url ||
+          data?.url?.BlogIcon_url ? (
+            <Flex
+              padding="20px 25px"
+              color="#9A9AA1"
+              justifyContent="center"
+              alignItems="center"
+              alignSelf="stretch"
+              gap="10px"
+            >
+              {SNS.map((item) => {
+                if (data?.url?.[item.apiData]) {
+                  return (
+                    <Button
+                      key={item.title}
+                      onClick={() => {
+                        try {
+                          window.open(data.url[item.apiData]);
+                        } catch (e) {
+                          console.log(e);
+                        }
+                      }}
+                      w="70px"
+                      h="60px"
+                      gap="8px"
+                      display="flex"
+                      flexDirection="column"
+                      fontWeight="500"
+                      alignItems="center"
+                      justifyContent="center"
+                      background="none"
+                    >
+                      <Image
+                        width={24}
+                        height={24}
+                        src={item.src}
+                        alt={item.title}
+                      />
+                      <Text fontSize="14px" fontWeight="500" color="#9A9AA1">
+                        {item.title}
+                      </Text>
+                    </Button>
+                  );
+                }
+                return null;
+              })}
             </Flex>
           ) : (
             <Flex
@@ -489,18 +545,12 @@ function Info({ data }: any) {
         margin="16px"
       >
         <Box flex="1">
-          <div
-            style={{
-              color: '#3467D4',
-              fontSize: '14px',
-              fontWeight: '600',
-            }}
-          >
+          <Text color="#3467D4" fontSize="14px" fontWeight="600">
             최근 이 병원에 방문하신 적이 있으신가요?
-          </div>
-          <div style={{ color: '#545459', fontSize: '12px' }}>
+          </Text>
+          <Text color="#545459" fontSize="12px" fontWeight="500">
             변경된 정보가 있다면 저희 팀에게 알려주세요!
-          </div>
+          </Text>
         </Box>
         <Image src={arrow} alt="arrow" />
       </Flex>
