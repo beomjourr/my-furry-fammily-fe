@@ -5,9 +5,12 @@ import {
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
+  Badge,
   Box,
+  Button,
   Flex,
   ListItem,
+  Text,
   UnorderedList,
   useToast,
 } from '@chakra-ui/react';
@@ -39,9 +42,6 @@ import AccordionWrapper from '../AccodionItemWrapper';
 import Line from '../Divider';
 
 const APP_KEY = process.env.NEXT_PUBLIC_KAKAO_APP_KEY || '';
-
-const TAGS = ['내새꾸 추천병원', 'MRI 보유', 'CT 촬영가능'];
-const SUBJECTS = ['안과'];
 
 const tagStyle = {
   background: 'white',
@@ -146,49 +146,54 @@ function Info({ data }: any) {
           </Flex>
         </Flex>
       )}
-      <div>
-        {data?.is_cooperation && (
-          <span style={activeTagStyle}>내새꾸 추천병원</span>
-        )}
-        {data?.has_mri && <span style={tagStyle}>MRI 보유</span>}
-        {data?.has_ct && <span style={tagStyle}>CT 촬영가능</span>}
-      </div>
-      <Box m="10px 0">
-        <div style={{ fontWeight: 600, fontSize: '18px' }}>{data?.name}</div>
-        <Flex
-          style={{
-            gap: '4px',
-            marginTop: '6px',
-            alignItems: 'center',
-          }}
-        >
-          <Image src={INFO.rating ? star : starGray} alt="star" />
-          <div
-            style={{
-              color: '#323236',
-              fontSize: '14px',
-              fontWeight: 500,
-            }}
-          >
-            {INFO.rating ? INFO.rating : '별점 정보 없음'}
-          </div>
-          <div style={{ color: '#BCBCC4', margin: '0 8px' }}>|</div>
-          <div
-            style={{ color: '#545459', fontSize: '14px', fontWeight: '500' }}
-          >
-            {INFO.review ? INFO.review : '리뷰 0개'}
-          </div>
+      <Flex
+        flexDirection="column"
+        alignItems="flex-start"
+        gap="10px"
+        alignSelf="stretch"
+        padding="16px 16px 0"
+      >
+        <Flex>
+          {data?.is_cooperation && (
+            <Badge
+              sx={activeTagStyle}
+              colorScheme="badge"
+              backgroundColor="#6282DB"
+            >
+              내새꾸 추천 병원
+            </Badge>
+          )}
+          {data?.has_mri && <Badge sx={tagStyle}>MRI 보유</Badge>}
+          {data?.has_ct && <Badge sx={tagStyle}>CT 촬영가능</Badge>}
         </Flex>
-      </Box>
+        <Text
+          fontSize="18px"
+          fontStyle="normal"
+          fontWeight="600"
+          lineHeight="normal"
+        >
+          {data?.name}
+        </Text>
+        <Flex gap="4px" alignItems="center">
+          <Image src={INFO.rating ? star : starGray} alt="star" />
+          <Text color="#323236" fontSize="14px" fontWeight="500">
+            {data?.review_rating !== 'undefined' && data?.review_rating !== null
+              ? data?.review_rating
+              : '별점 정보 없음'}
+          </Text>
+          <Text color="#BCBCC4" margin="0 4px">
+            |
+          </Text>
+          <Text color="#545459" fontSize="14px" fontWeight="500">
+            {data?.number_of_reviews !== 'undefined' &&
+              data?.number_of_reviews !== null &&
+              `리뷰 ${data?.number_of_reviews}개`}
+          </Text>
+        </Flex>
+      </Flex>
       <Flex m="26px 0 20px">
         {MENU.map((item) => (
-          <Flex
-            key={item.title}
-            flex="1"
-            style={{
-              flexDirection: 'column',
-            }}
-          >
+          <Flex key={item.title} flex="1" flexDirection="column">
             <button
               type="button"
               onClick={() => {}}
@@ -309,63 +314,47 @@ function Info({ data }: any) {
         </AccordionItem>
         <Line />
         <AccordionWrapper title="전문과목">
-          {SUBJECTS.length > 1 ? (
-            <Flex flexWrap="wrap" padding="16px 0">
-              {SUBJECTS.map((subject) => (
-                <span
-                  key={subject}
-                  style={{
-                    background: 'white',
-                    padding: '6px 8px',
-                    width: 'fit-content',
-                    borderRadius: 4,
-                    color: '#545459',
-                    fontSize: '14px',
-                    fontWeight: '500',
-                    marginRight: '8px',
-                    marginBottom: '8px',
-                    border: '1px solid #E3E3E8',
-                  }}
-                >
-                  {subject}
-                </span>
-              ))}
-            </Flex>
-          ) : (
-            <Flex
-              style={{
-                color: '#9A9AA1',
-                fontSize: '14px',
-                justifyContent: 'center',
-                fontWeight: '600',
-                padding: '41px 0',
-              }}
-            >
-              {data?.categories?.length > 0
-                ? data?.categories.map((item: string, index: number) => {
-                    return (
-                      <span key={index} style={tagStyle}>
-                        {item}
-                      </span>
-                    );
-                  })
-                : '전문과목 정보가 없습니다'}
-            </Flex>
-          )}
+          <Flex
+            color="#9A9AA1"
+            fontSize="14px"
+            alignItems="center"
+            justifyContent="flex-start"
+            fontWeight="600"
+            gap="16px"
+            alignSelf="stretch"
+            flexWrap="wrap"
+            padding="16px"
+          >
+            {data?.categories?.length > 0
+              ? data?.categories.map((item: string, index: number) => {
+                  return (
+                    <Badge key={index} sx={tagStyle}>
+                      {item}
+                    </Badge>
+                  );
+                })
+              : '전문과목 정보가 없습니다.'}
+          </Flex>
         </AccordionWrapper>
         <Line />
         <AccordionWrapper
           title="병원소개"
           panelStyle={{
             background: '#F5F5F7',
-            width: 'calc(100% + 32px)',
-            margin: '0 -16px ',
+            padding: '16px',
             color: '#323236',
             fontSize: '14px',
             fontWeight: 300,
           }}
         >
-          <div style={{ padding: '16px 22px' }}>{data?.info_description}</div>
+          <Text
+            fontSize="14px"
+            fontStyle="normal"
+            fontWeight="500"
+            lineHeight="150%"
+          >
+            {data?.info_description}
+          </Text>
         </AccordionWrapper>
 
         <Line />
@@ -380,32 +369,47 @@ function Info({ data }: any) {
             <KakaoMap
               appKey={APP_KEY}
               center={{
-                lng: data?.location?.longitude,
-                lat: data?.location?.latitude,
+                lng: data?.location?.longitude || 126.9783882,
+                lat: data?.location?.latitude || 37.5666103,
               }}
-              // setPosition={setLocation}
             >
               <Marker
                 isActive
                 isCooperation={false}
                 position={{
-                  lng: data?.location?.longitude,
-                  lat: data?.location?.latitude,
+                  lng: data?.location?.longitude || 126.9783882,
+                  lat: data?.location?.latitude || 37.5666103,
                 }}
                 onClick={() => {}}
               />
             </KakaoMap>
           </Box>
-          <Flex gap="10px" padding="16px 0">
-            <Flex
-              gap="10px"
-              style={{ flex: 1, display: 'flex', alignItems: 'center' }}
-            >
+          <Flex
+            justifyContent="center"
+            alignItems="center"
+            gap="16px"
+            padding="16px 0"
+            alignSelf="stretch"
+          >
+            <Flex flex="1 0 0" alignItems="flex-start" gap="10px">
               <Image src={map} alt="map" />
-              <div ref={addresstextRef}>{data?.location?.street_address}</div>
+              <Text
+                fontSize="14px"
+                fontStyle="normal"
+                fontWeight="500"
+                lineHeight="150%"
+                ref={addresstextRef}
+              >
+                {data?.location?.street_address}
+              </Text>
             </Flex>
-            <button
-              type="button"
+            <Button
+              color="#6282DB"
+              fontSize="12px"
+              padding="8px 10px"
+              fontWeight="600"
+              borderRadius="4px"
+              background="#E6E9F9"
               onClick={() => {
                 if (addresstextRef.current) {
                   const text = addresstextRef.current.textContent; // Get the text content from the element
@@ -423,17 +427,9 @@ function Info({ data }: any) {
                     });
                 }
               }}
-              style={{
-                color: '#6282DB',
-                fontSize: '12px',
-                padding: '8px 10px',
-                fontWeight: '600',
-                borderRadius: '4px',
-                background: '#E6E9F9',
-              }}
             >
               주소 복사
-            </button>
+            </Button>
           </Flex>
         </AccordionWrapper>
 
@@ -490,7 +486,7 @@ function Info({ data }: any) {
         background="#F5F5F7"
         border="1px solid #E6E9F9"
         borderRadius="4px"
-        margin="20px 0"
+        margin="16px"
       >
         <Box flex="1">
           <div
