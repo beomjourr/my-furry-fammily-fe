@@ -64,10 +64,10 @@ export function DetailTab() {
           <TabPanel padding="0">
             <Info {...hospitalData?.data} />
           </TabPanel>
-          <TabPanel padding="0">
+          <TabPanel>
             <Price {...hospitalData?.data} />
           </TabPanel>
-          <TabPanel padding="0">
+          <TabPanel>
             <Review />
           </TabPanel>
         </TabPanels>

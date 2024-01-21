@@ -10,23 +10,21 @@ interface PriceItemProp {
 
 function PriceItem({ title, price }: PriceItemProp) {
   return (
-    <>
-      <div style={{ padding: '16px 0' }}>
-        <div style={{ textAlign: 'left', fontSize: '14px', fontWeight: 500 }}>
-          {title}
-        </div>
-        <div
-          style={{
-            textAlign: 'right',
-            color: '#004DC8',
-            fontSize: '14px',
-            fontWeight: 500,
-          }}
-        >
-          {price}
-        </div>
+    <div style={{ padding: '16px' }}>
+      <div style={{ textAlign: 'left', fontSize: '14px', fontWeight: 500 }}>
+        {title}
       </div>
-    </>
+      <div
+        style={{
+          textAlign: 'right',
+          color: '#004DC8',
+          fontSize: '14px',
+          fontWeight: 500,
+        }}
+      >
+        {price}
+      </div>
+    </div>
   );
 }
 
@@ -34,12 +32,7 @@ function Price({ data }: any) {
   const hospitalFeesGroupBy = groupBy(data?.clinic_fees, 'clinic_type_name');
   return (
     <>
-      <Accordion
-        allowMultiple
-        style={{
-          margin: '-16px 0 0',
-        }}
-      >
+      <Accordion allowMultiple margin="-16px 0 0">
         {Object.values(hospitalFeesGroupBy)?.map(
           (hospitalFee: any, index: number) => {
             const feesWrapperName = hospitalFee?.[0]?.clinic_type_name;
@@ -106,7 +99,7 @@ function Price({ data }: any) {
           cursor: 'pointer', // 추가: 마우스 오버시 커서 변경
         }}
       >
-        영수증 리뷰 작성
+        최신 정보 알려주기
       </button>
     </>
   );
