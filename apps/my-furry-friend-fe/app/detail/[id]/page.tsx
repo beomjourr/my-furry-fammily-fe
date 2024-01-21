@@ -1,4 +1,4 @@
-import { DetailTab } from '../DetailTab';
+import { DetailTab } from '../../../components/HospitalDetail/DetailTab';
 import styles from '../page.module.scss';
 
 function Index() {

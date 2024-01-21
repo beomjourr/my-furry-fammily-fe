@@ -15,6 +15,7 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { useRef } from 'react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
@@ -34,11 +35,9 @@ import arrow from '@my-furry-family/images/arrow_right.svg';
 import fileBlank from '@my-furry-family/images/file_blank.svg';
 import Image from 'next/image';
 import { KakaoMap } from '@my-furry-family/next-ui-component';
-import { useRef } from 'react';
-import { Marker } from '../../../components/Marker/Marker';
-import AccordionWrapper from '../AccodionItemWrapper';
-
+import { Marker } from '../../Marker/Marker';
 import Line from '../Divider';
+import AccordionWrapper from '../AccodionItemWrapper';
 
 const APP_KEY = process.env.NEXT_PUBLIC_KAKAO_APP_KEY || '';
 

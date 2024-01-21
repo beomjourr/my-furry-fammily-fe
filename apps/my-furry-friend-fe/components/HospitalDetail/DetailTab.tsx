@@ -16,11 +16,11 @@ import Info from './panels/Info';
 import Review from './panels/Review';
 import Price from './panels/Price';
 import styles from './page.module.scss';
-import { Header } from '../../components/Header/Header';
+import { Header } from '../Header/Header';
 
 export function DetailTab() {
   const router = useRouter();
-  const { data: hospitalData } = useSWR(
+  const { data: hospitalData }: any = useSWR(
     ['/animal-hospitals'],
     (key) => searchHospitalDeatilInfo(1),
     {
