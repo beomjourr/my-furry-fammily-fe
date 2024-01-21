@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import {
   Accordion,
   AccordionButton,
@@ -10,6 +11,10 @@ import {
   UnorderedList,
   useToast,
 } from '@chakra-ui/react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import { Pagination } from 'swiper/modules';
 import star from '@my-furry-family/images/star.svg';
 import starGray from '@my-furry-family/images/star_gray.svg';
 import phone from '@my-furry-family/images/phone.svg';
@@ -23,6 +28,7 @@ import youtube from '@my-furry-family/images/youtube.svg';
 import facebook from '@my-furry-family/images/facebook.svg';
 import blog from '@my-furry-family/images/blog.svg';
 import arrow from '@my-furry-family/images/arrow_right.svg';
+import fileBlank from '@my-furry-family/images/file_blank.svg';
 import Image from 'next/image';
 import { KakaoMap } from '@my-furry-family/next-ui-component';
 import { useRouter } from 'next/navigation';
@@ -81,16 +87,65 @@ function Info({ data }: any) {
 
   return (
     <>
-      <div
-        style={{
-          background: '#E3E3E8',
-          width: 'calc(100% + 32px)',
-          margin: '-16px -16px 20px',
-          height: '240px',
-        }}
-      >
-        이미지
-      </div>
+      {data?.images?.length > 0 ? (
+        <Swiper className="mySwiper" pagination modules={[Pagination]}>
+          {data?.images?.map(
+            (
+              imageItem: {
+                uploaded_url: string;
+                image_type: string;
+                is_thumbnail: boolean;
+              },
+              index: number,
+            ) => {
+              return (
+                <SwiperSlide key={index}>
+                  <div
+                    style={{
+                      background: '#E3E3E8',
+                      width: 'calc(100% + 32px)',
+                      height: '240px',
+                    }}
+                  >
+                    <Image src={imageItem.uploaded_url} alt="" />
+                  </div>
+                </SwiperSlide>
+              );
+            },
+          )}
+        </Swiper>
+      ) : (
+        <Flex
+          background="#E3E3E8"
+          justifyContent="center"
+          alignItems="center"
+          height="240px"
+          flexShrink="0"
+          backgroundColor="#F9F9F9"
+        >
+          <Flex
+            w="169px"
+            justifyContent="center"
+            alignItems="center"
+            flexDirection="column"
+            gap="10px"
+            flexShrink="0"
+          >
+            <Image src={fileBlank} alt="file_blank" />
+            <div
+              style={{
+                color: '#BCBCC4',
+                fontSize: '16px',
+                fontStyle: 'normal',
+                fontWeight: '500',
+                lineHeight: 'normal',
+              }}
+            >
+              아직 등록된 사진이 없어요.
+            </div>
+          </Flex>
+        </Flex>
+      )}
       <div>
         {data?.is_cooperation && (
           <span style={activeTagStyle}>내새꾸 추천병원</span>
