@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import {
   Flex,
   Tab,
@@ -20,11 +20,12 @@ import { Header } from '../Header/Header';
 
 export function DetailTab() {
   const router = useRouter();
+  const { id } = useParams();
   const { data: hospitalData }: any = useSWR(
     ['/animal-hospitals'],
-    (key) => searchHospitalDeatilInfo(1),
+    (key) => searchHospitalDeatilInfo(id),
     {
-      errorRetryCount: 0,
+      errorRetryCount: 2,
     },
   );
 
