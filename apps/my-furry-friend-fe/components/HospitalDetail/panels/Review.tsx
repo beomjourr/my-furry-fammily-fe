@@ -1,7 +1,7 @@
 import { Box, Flex } from '@chakra-ui/react';
 import Image from 'next/image';
 import star from '@my-furry-family/images/star_review.svg';
-import './review.module.scss';
+import './Review.module.scss';
 
 function ReviewItem() {
   return (
