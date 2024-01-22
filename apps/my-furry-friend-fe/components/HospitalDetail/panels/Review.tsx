@@ -2,6 +2,9 @@ import { Box, Flex } from '@chakra-ui/react';
 import Image from 'next/image';
 import star from '@my-furry-family/images/star_review.svg';
 import './Review.module.scss';
+import useSWR from 'swr';
+import { useParams } from 'next/navigation';
+import { searchHospitalReview } from '../../../service/hospitalDetail';
 
 function ReviewItem() {
   return (
@@ -38,6 +41,19 @@ function ReviewItem() {
 }
 
 function Review() {
+  const { id } = useParams();
+  const { data }: any = useSWR(
+    ['/animal-hospitals'],
+    (key) =>
+      searchHospitalReview({
+        animalHospitalId: id,
+        page: 0,
+        size: 10,
+      }),
+    {
+      errorRetryCount: 2,
+    },
+  );
   return (
     <>
       <Flex
