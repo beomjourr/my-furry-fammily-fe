@@ -238,7 +238,7 @@ function Info({ data }: any) {
               <Text
                 fontSize="14px"
                 fontWeight="500"
-                color={item.disabled && '#E3E3E8'}
+                color={item.disabled ? '#E3E3E8' : '#000000'}
               >
                 {item.title}
               </Text>
