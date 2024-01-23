@@ -7,13 +7,12 @@ import { SearchIcon } from '@chakra-ui/icons';
 import styles from './page.module.scss';
 import LocationButton from '../components/main/LocationButton/LocationButton';
 import RequestLocationModal from '../components/main/RequestLocationModal/RequestLocationModal';
-import useLocation from '../hooks/useLocation';
 import { HomeTab } from '../components/home/HomeTab';
 
 export default function Home() {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const { location, requestLocation, setSearchLocation } = useLocation();
+  // const { location } = useLocation();
 
   const handleModalClose = () => {
     setIsOpen(false);
@@ -44,7 +43,7 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
-      <LocationButton onClick={handleModalOpen} location={location} />
+      <LocationButton onClick={handleModalOpen} />
       <Button
         height="48px"
         borderRadius="10px"
