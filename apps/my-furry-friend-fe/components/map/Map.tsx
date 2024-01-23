@@ -9,7 +9,6 @@ const APP_KEY = process.env.NEXT_PUBLIC_KAKAO_APP_KEY || '';
 interface MapProps {
   hospitalData?: HospitalResponse[];
   setLocation?: (position: { lat: number; lng: number }) => void;
-  location?: { latitude: number; longitude: number };
   searchLocation?: { latitude: number; longitude: number };
   boundsLocation?: { lat: number; lng: number }[];
 }
@@ -17,7 +16,6 @@ interface MapProps {
 function Map({
   hospitalData,
   setLocation,
-  location,
   boundsLocation,
   searchLocation,
 }: MapProps) {
@@ -108,8 +106,8 @@ function Map({
         appKey={APP_KEY}
         onClick={() => setActive(undefined)}
         center={{
-          lng: searchLocation?.longitude || location?.longitude || 126.9783882,
-          lat: searchLocation?.latitude || location?.latitude || 37.5666103,
+          lng: searchLocation?.longitude || 126.9783882,
+          lat: searchLocation?.latitude || 37.5666103,
         }}
         setPosition={setLocation}
         boundsLocation={boundsLocation}
@@ -126,11 +124,11 @@ function Map({
             onClick={() => setActive(item)}
           />
         ))}
-        {location && (
+        {searchLocation && (
           <Marker
             position={{
-              lng: location.longitude,
-              lat: location.latitude,
+              lng: searchLocation.longitude,
+              lat: searchLocation.latitude,
             }}
           />
         )}

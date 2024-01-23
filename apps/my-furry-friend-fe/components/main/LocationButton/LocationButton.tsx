@@ -7,14 +7,9 @@ import { addressState } from '../../../store/address';
 import { searchLocationState } from '../../../store/location';
 import { fetchAddress } from '../../../service/address';
 
-interface LocationButtonProps extends HTMLAttributes<HTMLButtonElement> {
-  location?: {
-    latitude: number;
-    longitude: number;
-  };
-}
+type LocationButtonProps = HTMLAttributes<HTMLButtonElement>;
 
-function LocationButton({ onClick, location }: LocationButtonProps) {
+function LocationButton({ onClick }: LocationButtonProps) {
   const [address, setAddress] = useAtom(addressState);
   const [searchLocation] = useAtom(searchLocationState);
 
@@ -43,7 +38,7 @@ function LocationButton({ onClick, location }: LocationButtonProps) {
       //   setAddress('내 위치를 설정해주세요');
       // }
     })();
-  }, [location, searchLocation, setAddress]);
+  }, [searchLocation, setAddress]);
 
   return (
     <button type="button" className={styles.button} onClick={onClick}>
