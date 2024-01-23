@@ -1,24 +1,20 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useAtom } from 'jotai/index';
 import { checkDevice } from '../utils/checkDevice';
-import {
-  Location,
-  locationState,
-  searchLocationState,
-} from '../store/location';
+import { searchLocationState } from '../store/location';
 
 const useLocation = () => {
-  const [location, setLocation] = useAtom(locationState);
+  // const [location, setLocation] = useAtom(locationState);
   const [searchLocation, setSearchLocation] = useAtom(searchLocationState);
-  const [permission, setPermission] = useState<Location | undefined>(undefined);
+  // const [permission, setPermission] = useState<Location | undefined>(undefined);
 
-  const requestLocation = () => {
-    window?.ReactNativeWebView?.postMessage('REQUEST_LOCATION');
-  };
-
-  const requestCurrentLocation = () => {
-    window?.ReactNativeWebView?.postMessage('REQUEST_CURRENT_LOCATION');
-  };
+  // const requestLocation = () => {
+  //   window?.ReactNativeWebView?.postMessage('REQUEST_LOCATION');
+  // };
+  //
+  // const requestCurrentLocation = () => {
+  //   window?.ReactNativeWebView?.postMessage('REQUEST_CURRENT_LOCATION');
+  // };
 
   // useEffect(() => {
   //   requestLocation();
@@ -29,20 +25,20 @@ const useLocation = () => {
       const { data, type } = JSON.parse(e.data);
 
       switch (type) {
-        case 'RESPONSE_LOCATION':
-          setLocation(data);
-          break;
+        // case 'RESPONSE_LOCATION':
+        //   setLocation(data);
+        //   break;
         // case 'RESPONSE_CURRENT_LOCATION':
         //   setCurrentLocation(data);
         //   break;
-        case 'RESPONSE_PERMISSION':
-          setPermission(data);
-          break;
+        // case 'RESPONSE_PERMISSION':
+        //   setPermission(data);
+        //   break;
         default:
           break;
       }
     },
-    [setLocation],
+    [],
   );
 
   useEffect(() => {
@@ -56,12 +52,12 @@ const useLocation = () => {
   }, [listenMessage]);
 
   return {
-    permission,
-    location,
+    // permission,
+    // location,
     searchLocation,
     setSearchLocation,
-    requestLocation,
-    requestCurrentLocation,
+    // requestLocation,
+    // requestCurrentLocation,
   };
 };
 
