@@ -1,9 +1,9 @@
 import { RouteObject } from 'react-router';
-import AnimalHospitalsClinicTypes from '../pages/animal-hospitals-clinic-types/search';
+import AnimalHospitalsClinicTypes from '../pages/hospitals-clinic-types/search';
 
 export const animalHospitalsClinicTypesRoute: RouteObject[] = [
   {
-    path: '/animal-hospitals-clinic-types/search',
+    path: '/hospitals-clinic-types/search',
     element: <AnimalHospitalsClinicTypes />,
   },
 ];

@@ -10,7 +10,7 @@ import {
   postHospital,
 } from '../../../models/hospital/hospital-search.ts';
 import SubmitButton from '../../../components/common/button/SubmitButton.tsx';
-import { HospitalQueryKey } from '../../../constants/query-key.ts';
+import { HospitalsQueryKey } from '../../../constants/query-key.ts';
 import { queryClient } from '../../../main.tsx';
 import Categories from './components/Categories.tsx';
 import Default from './components/Default.tsx';
@@ -35,7 +35,7 @@ const HospitalRegister = ({ type }: HospitalProps) => {
     onSuccess: () => {
       message.success('성공적으로 처리되었습니다.');
       queryClient.invalidateQueries({
-        queryKey: [HospitalQueryKey.hospitalSearch],
+        queryKey: [HospitalsQueryKey.hospitalsSearch],
       });
       navigate('/hospital/search');
     },
@@ -45,7 +45,7 @@ const HospitalRegister = ({ type }: HospitalProps) => {
   };
 
   const { data: hospitalData } = useQuery({
-    queryKey: [HospitalQueryKey.hospitalSearch, id],
+    queryKey: [HospitalsQueryKey.hospitalsSearch, id],
     queryFn: () => getHospital(id!),
     enabled: type === 'edit' && !!id,
   });
@@ -126,7 +126,6 @@ const HospitalRegister = ({ type }: HospitalProps) => {
       <Default form={form} />
       <Categories />
       <Social />
-      {type === 'edit' && <div>수정</div>}
       <SubmitButton isLoading={isPostPending || isPatchPending} />
     </Form>
   );

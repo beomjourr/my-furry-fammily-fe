@@ -2,12 +2,12 @@ import { App, Form, FormInstance, Input, Modal, ModalProps } from 'antd';
 import { useCallback, useEffect } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { queryClient } from '../../../../main.tsx';
-import { AnimalHospitalsClinicTypeQueryKey } from '../../../../constants/query-key.ts';
+import { HospitalsClinicTypeQueryKey } from '../../../../constants/query-key.ts';
 import {
   AnimalHospitalsClinicTypeData,
   patchAnimalHospitalsClinicType,
   postAnimalHospitalsClinicType,
-} from '../../../../models/animal-hospitals-clinic-types/animal-hospitals-clinic-types.ts';
+} from '../../../../models/hospitals-clinic-types/hospitals-clinic-types.ts';
 import rules from '../../../../lib/rules.ts';
 import ModalSubmitButton from '../../../../components/common/button/ModalSubmitButton.tsx';
 
@@ -82,9 +82,7 @@ export default function CreateEditModal({
     onSuccess: () => {
       message.success('성공적으로 처리되었습니다.');
       queryClient.invalidateQueries({
-        queryKey: [
-          AnimalHospitalsClinicTypeQueryKey.animalHospitalsClinicTypeSearch,
-        ],
+        queryKey: [HospitalsClinicTypeQueryKey.hospitalsClinicTypeSearch],
       });
       onCancel();
     },

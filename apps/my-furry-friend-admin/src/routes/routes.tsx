@@ -1,5 +1,6 @@
 import { BrowserRouter, Link, useRoutes } from 'react-router-dom';
 import {
+  FileTextOutlined,
   ReconciliationOutlined,
   ShopOutlined,
   SmileOutlined,
@@ -10,7 +11,8 @@ import { hospitalRoutes } from './hospital.routes.tsx';
 import { errorRoute } from './error.routes.tsx';
 import { authRoute } from './auth.routes.tsx';
 import { animalInfoRoute } from './animal-info.routes.tsx';
-import { animalHospitalsClinicTypesRoute } from './animal-hospitals-clinic-types.routes.tsx';
+import { animalHospitalsClinicTypesRoute } from './hospitals-clinic-types.routes.tsx';
+import { animalHospitalsCategoryInfoRoute } from './hospitals-category.routes.tsx';
 
 export const defaultMenuItems = [
   {
@@ -25,6 +27,22 @@ export const defaultMenuItems = [
         key: '/hospital/register/edit/:id',
         hidden: true,
       },
+      {
+        label: '병원 기타정보 수정',
+        key: '/hospital/register/options/:id',
+        hidden: true,
+      },
+    ],
+  },
+  {
+    label: '동물 병원 전문 과목 관리',
+    key: '/hospitals-category',
+    icon: <FileTextOutlined />,
+    children: [
+      {
+        label: '동물 병원 전문 과목 목록',
+        key: '/hospitals-category/search',
+      },
     ],
   },
   {
@@ -35,12 +53,12 @@ export const defaultMenuItems = [
   },
   {
     label: '동물병원 진료 유형 관리',
-    key: '/animal-hospitals-clinic-types',
+    key: '/hospitals-clinic-types',
     icon: <ReconciliationOutlined />,
     children: [
       {
         label: '동물 진료 유형 목록',
-        key: '/animal-hospitals-clinic-types/search',
+        key: '/hospitals-clinic-types/search',
       },
     ],
   },
@@ -50,6 +68,7 @@ const contentRoutes = [
   ...hospitalRoutes,
   ...animalInfoRoute,
   ...animalHospitalsClinicTypesRoute,
+  ...animalHospitalsCategoryInfoRoute,
 ];
 
 export const getMenuItems = () => {
