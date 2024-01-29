@@ -1,10 +1,10 @@
-import { Button, Row, Space } from 'antd';
+import { Button, ButtonProps, Row, Space } from 'antd';
 
-interface SubmitButtonProps {
+interface SubmitButtonProps extends ButtonProps {
   isLoading: boolean;
 }
 
-const SubmitButton = ({ isLoading }: SubmitButtonProps) => {
+const SubmitButton = ({ isLoading, ...rest }: SubmitButtonProps) => {
   return (
     <Row
       style={{
@@ -18,6 +18,7 @@ const SubmitButton = ({ isLoading }: SubmitButtonProps) => {
           type="primary"
           htmlType="submit"
           size="large"
+          {...rest}
         >
           등록
         </Button>

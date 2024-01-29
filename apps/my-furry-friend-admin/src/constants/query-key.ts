@@ -1,7 +1,26 @@
-export const QueryKey = {
-  hospitalSearch: 'hospital-search',
-  hospitalSearchConditions: 'hospital-search-conditions',
-  hospitalScales: 'hospital-scales',
-  hospitalRegions: 'hospital-regions',
-  hospitalCategories: 'hospital-categories',
+export const HospitalsQueryKey = {
+  hospitalsSearch: 'hospitals-search',
+  hospitalsSearchConditions: 'hospitals-search-conditions',
+  hospitalsScales: 'hospitals-scales',
+  hospitalsRegions: 'hospitals-regions',
+};
+
+export const AnimalInfoQueryKey = {
+  animalInfoSearch: 'animal-info-search',
+};
+
+export const HospitalsClinicTypeQueryKey = {
+  hospitalsClinicTypeSearch: 'hospitals-clinic-type-search',
+};
+
+export const HospitalsCategoryQueryKey = {
+  hospitalsCategories: 'hospitals-categories',
+};
+
+export const HospitalsClinicFeeQueryKey = {
+  hospitalsClinicFee: 'hospitals-clinic-fee',
+};
+
+export const HospitalReviewQueryKey = {
+  hospitalReview: 'hospital-review',
 };

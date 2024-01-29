@@ -12,16 +12,83 @@ export interface HospitalRequestParams {
 }
 
 export interface HospitalRequestData {
-  id: number;
+  id: string;
   name: string;
   tell: string;
   veterinarian_numbers: number;
   scale: string;
+  zip_code: string;
+  has_mri: boolean;
+  has_ct: boolean;
+  is_cooperation: boolean;
   street_address: string;
+  info_description: string;
   region: string;
   latitude: number;
   longitude: number;
+  homepage_url: string;
+  blog_url: string;
+  instagram_url: string;
+  facebook_url: string;
+  youtube_url: string;
+}
+
+export interface HospitalResponseData {
+  id: number;
+  name: string;
+  tell: string;
+  veterinarian_numbers: number;
   is_cooperation: boolean;
+  scale: string;
+  has_mri: boolean;
+  has_ct: boolean;
+  info_description: string;
+  review_rating: number;
+  number_of_reviews: number;
+  categories: string[];
+  now_operation_status: string;
+  url: {
+    homepage_url: string;
+    blog_url: string;
+    instagram_url: string;
+    facebook_url: string;
+    youtube_url: string;
+  };
+  operating_times: {
+    now_operation_status: string;
+    today_operating_time: {
+      day_of_week: string;
+      start_time: number[];
+      end_time: number[];
+      is_day_off: boolean;
+      is_today: boolean;
+    };
+    operating_times: {
+      day_of_week: string;
+      start_time: number[];
+      end_time: number[];
+      is_day_off: boolean;
+    }[];
+  };
+  location: {
+    zip_code: string;
+    street_address: string;
+    region: string;
+    latitude: number;
+    longitude: number;
+  };
+  clinic_fees: {
+    is_required: boolean;
+    name: string;
+    cost: string;
+    clinic_type_name: string;
+    animal_name: string;
+  }[];
+  images: {
+    uploaded_url: string;
+    image_type: string;
+    is_thumbnail: boolean;
+  }[];
 }
 
 export interface HospitalCategoryResponse {
@@ -31,7 +98,9 @@ export interface HospitalCategoryResponse {
 
 const PATH = '/animal-hospitals';
 
-export const getHospitalSearch = (
+const ADMIN_PATH = '/admin/animal-hospitals';
+
+export const getAllHospitalSearch = (
   params?: Partial<HospitalRequestParams>,
 ): Promise<
   AxiosResponse<{
@@ -46,22 +115,23 @@ export const getHospitalSearch = (
   });
 };
 
-export const getHospitalSearchConditions = (): Promise<
-  AxiosResponse<{
-    data: {
-      scales: HospitalCategoryResponse[];
-      categories: HospitalCategoryResponse[];
-      regions: HospitalCategoryResponse[];
-    };
-  }>
-> => {
-  return axiosInstance.get(`${PATH}/search-conditions`);
+export const getHospital = (
+  id: string,
+): Promise<AxiosResponse<{ data: HospitalResponseData }>> => {
+  return axiosInstance.get(`${PATH}/${id}`);
 };
 
 export const postHospital = (
   data: Omit<Partial<HospitalRequestData>, 'id'>,
 ) => {
-  return axiosInstance.post(PATH, data);
+  return axiosInstance.post(ADMIN_PATH, data);
+};
+
+export const patchHospital = (
+  id: string,
+  data: Partial<HospitalRequestData>,
+) => {
+  return axiosInstance.patch(`${ADMIN_PATH}/${id}`, data);
 };
 
 export const getHospitalScales = (): Promise<
@@ -74,36 +144,4 @@ export const getHospitalRegions = (): Promise<
   AxiosResponse<{ data: HospitalCategoryResponse[] }>
 > => {
   return axiosInstance.get(`${PATH}/regions`);
-};
-
-export const getHospitalCategories = (): Promise<
-  AxiosResponse<{ data: HospitalCategoryResponse[] }>
-> => {
-  return axiosInstance.get(`${PATH}/categories`);
-};
-
-export const postHospitalCategories = (categories: {
-  categories: { name: string; description: string }[];
-}) => {
-  return axiosInstance.post(`${PATH}/category`, {
-    categories,
-  });
-};
-
-export const patchHospitalCategory = ({
-  id,
-  category,
-}: {
-  id: number;
-  category: string;
-}) => {
-  return axiosInstance.patch(
-    `${PATH}/${id}/category`,
-    {},
-    {
-      params: {
-        category,
-      },
-    },
-  );
 };
