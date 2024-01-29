@@ -20,3 +20,7 @@ export const HospitalsCategoryQueryKey = {
 export const HospitalsClinicFeeQueryKey = {
   hospitalsClinicFee: 'hospitals-clinic-fee',
 };
+
+export const HospitalReviewQueryKey = {
+  hospitalReview: 'hospital-review',
+};

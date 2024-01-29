@@ -58,6 +58,10 @@ axiosInstance.interceptors.response.use(
 
           return axiosInstance(originalRequest);
         }
+
+        if (status === 401) {
+          redirectAuth();
+        }
       } else {
         redirectAuth();
       }

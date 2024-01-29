@@ -25,18 +25,21 @@ export default function Image({ id }: ImageProps) {
   });
 
   const handleFinish = (values: FormValues) => {
+    const json = JSON.stringify({
+      animal_hospital_id: Number(id),
+      image_type: values.image_type,
+      is_thumbnail: values.is_thumbnail.toString(),
+    });
+
     const formData = new FormData();
+
     formData.append('file', values.file[0].originFileObj as string | Blob);
+    formData.append('request', json);
 
     console.log(values);
-    mutate({
-      file: formData,
-      request: {
-        animal_hospital_id: Number(id),
-        image_type: values.image_type,
-        is_thumbnail: values.is_thumbnail,
-      },
-    });
+
+    // TODO 이미지 post 수정
+    mutate(formData);
   };
 
   return (

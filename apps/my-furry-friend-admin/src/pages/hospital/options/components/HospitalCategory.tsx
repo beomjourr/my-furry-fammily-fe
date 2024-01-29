@@ -8,7 +8,6 @@ import {
 } from '../../../../models/hopital-category/hopital-category.ts';
 import { HospitalsCategoryQueryKey } from '../../../../constants/query-key.ts';
 import SubmitButton from '../../../../components/common/button/SubmitButton.tsx';
-import { HospitalResponseData } from '../../../../models/hospital/hospital-search.ts';
 
 interface FormValues {
   description: string;
@@ -17,13 +16,9 @@ interface FormValues {
 interface HospitalCategoryProps {
   id?: string;
   show?: boolean;
-  hospitalData?: HospitalResponseData;
 }
 
-export default function HospitalCategory({
-  id,
-  hospitalData,
-}: HospitalCategoryProps) {
+export default function HospitalCategory({ id }: HospitalCategoryProps) {
   const [form] = useForm();
 
   const { data, isLoading } = useQuery({

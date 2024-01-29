@@ -5,7 +5,7 @@ import { getHospital } from '../../../models/hospital/hospital-search.ts';
 import HospitalCategory from './components/HospitalCategory.tsx';
 import OperationTime from './components/OperationTime.tsx';
 import ClinicFee from './components/clinicFee/ClinicFee.tsx';
-import Review from './components/Review.tsx';
+import Review from './components/review/Review.tsx';
 import Image from './components/Image.tsx';
 
 export default function HospitalOptionsEdit() {
@@ -19,7 +19,7 @@ export default function HospitalOptionsEdit() {
 
   return (
     <>
-      <HospitalCategory id={id} hospitalData={hospitalData?.data.data} />
+      <HospitalCategory id={id} />
       <OperationTime id={id} hospitalData={hospitalData?.data.data} />
       <ClinicFee id={id} hospitalData={hospitalData?.data.data} />
       <Image id={id} />

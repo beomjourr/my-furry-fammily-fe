@@ -78,13 +78,15 @@ export default function ClinicFeeForm({
     },
   });
 
-  const { mutate: postClinicFeeMutate } = useMutation({
-    mutationFn: postHospitalClinicFee,
-  });
+  const { mutate: postClinicFeeMutate, isPending: isPostClinicFeePending } =
+    useMutation({
+      mutationFn: postHospitalClinicFee,
+    });
 
-  const { mutate: patchPostClinicFeeMutate } = useMutation({
-    mutationFn: patchHospitalClinicFee,
-  });
+  const { mutate: patchClinicFeeMutate, isPending: isPatchClinicFeePending } =
+    useMutation({
+      mutationFn: patchHospitalClinicFee,
+    });
 
   const handleFinish = (values: FormValues) => {
     const options = {
@@ -100,7 +102,7 @@ export default function ClinicFeeForm({
     };
 
     if (type === 'edit' && record) {
-      return patchPostClinicFeeMutate(
+      return patchClinicFeeMutate(
         {
           hospitalId: id,
           clinicFeeId: record.id,
@@ -149,7 +151,9 @@ export default function ClinicFeeForm({
         <Switch />
       </Form.Item>
 
-      <SubmitButton isLoading={false} />
+      <SubmitButton
+        isLoading={isPostClinicFeePending || isPatchClinicFeePending}
+      />
     </Form>
   );
 }
