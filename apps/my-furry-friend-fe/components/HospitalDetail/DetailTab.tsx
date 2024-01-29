@@ -22,7 +22,7 @@ export function DetailTab() {
   const router = useRouter();
   const { id } = useParams();
   const { data: hospitalData }: any = useSWR(
-    ['/animal-hospitals'],
+    [`/animal-hospitals/${id}`],
     (key) => searchHospitalDeatilInfo(id),
     {
       errorRetryCount: 2,
