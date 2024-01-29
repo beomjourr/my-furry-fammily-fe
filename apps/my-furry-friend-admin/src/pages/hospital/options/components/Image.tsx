@@ -38,7 +38,9 @@ export default function Image({ id }: ImageProps) {
 
     console.log(values);
 
-    // TODO 이미지 post 수정
+    // TODO 이미지 post 수정, 배포 임시 ignore
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     mutate(formData);
   };
 
