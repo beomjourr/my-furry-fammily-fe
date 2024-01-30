@@ -129,8 +129,6 @@ function Review() {
       </Box>
       <Box>
         <ReviewItem />
-        <ReviewItem />
-        <ReviewItem />
       </Box>
     </>
   );
