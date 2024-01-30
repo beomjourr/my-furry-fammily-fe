@@ -2,7 +2,6 @@
 
 import { useRouter } from 'next/navigation';
 import { useMemo } from 'react';
-import { useAtom } from 'jotai/index';
 import Badge24Icon from '@my-furry-family/images/card/24-badge.svg';
 import Badge1ChaIcon from '@my-furry-family/images/card/1cha-badge.svg';
 import Badge2ChaIcon from '@my-furry-family/images/card/2cha-badge.svg';
@@ -19,7 +18,6 @@ import {
   SmallCardButton,
 } from '@my-furry-family/next-ui-component';
 import styles from './HomeCardButton.module.scss';
-import { selectedFilters } from '../../store/search';
 
 interface HomeCardButtonProps {
   tab: '지역별' | '진료별' | '규모별';
@@ -29,11 +27,38 @@ const badgeColors = ['orange', 'purple', 'pink', 'blue'];
 
 const tab1CardMetaData = [
   {
+    key: 'NEAR',
     badgeText: '반경 5km 이내',
     buttonContent: '내 주변\n동물병원 찾기',
     iconPath: MapPinSelectedIcon,
   },
   {
+    key: [
+      'JUNG',
+      'YONGSAN',
+      'SEONGDONG',
+      'GWANGJIN',
+      'DONGDAEMUN',
+      'JUNGRANG',
+      'SEONGBUK',
+      'GANGBUK',
+      'DOBONG',
+      'NOWON',
+      'EUNPYEONG',
+      'SEODAEMUN',
+      'MAPO',
+      'YANGCHEON',
+      'GANGSEO',
+      'GURO',
+      'GEUMCHEON',
+      'YEONGDEUNGPO',
+      'DONGJAK',
+      'GWANAK',
+      'SEOCHO',
+      'GANGNAM',
+      'SONGPA',
+      'GANGDONG',
+    ],
     badgeText: '서울시 전체 병원',
     buttonContent: '서울시 내에\n위치한 동물병원',
     iconPath: ListIcon,
@@ -42,22 +67,27 @@ const tab1CardMetaData = [
 
 const tab2CardMetaData = [
   {
+    key: [1, 2, 3, 4, 5, 6, 7],
     buttonContent: '전체보기',
     iconPath: MedicalIcon,
   },
   {
+    key: '1',
     buttonContent: '고양이 친화',
     iconPath: HospitalIcon,
   },
   {
+    key: '3',
     buttonContent: '안과',
     iconPath: EyeIcon,
   },
   {
+    key: '5',
     buttonContent: '정형외과',
     iconPath: BoneImg,
   },
   {
+    key: '2',
     buttonContent: '치과',
     iconPath: ToothImg,
   },
@@ -94,7 +124,6 @@ export function HomeCardButton({
   tab = '지역별',
 }: HomeCardButtonProps): React.ReactNode {
   const router = useRouter();
-  const [, setSelectedFilter] = useAtom(selectedFilters);
 
   const homeCardButtons = useMemo((): React.ReactNode => {
     if (tab === '지역별') {
@@ -109,9 +138,10 @@ export function HomeCardButton({
                 buttonContent={data.buttonContent}
                 iconPath={data.iconPath.src}
                 onClick={() => {
-                  if (data.buttonContent === '내 주변\n동물병원 찾기') {
-                    router.push('/search/result');
+                  if (data.key === 'NEAR') {
+                    return router.push('/search/result');
                   }
+                  return router.push(`/search/result?region=${data.key}`);
                 }}
               />
             );
@@ -128,7 +158,9 @@ export function HomeCardButton({
                 key={index}
                 buttonContent={data.buttonContent}
                 iconPath={data.iconPath.src}
-                onClick={() => {}}
+                onClick={() => {
+                  router.push(`/search/result?category=${data.key}`);
+                }}
               />
             );
           })}
