@@ -11,7 +11,7 @@
       ],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/apps/my-furry-friend-admin"
+        "outputPath": "apps/my-furry-friend-admin/dist"
       },
       "configurations": {
         "development": {
