@@ -1,4 +1,5 @@
 import './global.scss';
+import Script from 'next/script';
 import { Providers } from '../components/Providers';
 
 export const metadata = {
@@ -13,6 +14,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
+      <Script src="https://www.googletagmanager.com/gtag/js?id=G-X6RSMR3XJX" />
+      <Script id="google-analytics">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-X6RSMR3XJX');
+        `}
+      </Script>
       <body>
         <Providers>{children}</Providers>
       </body>
