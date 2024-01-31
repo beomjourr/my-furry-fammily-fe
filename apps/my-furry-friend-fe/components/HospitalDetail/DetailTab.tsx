@@ -1,8 +1,7 @@
 'use client';
 
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import {
-  Flex,
   Tab,
   TabList,
   TabPanel,
@@ -15,8 +14,8 @@ import { searchHospitalDeatilInfo } from '../../service/hospitalDetail';
 import Info from './panels/Info';
 import Review from './panels/Review';
 import Price from './panels/Price';
-import styles from './page.module.scss';
 import { Header } from '../Header/Header';
+import styles from '../../app/detail/[id]/page.module.scss';
 
 export function DetailTab({ id }: { id: string }) {
   const router = useRouter();
@@ -35,9 +34,9 @@ export function DetailTab({ id }: { id: string }) {
         className={styles.header}
         onBackClick={() => router.back()}
       >
-        <Flex w="100%" h="100%" justifyContent="center" alignItems="center">
+        <div className={styles.header_title}>
           <Text fontWeight={600}>{hospitalData?.data?.data?.name}</Text>
-        </Flex>
+        </div>
       </Header>
       <Tabs width="100%" isFitted borderColor="gray.300" fontSize="16px">
         <TabList>

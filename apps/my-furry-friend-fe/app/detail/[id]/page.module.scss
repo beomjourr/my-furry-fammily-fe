@@ -1,4 +1,4 @@
-@import '../../../../libs/design-system/base.scss';
+@import '../../../../../libs/design-system/base';
 
 .container {
   @include container;
@@ -27,4 +27,9 @@
   flex: 0 0 auto;
   text-align: center;
   border: '1px solid black';
+}
+
+.header_title {
+      width: calc(100% - 260px);
+    text-align: left;
 }
