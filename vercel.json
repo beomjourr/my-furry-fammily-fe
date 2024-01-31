@@ -3,7 +3,7 @@
     {
       "src": "/[^.]+",
       "dest": "/index",
-      "status": 200,
+      "status": 200
     }
   ]
 }
