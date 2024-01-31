@@ -36,6 +36,7 @@ export default function Image({ id }: ImageProps) {
     formData.append('file', values.file[0].originFileObj as string | Blob);
     formData.append('request', new Blob([json], { type: 'application/json' }));
 
+    //
     mutate(formData);
   };
 
