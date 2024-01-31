@@ -18,9 +18,8 @@ import Price from './panels/Price';
 import styles from './page.module.scss';
 import { Header } from '../Header/Header';
 
-export function DetailTab() {
+export function DetailTab({ id }: { id: string }) {
   const router = useRouter();
-  const { id } = useParams();
   const { data: hospitalData }: any = useSWR(
     [`/animal-hospitals/${id}`],
     (key) => searchHospitalDeatilInfo(id),
