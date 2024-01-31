@@ -107,7 +107,7 @@ export const getMenuItems = () => {
 const routes = [
   { path: '/', element: <Home /> },
   {
-    path: '',
+    path: '/',
     element: <DefaultLayout />,
     children: contentRoutes,
   },
