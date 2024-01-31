@@ -55,11 +55,21 @@ export interface HospitalResponseData {
     youtube_url: string;
   };
   operating_times: {
-    day_of_week: string;
-    start_time: number[];
-    end_time: number[];
-    is_day_off: boolean;
-  }[];
+    now_operation_status: string;
+    today_operating_time: {
+      day_of_week: string;
+      start_time: number[];
+      end_time: number[];
+      is_day_off: boolean;
+      is_today: boolean;
+    };
+    operating_times: {
+      day_of_week: string;
+      start_time: number[];
+      end_time: number[];
+      is_day_off: boolean;
+    }[];
+  };
   location: {
     zip_code: string;
     street_address: string;

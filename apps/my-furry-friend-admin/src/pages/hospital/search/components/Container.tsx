@@ -1,7 +1,7 @@
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { Button, TableProps } from 'antd';
-import { HospitalQueryKey } from '../../../../constants/query-key.ts';
+import { HospitalsQueryKey } from '../../../../constants/query-key.ts';
 import {
   getAllHospitalSearch,
   HospitalRequestData,
@@ -16,7 +16,7 @@ const Container = () => {
   const name = searchParams.get('name');
   const values = searchParams.getAll('scale');
   const { data } = useSuspenseQuery({
-    queryKey: [HospitalQueryKey.hospitalSearch, name, values],
+    queryKey: [HospitalsQueryKey.hospitalsSearch, name, values],
     queryFn: () =>
       getAllHospitalSearch({
         ...(name && { name }),
@@ -105,6 +105,17 @@ const Container = () => {
       render: (id: number) => (
         <Button onClick={() => navigate(`/hospital/register/edit/${id}`)}>
           수정
+        </Button>
+      ),
+    },
+    {
+      title: '옵션 수정',
+      dataIndex: 'id',
+      fixed: 'right',
+      width: 60,
+      render: (id: number) => (
+        <Button onClick={() => navigate(`/hospital/register/options/${id}`)}>
+          옵션 수정
         </Button>
       ),
     },

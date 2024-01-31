@@ -1,12 +1,12 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { Button, TableProps } from 'antd';
 import { useState } from 'react';
-import { AnimalHospitalsClinicTypeQueryKey } from '../../../../constants/query-key.ts';
+import { HospitalsClinicTypeQueryKey } from '../../../../constants/query-key.ts';
 import BasicTable from '../../../../components/common/table/DefaultTable.tsx';
 import {
   AnimalHospitalsClinicTypeData,
   getAnimalHospitalsClinicType,
-} from '../../../../models/animal-hospitals-clinic-types/animal-hospitals-clinic-types.ts';
+} from '../../../../models/hospitals-clinic-types/hospitals-clinic-types.ts';
 import CreateEditModal from './CreateEditModal.tsx';
 
 const Container = () => {
@@ -16,9 +16,7 @@ const Container = () => {
   }>({ isOpen: false });
 
   const { data } = useSuspenseQuery({
-    queryKey: [
-      AnimalHospitalsClinicTypeQueryKey.animalHospitalsClinicTypeSearch,
-    ],
+    queryKey: [HospitalsClinicTypeQueryKey.hospitalsClinicTypeSearch],
     queryFn: getAnimalHospitalsClinicType,
   });
 

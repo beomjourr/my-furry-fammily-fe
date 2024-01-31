@@ -11,7 +11,7 @@ import { searchLocationState } from '../../store/location';
 export default function Page() {
   const router = useRouter();
   const [searchValue, setSearchValue] = useState('');
-  const [_, setSearchLocation] = useAtom(searchLocationState);
+  const [, setSearchLocation] = useAtom(searchLocationState);
 
   useSWR(
     searchValue ? ['/kakao-address-trans-api', searchValue] : null,
