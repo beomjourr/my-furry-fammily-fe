@@ -3,7 +3,7 @@ import ErrorLayout from '../components/layout/ErrorLayout.tsx';
 
 export const errorRoute: RouteObject[] = [
   {
-    path: '*',
+    path: '/*',
     element: <ErrorLayout />,
   },
 ];
