@@ -26,21 +26,16 @@ export default function Image({ id }: ImageProps) {
 
   const handleFinish = (values: FormValues) => {
     const json = JSON.stringify({
-      animal_hospital_id: Number(id),
+      animal_hospital_id: id,
       image_type: values.image_type,
-      is_thumbnail: values.is_thumbnail.toString(),
+      is_thumbnail: values.is_thumbnail,
     });
 
     const formData = new FormData();
 
     formData.append('file', values.file[0].originFileObj as string | Blob);
-    formData.append('request', json);
+    formData.append('request', new Blob([json], { type: 'application/json' }));
 
-    console.log(values);
-
-    // TODO 이미지 post 수정, 배포 임시 ignore
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     mutate(formData);
   };
 
