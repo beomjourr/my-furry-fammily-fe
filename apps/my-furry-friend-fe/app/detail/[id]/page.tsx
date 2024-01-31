@@ -6,9 +6,10 @@ import styles from '../page.module.scss';
 function Index() {
   return (
     <>
-      <div className={styles.container}>
+      {/* <div className={styles.container}>
         <DetailTab />
-      </div>
+      </div> */}
+      테스트
     </>
   );
 }
