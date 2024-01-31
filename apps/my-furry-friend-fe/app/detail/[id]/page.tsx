@@ -1,3 +1,5 @@
+'use client';
+
 import { DetailTab } from '../../../components/HospitalDetail/DetailTab';
 import styles from '../page.module.scss';
 
