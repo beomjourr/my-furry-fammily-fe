@@ -3,15 +3,12 @@
 import { DetailTab } from '../../../components/HospitalDetail/DetailTab';
 import styles from '../page.module.scss';
 
-function Index() {
+export default function Page({ params }: { params: { id: string } }) {
   return (
     <>
-      {/* <div className={styles.container}>
-        <DetailTab />
-      </div> */}
-      테스트
+      <div className={styles.container}>
+        <DetailTab id={params.id} />
+      </div>
     </>
   );
 }
-
-export default Index;
