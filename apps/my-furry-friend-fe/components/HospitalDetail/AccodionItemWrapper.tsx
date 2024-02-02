@@ -1,13 +1,11 @@
 import React, { CSSProperties, ReactNode } from 'react';
 import {
-  AccordionItem,
   AccordionButton,
   AccordionIcon,
-  Box,
+  AccordionItem,
   AccordionPanel,
-  Flex,
+  Box,
 } from '@chakra-ui/react';
-import { BADRESP } from 'dns';
 
 interface AccordionItemWrapperProps {
   title: string;
@@ -90,7 +88,6 @@ function AccordionWrapper({
         </AccordionButton>
       </h2>
       <AccordionPanel paddingTop="0" paddingBottom="0" style={panelStyle}>
-        {' '}
         {children}
       </AccordionPanel>
     </AccordionItem>

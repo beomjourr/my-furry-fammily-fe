@@ -19,7 +19,7 @@ import styles from '../../app/detail/[id]/page.module.scss';
 
 export function DetailTab({ id }: { id: string }) {
   const router = useRouter();
-  const { data: hospitalData }: any = useSWR(
+  const { data: hospitalData } = useSWR(
     [`/animal-hospitals/${id}`],
     (key) => searchHospitalDeatilInfo(id),
     {
