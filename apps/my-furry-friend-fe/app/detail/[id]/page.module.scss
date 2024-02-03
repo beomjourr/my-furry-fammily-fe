@@ -24,6 +24,13 @@
   padding: var(--chakra-space-4);
 }
 
+.tab_list {
+  position: sticky;
+  top: 0;
+  background: #FFFDF9;
+  z-index: 9999;
+}
+
 .header {
   height: 68px;
   flex: 0 0 auto;

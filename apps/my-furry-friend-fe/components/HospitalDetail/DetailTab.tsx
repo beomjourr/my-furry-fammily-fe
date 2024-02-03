@@ -31,27 +31,38 @@ export function DetailTab({ id }: { id: string }) {
 
   return (
     <>
-      <Header
-        isBack
-        className={styles.header}
-        onBackClick={() => router.back()}
+      <Tabs
+        position="relative"
+        width="100%"
+        borderColor="gray.300"
+        fontSize="16px"
+        isFitted
+        isLazy
       >
-        <div className={styles.header_title}>
-          <Text fontWeight={600}>{hospitalData?.data?.data?.name}</Text>
+        <div className={styles.tab_list}>
+          <Header
+            isBack
+            className={styles.header}
+            onBackClick={() => router.back()}
+          >
+            <div className={styles.header_title}>
+              <Text fontWeight={600}>{hospitalData?.data?.data?.name}</Text>
+            </div>
+          </Header>
+
+          <TabList>
+            {TAB.map((tab, index) => (
+              <Tab
+                key={index}
+                borderColor="#F5F5F7"
+                _selected={{ borderColor: '#6282DB', fontWeight: '600' }}
+                padding="16px"
+              >
+                {tab}
+              </Tab>
+            ))}
+          </TabList>
         </div>
-      </Header>
-      <Tabs width="100%" borderColor="gray.300" fontSize="16px" isFitted isLazy>
-        <TabList>
-          {TAB.map((tab, index) => (
-            <Tab
-              key={index}
-              _selected={{ borderColor: '#6282DB', fontWeight: '600' }}
-              padding="16px"
-            >
-              {tab}
-            </Tab>
-          ))}
-        </TabList>
 
         <TabPanels>
           <TabPanel padding="0">
