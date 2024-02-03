@@ -2,34 +2,58 @@ import { Flex, Text } from '@chakra-ui/react';
 import Image from 'next/image';
 import PhoneIcon from '@my-furry-family/images/phone.svg';
 import HomepageIcon from '@my-furry-family/images/homepage.svg';
+import HomepageDisabledIcon from '@my-furry-family/images/hompage-disabled.svg';
 import ReviewIcon from '@my-furry-family/images/review.svg';
 import HeartIcon from '@my-furry-family/images/heart.svg';
-
-const MENU = [
-  { src: PhoneIcon, title: '전화하기', disabled: false },
-  { src: HomepageIcon, title: '홈페이지', disabled: false },
-  { src: ReviewIcon, title: '리뷰작성', disabled: true },
-  { src: HeartIcon, title: '찜하기', disabled: true },
-];
 
 interface MenuProps {
   homepage_url: string;
   tell: string;
 }
 
-export default function Menu({ homepage_url, tell }: MenuProps) {
-  const handleMenuButton = (item: { src: any; title: string }) => {
-    if (!item) return;
+const MENU = ({ homepage_url, tell }: MenuProps) => [
+  {
+    icon: PhoneIcon,
+    disabledIcon: PhoneIcon,
+    title: '전화하기',
+    disabled: !tell,
+  },
+  {
+    icon: HomepageIcon,
+    disabledIcon: HomepageDisabledIcon,
+    title: '홈페이지',
+    disabled: !homepage_url,
+  },
+  {
+    icon: ReviewIcon,
+    disabledIcon: ReviewIcon,
+    title: '리뷰작성',
+    disabled: true,
+  },
+  { icon: HeartIcon, disabledIcon: HeartIcon, title: '찜하기', disabled: true },
+];
 
-    switch (item.title) {
+export default function Menu({ homepage_url, tell }: MenuProps) {
+  const handleMenuButton = (title: string) => {
+    switch (title) {
       case '전화하기':
         if (tell) {
-          document.location.href = `tel:${tell}`;
+          window.ReactNativeWebView.postMessage(
+            JSON.stringify({
+              type: 'CALL_TELL',
+              tell,
+            }),
+          );
         }
         break;
       case '홈페이지':
         if (homepage_url) {
-          window.open(homepage_url, '_blank');
+          window.ReactNativeWebView.postMessage(
+            JSON.stringify({
+              type: 'INAPPBROWSER_EVENT',
+              url: homepage_url,
+            }),
+          );
         }
         break;
       default:
@@ -38,7 +62,7 @@ export default function Menu({ homepage_url, tell }: MenuProps) {
 
   return (
     <Flex m="26px 0 20px">
-      {MENU.map((item) => (
+      {MENU({ homepage_url, tell }).map((item) => (
         <Flex
           key={item.title}
           flex="1"
@@ -49,7 +73,7 @@ export default function Menu({ homepage_url, tell }: MenuProps) {
           <Flex
             role="button"
             onClick={() => {
-              handleMenuButton(item);
+              handleMenuButton(item.title);
             }}
             display="flex"
             w="82px"
@@ -60,7 +84,10 @@ export default function Menu({ homepage_url, tell }: MenuProps) {
             gap="8px"
             background="none"
           >
-            <Image src={item.src} alt="phone" />
+            <Image
+              src={item.disabled ? item.disabledIcon : item.icon}
+              alt="phone"
+            />
             <Text
               fontSize="14px"
               fontWeight="500"

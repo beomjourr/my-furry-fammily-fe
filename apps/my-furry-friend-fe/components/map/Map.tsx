@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Button, Card, Text, useToast } from '@chakra-ui/react';
+import React, { useState } from 'react';
+import { Box, Button, Card, Text } from '@chakra-ui/react';
 import { KakaoMap } from '@my-furry-family/next-ui-component';
 import fileBlank from '@my-furry-family/images/blank.svg';
 import Image from 'next/image';
@@ -24,15 +24,6 @@ function Map({
 }: MapProps) {
   const router = useRouter();
   const [active, setActive] = useState<HospitalResponse | undefined>(undefined);
-  const toast = useToast();
-
-  useEffect(() => {
-    toast({
-      title: '반경 5km 내로 표시됩니다.',
-      duration: 5000,
-      variant: 'toast',
-    });
-  }, []);
 
   return (
     <div className="relative w-full overflow-hidden flex-1">
