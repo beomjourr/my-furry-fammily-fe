@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { Box, Button, Card, Text } from '@chakra-ui/react';
 import { KakaoMap } from '@my-furry-family/next-ui-component';

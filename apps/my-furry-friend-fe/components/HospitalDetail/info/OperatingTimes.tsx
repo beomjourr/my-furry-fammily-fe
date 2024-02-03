@@ -72,20 +72,18 @@ export default function OperatingTimes({
         >
           <Image src={clock} alt="clock" />
           <span style={{ color: '#6282DB', fontSize: 14 }}>
-            {operating_times?.now_operation_status}
+            {operating_times.now_operation_status}
           </span>
-          <span style={{ fontWeight: 500 }}>
-            {`${operating_times?.today_operating_time?.day_of_week || ''}
-                  ${
-                    operating_times?.today_operating_time?.start_time || ''
-                  } - ${operating_times?.today_operating_time?.end_time || ''}
-                `}
-          </span>
+          {operating_times.today_operating_time && (
+            <span style={{ fontWeight: 500 }}>
+              {`${operating_times.today_operating_time.start_time} - ${operating_times.today_operating_time.end_time}`}
+            </span>
+          )}
         </Flex>
         <AccordionIcon />
       </AccordionButton>
       <AccordionPanel padding="0">
-        {operating_times?.resting_time && (
+        {operating_times.resting_time && (
           <Box
             display="flex"
             padding="6px 8px"
@@ -97,9 +95,7 @@ export default function OperatingTimes({
             fontSize="14px"
             fontWeight="500"
           >
-            {`휴게시간 ${operating_times?.resting_time?.start_time || ''} - ${
-              operating_times?.resting_time?.end_time || ''
-            }`}
+            {`휴게시간 ${operating_times.resting_time.start_time} - ${operating_times.resting_time.end_time}`}
           </Box>
         )}
         <UnorderedList
@@ -111,15 +107,11 @@ export default function OperatingTimes({
           fontWeight={500}
           color="#545459"
         >
-          {operating_times?.operating_times?.map((item, index) => {
-            return (
-              <ListItem key={index}>
-                {`${item?.day_of_week || ''} ${item?.start_time || ''} - ${
-                  item?.end_time || ''
-                }`}
-              </ListItem>
-            );
-          })}
+          {operating_times.operating_times?.map((item, index) => (
+            <ListItem key={index}>
+              {`${item?.day_of_week} ${item?.start_time} - ${item?.end_time}`}
+            </ListItem>
+          ))}
         </UnorderedList>
       </AccordionPanel>
     </AccordionItem>

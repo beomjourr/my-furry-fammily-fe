@@ -3,25 +3,20 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import Line from '../Divider';
 import { HospitalResponseData } from '../../../service/hospitalDetail';
-import Images from '../Info/Images';
-import Title from '../Info/Title';
-import Menu from '../Info/Menu';
-import OperatingTimes from '../Info/OperatingTimes';
-import Category from '../Info/Category';
-import Description from '../Info/Description';
-import Location from '../Info/Location';
-import Sns from '../Info/SNS';
-import Notice from '../Info/Notice';
+import Images from '../info/Images';
+import Title from '../info/Title';
+import Menu from '../info/Menu';
+import OperatingTimes from '../info/OperatingTimes';
+import Category from '../info/Category';
+import Description from '../info/Description';
+import Location from '../info/Location';
+import Sns from '../info/SNS';
+import Notice from '../info/Notice';
 
 interface InfoProps {
-  data?: HospitalResponseData;
+  data: HospitalResponseData;
 }
-
 function Info({ data }: InfoProps) {
-  if (!data) {
-    return null;
-  }
-
   return (
     <>
       <Images images={data.images} />

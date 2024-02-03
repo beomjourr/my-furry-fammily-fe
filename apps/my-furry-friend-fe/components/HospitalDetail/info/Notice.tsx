@@ -19,7 +19,15 @@ export default function Notice() {
           변경된 정보가 있다면 저희 팀에게 알려주세요!
         </Text>
       </Box>
-      <Image src={arrow} alt="arrow" />
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Image width={24} height={24} src={arrow} alt="arrow" />
+      </div>
     </Flex>
   );
 }
