@@ -1,12 +1,29 @@
-import { Box, Flex } from '@chakra-ui/react';
+import { Box, Flex, Text } from '@chakra-ui/react';
 import Image from 'next/image';
-import star from '@my-furry-family/images/star_review.svg';
 import './Review.module.scss';
 import useSWR from 'swr';
-import { useParams } from 'next/navigation';
+import star from '@my-furry-family/images/star.svg';
+import starGray from '@my-furry-family/images/star_gray.svg';
 import { searchHospitalReview } from '../../../service/hospitalDetail';
 
-function ReviewItem() {
+interface ReviewProps {
+  id: string;
+  review_rating?: number;
+}
+
+interface ReviewItemProps {
+  content: string;
+  written_at: string;
+  number_of_visits: number;
+  origin_type: string;
+}
+
+function ReviewItem({
+  content,
+  written_at,
+  number_of_visits,
+  origin_type,
+}: ReviewItemProps) {
   return (
     <Box
       style={{
@@ -30,30 +47,27 @@ function ReviewItem() {
           lineHeight: '18px',
         }}
       >
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore
+        {content}
       </div>
       <div style={{ color: '#BCBCC4', fontSize: '10px', fontWeight: 500 }}>
-        2024.01.01{' '}
+        {written_at} {number_of_visits}번째 방문 {origin_type} 리뷰
       </div>
     </Box>
   );
 }
 
-function Review() {
-  const { id } = useParams();
-  const { data }: any = useSWR(
-    ['/animal-hospitals'],
+function Review({ id, review_rating }: ReviewProps) {
+  const { data } = useSWR(
+    ['/animal-hospitals', id],
     (key) =>
       searchHospitalReview({
         animalHospitalId: id,
-        page: 0,
-        size: 10,
       }),
     {
       errorRetryCount: 2,
     },
   );
+
   return (
     <>
       <Flex
@@ -91,7 +105,6 @@ function Review() {
             style={{
               gap: '32px',
               marginTop: '50px',
-
               alignItems: 'center',
             }}
           >
@@ -102,7 +115,7 @@ function Review() {
                 fontWeight: 500,
               }}
             >
-              네이버 후기{' '}
+              네이버 후기
             </div>
             <div
               style={{
@@ -111,8 +124,15 @@ function Review() {
                 justifyContent: 'center',
               }}
             >
-              <Image src={star} alt="star" width={18} height={18} />
-              <div style={{ fontSize: '14px', fontWeight: 400 }}>4.0</div>
+              <Image
+                src={review_rating ? star : starGray}
+                width={18}
+                height={18}
+                alt="star"
+              />
+              <Text fontSize="14px" fontWeight="400">
+                {review_rating || '별점 정보 없음'}
+              </Text>
             </div>
           </Flex>
           <div
@@ -128,7 +148,25 @@ function Review() {
         </div>
       </Box>
       <Box>
-        <ReviewItem />
+        {data?.data.data.totalElement === 0 ? (
+          <Flex
+            style={{
+              color: '#9A9AA1',
+              fontSize: '14px',
+              justifyContent: 'center',
+              fontWeight: '600',
+              padding: '41px 0',
+            }}
+          >
+            리뷰가 없습니다.
+          </Flex>
+        ) : (
+          <>
+            {data?.data.data.content.map(({ id: reviewId, ...content }) => (
+              <ReviewItem key={reviewId} {...content} />
+            ))}
+          </>
+        )}
       </Box>
     </>
   );

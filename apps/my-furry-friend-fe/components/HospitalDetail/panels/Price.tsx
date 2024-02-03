@@ -1,11 +1,16 @@
 import { Accordion, Box } from '@chakra-ui/react';
-import _, { groupBy } from 'lodash';
+import { groupBy } from 'lodash';
 import AccordionWrapper from '../AccodionItemWrapper';
 import Line from '../Divider';
+import { HospitalResponseData } from '../../../service/hospitalDetail';
 
 interface PriceItemProp {
   title: string;
   price: string;
+}
+
+interface PriceProps {
+  data?: HospitalResponseData;
 }
 
 function PriceItem({ title, price }: PriceItemProp) {
@@ -28,20 +33,27 @@ function PriceItem({ title, price }: PriceItemProp) {
   );
 }
 
-function Price({ data }: any) {
-  const hospitalFeesGroupBy = groupBy(data?.clinic_fees, 'clinic_type_name');
+function Price({ data }: PriceProps) {
+  const hospitalFeesGroupBy = groupBy(
+    data?.clinic_fees.sort((a, b) =>
+      a.is_required === b.is_required ? 0 : a.is_required ? -1 : 1,
+    ),
+    'clinic_type_name',
+  );
+
   return (
     <>
       <Accordion allowMultiple margin="-16px 0 0">
         {Object.values(hospitalFeesGroupBy)?.map(
-          (hospitalFee: any, index: number) => {
+          (hospitalFee, index: number) => {
             const feesWrapperName = hospitalFee?.[0]?.clinic_type_name;
+            const hospitalFeeIsRequired = hospitalFee?.[0]?.is_required;
+
             return (
               <div key={index}>
                 <AccordionWrapper
                   title={feesWrapperName}
-                  essential={!hospitalFee?.is_required}
-                  single={hospitalFee?.is_required}
+                  is_required={hospitalFeeIsRequired}
                   panelStyle={{
                     background: '#F9F9F9',
                     display: 'flex',

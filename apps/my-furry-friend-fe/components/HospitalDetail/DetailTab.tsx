@@ -17,6 +17,8 @@ import Price from './panels/Price';
 import { Header } from '../Header/Header';
 import styles from '../../app/detail/[id]/page.module.scss';
 
+const TAB = ['병원소개', '진료비', '후기'];
+
 export function DetailTab({ id }: { id: string }) {
   const router = useRouter();
   const { data: hospitalData } = useSWR(
@@ -38,27 +40,19 @@ export function DetailTab({ id }: { id: string }) {
           <Text fontWeight={600}>{hospitalData?.data?.data?.name}</Text>
         </div>
       </Header>
-      <Tabs width="100%" isFitted borderColor="gray.300" fontSize="16px">
+      <Tabs width="100%" borderColor="gray.300" fontSize="16px" isFitted isLazy>
         <TabList>
-          <Tab
-            _selected={{ borderColor: '#6282DB', fontWeight: '600' }}
-            padding="16px"
-          >
-            병원소개
-          </Tab>
-          <Tab
-            _selected={{ borderColor: '#6282DB', fontWeight: '600' }}
-            padding="16px"
-          >
-            진료비
-          </Tab>
-          <Tab
-            _selected={{ borderColor: '#6282DB', fontWeight: '600' }}
-            padding="16px"
-          >
-            후기
-          </Tab>
+          {TAB.map((tab, index) => (
+            <Tab
+              key={index}
+              _selected={{ borderColor: '#6282DB', fontWeight: '600' }}
+              padding="16px"
+            >
+              {tab}
+            </Tab>
+          ))}
         </TabList>
+
         <TabPanels>
           <TabPanel padding="0">
             <Info {...hospitalData?.data} />
@@ -67,7 +61,10 @@ export function DetailTab({ id }: { id: string }) {
             <Price {...hospitalData?.data} />
           </TabPanel>
           <TabPanel>
-            <Review />
+            <Review
+              id={id}
+              review_rating={hospitalData?.data.data.review_rating}
+            />
           </TabPanel>
         </TabPanels>
       </Tabs>

@@ -13,7 +13,8 @@ export type UrlType =
   | 'instagram_url'
   | 'facebook_url'
   | 'youtube_url';
-type Url = {
+
+export type Url = {
   [url in UrlType]: string;
 };
 
@@ -70,10 +71,35 @@ export interface HospitalResponseData {
     animal_name: string;
   }[];
   images: {
-    uploaded_url: string;
-    image_type: string;
-    is_thumbnail: boolean;
+    has_sheet_image: boolean;
+    main_images: {
+      uploaded_url: string;
+      image_type: string;
+      is_thumbnail: boolean;
+    }[];
+    sheet_images: {
+      uploaded_url: string;
+      image_type: string;
+      is_thumbnail: boolean;
+    }[];
+    thumbnail_image?: string;
+  };
+  health_screening_info: {
+    is_offered: boolean;
+    items: string[];
+  };
+}
+
+export interface HospitalReviewData {
+  content: {
+    id: number;
+    content: string;
+    written_at: string;
+    number_of_visits: number;
+    origin_type: string;
   }[];
+  totalElement: number;
+  totalPage: number;
 }
 
 export function searchHospitalDeatilInfo(
@@ -84,7 +110,7 @@ export function searchHospitalDeatilInfo(
 
 export function searchHospitalReview(
   params?: Partial<SearchHospitalReviewParams>,
-): Promise<AxiosResponse<{ data: { key: string; value: string }[] }>> {
+): Promise<AxiosResponse<{ data: HospitalReviewData }>> {
   return fetcher.get('/reviews', {
     params,
   });
