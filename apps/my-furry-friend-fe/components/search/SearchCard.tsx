@@ -1,6 +1,8 @@
 import React from 'react';
-import { Box, Image, Text } from '@chakra-ui/react';
+import { Box, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
+import fileBlank from '@my-furry-family/images/blank.svg';
+import Image from 'next/image';
 import { HospitalResponse } from '../../service/search';
 
 interface SearchCardProps {
@@ -26,11 +28,13 @@ function SearchCard({ data }: SearchCardProps) {
     >
       <Box marginRight="16px">
         <Image
-          boxSize="98px"
-          style={{ objectFit: 'cover' }}
-          src="https://bit.ly/dan-abramov"
-          alt="Dan Abramov"
-          rounded={16}
+          width={98}
+          height={98}
+          style={{ objectFit: 'cover', borderRadius: '16px' }}
+          // TODO: 백단 이미지 경로 수정되면 주석 해제
+          // src={data.thumbnail_image || fileBlank}
+          src={fileBlank}
+          alt="thumbnail_image"
         />
       </Box>
       <Box

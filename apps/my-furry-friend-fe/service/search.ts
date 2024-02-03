@@ -14,6 +14,7 @@ export interface HospitalResponse {
   scale: string;
   distance: number;
   is_cooperation: boolean;
+  thumbnail_image?: string;
 }
 
 interface SearchHospitalParams {

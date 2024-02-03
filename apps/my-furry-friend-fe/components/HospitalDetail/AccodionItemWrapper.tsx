@@ -1,70 +1,66 @@
 import React, { CSSProperties, ReactNode } from 'react';
 import {
-  AccordionItem,
   AccordionButton,
   AccordionIcon,
-  Box,
+  AccordionItem,
   AccordionPanel,
-  Flex,
+  Box,
 } from '@chakra-ui/react';
-import { BADRESP } from 'dns';
 
 interface AccordionItemWrapperProps {
   title: string;
   children: ReactNode; // ReactNode를 사용하여 React 컴포넌트, 문자열, 숫자, null 등을 포함할 수 있도록 함
   panelStyle?: CSSProperties;
-  essential?: boolean;
-  single?: boolean;
+  is_required?: boolean;
 }
+
+const badgeStyle = {
+  margin: '0px 8px',
+  borderRadius: 100,
+  justifyContent: 'center',
+  alignItems: 'center',
+  padding: '2px 8px',
+  fontSize: '12px',
+  fontWeight: '400',
+};
 
 function AccordionWrapper({
   title,
   children,
   panelStyle,
-  essential,
-  single,
+  is_required,
 }: AccordionItemWrapperProps) {
-  let badge: React.ReactNode;
+  let badge: React.ReactNode = null;
 
-  if (essential) {
-    badge = (
-      <span
-        style={{
-          margin: ' 8px',
-          background: '#E6E9F9',
-          borderRadius: 100,
-          justifyContent: 'center',
-          alignItems: 'center',
-          padding: '2px 8px',
-          color: '#6282DB',
-          fontSize: '12px',
-          fontWeight: '400',
-        }}
-      >
-        필수
-      </span>
-    );
-  } else if (single) {
-    badge = (
-      <span
-        style={{
-          margin: '0px 8px',
-          background: '#6282DB',
-          borderRadius: 100,
-          justifyContent: 'center',
-          alignItems: 'center',
-          padding: '2px 8px',
-          color: 'white',
-          fontSize: '12px',
-          fontWeight: '400',
-        }}
-      >
-        단독
-      </span>
-    );
-  } else {
-    badge = null;
+  if (typeof is_required === 'boolean') {
+    if (is_required) {
+      badge = (
+        <span
+          style={{
+            ...badgeStyle,
+            background: '#E6E9F9',
+            color: '#6282DB',
+          }}
+        >
+          필수
+        </span>
+      );
+    }
+    if (!is_required) {
+      badge = (
+        <span
+          style={{
+            ...badgeStyle,
+            background: '#6282DB',
+            color: 'white',
+          }}
+        >
+          단독
+        </span>
+      );
+    }
   }
+
   return (
     <AccordionItem
       style={{
@@ -90,7 +86,6 @@ function AccordionWrapper({
         </AccordionButton>
       </h2>
       <AccordionPanel paddingTop="0" paddingBottom="0" style={panelStyle}>
-        {' '}
         {children}
       </AccordionPanel>
     </AccordionItem>

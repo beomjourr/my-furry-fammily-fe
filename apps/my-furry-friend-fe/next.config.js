@@ -4,7 +4,7 @@
 const { composePlugins, withNx } = require('@nx/next');
 
 /**
- * @type {import('@nx/next/plugins/with-nx').WithNxOptions} 
+ * @type {import('@nx/next/plugins/with-nx').WithNxOptions}
  * */
 const nextConfig = {
   nx: {
@@ -13,6 +13,14 @@ const nextConfig = {
     svgr: false,
   },
   reactStrictMode: false,
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'd2bhjq36ygbqbg.cloudfront.net',
+      },
+    ],
+  },
 };
 
 const plugins = [

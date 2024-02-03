@@ -33,6 +33,17 @@ export interface HospitalRequestData {
   youtube_url: string;
 }
 
+export type UrlType =
+  | 'homepage_url'
+  | 'blog_url'
+  | 'instagram_url'
+  | 'facebook_url'
+  | 'youtube_url';
+
+export type Url = {
+  [url in UrlType]: string;
+};
+
 export interface HospitalResponseData {
   id: number;
   name: string;
@@ -47,13 +58,7 @@ export interface HospitalResponseData {
   number_of_reviews: number;
   categories: string[];
   now_operation_status: string;
-  url: {
-    homepage_url: string;
-    blog_url: string;
-    instagram_url: string;
-    facebook_url: string;
-    youtube_url: string;
-  };
+  url: Url;
   operating_times: {
     now_operation_status: string;
     today_operating_time: {
@@ -69,6 +74,13 @@ export interface HospitalResponseData {
       end_time: number[];
       is_day_off: boolean;
     }[];
+    resting_time: {
+      day_of_week: string;
+      start_time: number[];
+      end_time: number[];
+      is_day_off: boolean;
+      is_today: boolean;
+    };
   };
   location: {
     zip_code: string;
@@ -85,10 +97,23 @@ export interface HospitalResponseData {
     animal_name: string;
   }[];
   images: {
-    uploaded_url: string;
-    image_type: string;
-    is_thumbnail: boolean;
-  }[];
+    has_sheet_image: boolean;
+    main_images: {
+      uploaded_url: string;
+      image_type: string;
+      is_thumbnail: boolean;
+    }[];
+    sheet_images: {
+      uploaded_url: string;
+      image_type: string;
+      is_thumbnail: boolean;
+    }[];
+    thumbnail_image?: string;
+  };
+  health_screening_info: {
+    is_offered: boolean;
+    items: string[];
+  };
 }
 
 export interface HospitalCategoryResponse {

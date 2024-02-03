@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, Card, Image, Text, useToast } from '@chakra-ui/react';
+import { Box, Button, Card, Text, useToast } from '@chakra-ui/react';
 import { KakaoMap } from '@my-furry-family/next-ui-component';
+import fileBlank from '@my-furry-family/images/blank.svg';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { Marker } from '../Marker/Marker';
 import { HospitalResponse } from '../../service/search';
 
@@ -19,6 +22,7 @@ function Map({
   boundsLocation,
   searchLocation,
 }: MapProps) {
+  const router = useRouter();
   const [active, setActive] = useState<HospitalResponse | undefined>(undefined);
   const toast = useToast();
 
@@ -72,11 +76,14 @@ function Map({
           <Box display="flex">
             <Box marginRight="16px">
               <Image
-                boxSize="100px"
-                style={{ objectFit: 'cover' }}
-                src="https://bit.ly/dan-abramov"
-                alt="Dan Abramov"
-                rounded={16}
+                style={{
+                  objectFit: 'cover',
+                  width: '100px',
+                  height: '100px',
+                  borderRadius: '16px',
+                }}
+                src={active.thumbnail_image || fileBlank}
+                alt="thumbnail_image"
               />
             </Box>
             <Box display="flex" flexDirection="column" justifyContent="center">
@@ -97,6 +104,7 @@ function Map({
             marginTop="16px"
             variant="solid"
             rounded={100}
+            onClick={() => router.push(`/detail/${active.id}`)}
           >
             자세히 보러가기
           </Button>
