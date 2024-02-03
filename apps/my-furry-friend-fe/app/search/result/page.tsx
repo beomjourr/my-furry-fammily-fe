@@ -4,6 +4,7 @@ import useSWR from 'swr';
 import { useAtom } from 'jotai/index';
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { useToast } from '@chakra-ui/react';
 import Map from '../../../components/map/Map';
 import { searchHospital } from '../../../service/search';
 import { searchKeyword } from '../../../store/search';
@@ -19,6 +20,15 @@ export default function Index() {
   const scale = searchParams.get('scale');
   const category = searchParams.get('category');
   const region = searchParams.get('region');
+  const toast = useToast();
+
+  useEffect(() => {
+    toast({
+      title: '반경 5km 내로 표시됩니다.',
+      duration: 5000,
+      variant: 'toast',
+    });
+  }, []);
 
   useEffect(() => {
     if (searchLocation) {

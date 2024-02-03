@@ -20,9 +20,7 @@ function RequestLocationModal({
       modalBodyContent={
         <>
           <p>내 위치를 설정해주세요</p>
-          <p>
-            <span>반경 5km 내에 있는 병원</span>들이 표시돼요!
-          </p>
+          <p>내 위치를 기반으로 병원을 찾아줘요!</p>
         </>
       }
       onClose={onClose}
