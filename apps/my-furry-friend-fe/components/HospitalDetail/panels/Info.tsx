@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import {
   Accordion,
   AccordionButton,
@@ -32,12 +31,13 @@ import YoutubeIcon from '@my-furry-family/images/youtube.svg';
 import FacebookIcon from '@my-furry-family/images/facebook.svg';
 import BlogIcon from '@my-furry-family/images/blog.svg';
 import arrow from '@my-furry-family/images/arrow_right.svg';
-import fileBlank from '@my-furry-family/images/file_blank.svg';
+import fileBlank from '@my-furry-family/images/blank.svg';
 import Image from 'next/image';
 import { KakaoMap } from '@my-furry-family/next-ui-component';
 import { Marker } from '../../Marker/Marker';
 import Line from '../Divider';
 import AccordionWrapper from '../AccodionItemWrapper';
+import { HospitalResponseData, UrlType } from '../../../service/hospitalDetail';
 
 const APP_KEY = process.env.NEXT_PUBLIC_KAKAO_APP_KEY || '';
 
@@ -66,12 +66,18 @@ const MENU = [
   { src: ReviewIcon, title: '리뷰작성', disabled: true },
   { src: HeartIcon, title: '찜하기', disabled: true },
 ];
-const SNS = [
+
+const SNS: {
+  src: any;
+  title: string;
+  apiData: UrlType;
+}[] = [
   { src: InstagramIcon, title: '인스타그램', apiData: 'instagram_url' },
   { src: YoutubeIcon, title: '유튜브', apiData: 'youtube_url' },
   { src: FacebookIcon, title: '페이스북', apiData: 'facebook_url' },
   { src: BlogIcon, title: '블로그', apiData: 'blog_url' },
 ];
+
 const INFO = {
   rating: 4.5,
   review: 0,
@@ -79,13 +85,17 @@ const INFO = {
   homepage: '',
 };
 
-function Info({ data }: any) {
+interface InfoProps {
+  data?: HospitalResponseData;
+}
+
+function Info({ data }: InfoProps) {
   const addresstextRef = useRef<HTMLDivElement>(null);
   const toast = useToast();
 
   const handleMenuButton = (
     item: { src: any; title: string },
-    apiData: any,
+    apiData?: HospitalResponseData,
   ) => {
     if (!item) return;
 
@@ -105,66 +115,36 @@ function Info({ data }: any) {
     }
   };
 
+  if (!data) {
+    return null;
+  }
+
   return (
     <>
-      {data?.images?.length > 0 ? (
+      {data.images.length > 0 ? (
         <Swiper className="mySwiper" pagination modules={[Pagination]}>
-          {data?.images?.map(
-            (
-              imageItem: {
-                uploaded_url: string;
-                image_type: string;
-                is_thumbnail: boolean;
-              },
-              index: number,
-            ) => {
-              return (
-                <SwiperSlide key={index}>
-                  <div
-                    style={{
-                      background: '#E3E3E8',
-                      width: 'calc(100% + 32px)',
-                      height: '240px',
-                    }}
-                  >
-                    <Image src={imageItem.uploaded_url} alt="" />
-                  </div>
-                </SwiperSlide>
-              );
-            },
-          )}
+          {data.images.map((imageItem, index) => {
+            return (
+              <SwiperSlide key={index}>
+                <div
+                  style={{
+                    background: '#E3E3E8',
+                    width: 'calc(100% + 32px)',
+                    height: '240px',
+                  }}
+                >
+                  <Image src={imageItem.uploaded_url} alt="main image" />
+                </div>
+              </SwiperSlide>
+            );
+          })}
         </Swiper>
       ) : (
-        <Flex
-          background="#E3E3E8"
-          justifyContent="center"
-          alignItems="center"
-          height="240px"
-          flexShrink="0"
-          backgroundColor="#F9F9F9"
-        >
-          <Flex
-            w="169px"
-            justifyContent="center"
-            alignItems="center"
-            flexDirection="column"
-            gap="10px"
-            flexShrink="0"
-          >
-            <Image src={fileBlank} alt="file_blank" />
-            <div
-              style={{
-                color: '#BCBCC4',
-                fontSize: '16px',
-                fontStyle: 'normal',
-                fontWeight: '500',
-                lineHeight: 'normal',
-              }}
-            >
-              아직 등록된 사진이 없어요.
-            </div>
-          </Flex>
-        </Flex>
+        <Image
+          src={fileBlank}
+          style={{ width: '100%', height: '240px', background: '#F9F9F9' }}
+          alt="file_blank"
+        />
       )}
       <Flex
         flexDirection="column"
@@ -174,7 +154,7 @@ function Info({ data }: any) {
         padding="16px 16px 0"
       >
         <Flex>
-          {data?.is_cooperation && (
+          {data.is_cooperation && (
             <Badge
               sx={activeTagStyle}
               colorScheme="badge"
@@ -183,8 +163,8 @@ function Info({ data }: any) {
               내새꾸 추천 병원
             </Badge>
           )}
-          {data?.has_mri && <Badge sx={tagStyle}>MRI 보유</Badge>}
-          {data?.has_ct && <Badge sx={tagStyle}>CT 촬영가능</Badge>}
+          {data.has_mri && <Badge sx={tagStyle}>MRI 보유</Badge>}
+          {data.has_ct && <Badge sx={tagStyle}>CT 촬영가능</Badge>}
         </Flex>
         <Text
           fontSize="18px"
@@ -192,22 +172,18 @@ function Info({ data }: any) {
           fontWeight="600"
           lineHeight="normal"
         >
-          {data?.name}
+          {data.name}
         </Text>
         <Flex gap="4px" alignItems="center">
           <Image src={INFO.rating ? star : starGray} alt="star" />
           <Text color="#323236" fontSize="14px" fontWeight="500">
-            {data?.review_rating !== 'undefined' && data?.review_rating !== null
-              ? data?.review_rating
-              : '별점 정보 없음'}
+            {data.review_rating || '별점 정보 없음'}
           </Text>
           <Text color="#BCBCC4" margin="0 4px">
             |
           </Text>
           <Text color="#545459" fontSize="14px" fontWeight="500">
-            {data?.number_of_reviews !== 'undefined' &&
-              data?.number_of_reviews !== null &&
-              `리뷰 ${data?.number_of_reviews}개`}
+            {`리뷰 ${data.number_of_reviews || 0}개`}
           </Text>
         </Flex>
       </Flex>
@@ -246,7 +222,8 @@ function Info({ data }: any) {
           </Flex>
         ))}
       </Flex>
-      <Accordion defaultIndex={[2]} allowMultiple padding="0 16px">
+
+      <Accordion defaultIndex={[1, 2, 3, 4]} allowMultiple padding="0 16px">
         <AccordionItem
           background="#F5F5F7"
           display="flex"
@@ -278,17 +255,16 @@ function Info({ data }: any) {
             >
               <Image src={clock} alt="clock" />
               <span style={{ color: '#6282DB', fontSize: 14 }}>
-                {data?.operating_times?.now_operation_status}
+                {data.operating_times?.now_operation_status}
               </span>
               <span style={{ fontWeight: 500 }}>
                 {`${
-                  data?.operating_times?.today_operating_time?.day_of_week || ''
+                  data.operating_times?.today_operating_time?.day_of_week || ''
                 }
                   ${
-                    data?.operating_times?.today_operating_time?.start_time ||
-                    ''
+                    data.operating_times?.today_operating_time?.start_time || ''
                   } - ${
-                    data?.operating_times?.today_operating_time?.end_time || ''
+                    data.operating_times?.today_operating_time?.end_time || ''
                   }
                 `}
               </span>
@@ -296,8 +272,7 @@ function Info({ data }: any) {
             <AccordionIcon />
           </AccordionButton>
           <AccordionPanel padding="0">
-            {' '}
-            {data?.operating_times?.resting_time && (
+            {data.operating_times?.resting_time && (
               <Box
                 display="flex"
                 padding="6px 8px"
@@ -309,10 +284,9 @@ function Info({ data }: any) {
                 fontSize="14px"
                 fontWeight="500"
               >
-                {' '}
                 {`휴게시간 ${
-                  data?.operating_times?.resting_time?.start_time || ''
-                } - ${data?.operating_times?.resting_time?.end_time || ''}`}
+                  data.operating_times?.resting_time?.start_time || ''
+                } - ${data.operating_times?.resting_time?.end_time || ''}`}
               </Box>
             )}
             <UnorderedList
@@ -324,24 +298,15 @@ function Info({ data }: any) {
               fontWeight={500}
               color="#545459"
             >
-              {data?.operating_times?.operating_times?.map(
-                (
-                  item: {
-                    day_of_week: string;
-                    start_time: string;
-                    end_time: string;
-                  },
-                  index: number,
-                ) => {
-                  return (
-                    <ListItem key={index}>
-                      {`${item?.day_of_week || ''} ${
-                        item?.start_time || ''
-                      } - ${item?.end_time || ''}`}
-                    </ListItem>
-                  );
-                },
-              )}
+              {data.operating_times?.operating_times?.map((item, index) => {
+                return (
+                  <ListItem key={index}>
+                    {`${item?.day_of_week || ''} ${item?.start_time || ''} - ${
+                      item?.end_time || ''
+                    }`}
+                  </ListItem>
+                );
+              })}
             </UnorderedList>
           </AccordionPanel>
         </AccordionItem>
@@ -358,8 +323,8 @@ function Info({ data }: any) {
             flexWrap="wrap"
             padding="16px"
           >
-            {data?.categories?.length > 0
-              ? data?.categories.map((item: string, index: number) => {
+            {data.categories?.length > 0
+              ? data.categories.map((item, index) => {
                   return (
                     <Badge key={index} sx={tagStyle}>
                       {item}
@@ -386,32 +351,27 @@ function Info({ data }: any) {
             fontWeight="500"
             lineHeight="150%"
           >
-            {data?.info_description}
+            {data.info_description}
           </Text>
         </AccordionWrapper>
 
         <Line />
+
         <AccordionWrapper title="병원위치">
-          <Box
-            style={{
-              background: '#E3E3E8',
-              height: '240px',
-              borderRadius: '10px',
-            }}
-          >
+          <Box height={240} borderRadius={10}>
             <KakaoMap
               appKey={APP_KEY}
               center={{
-                lng: data?.location?.longitude || 126.9783882,
-                lat: data?.location?.latitude || 37.5666103,
+                lng: data.location?.longitude,
+                lat: data.location?.latitude,
               }}
             >
               <Marker
                 isActive
                 isCooperation={false}
                 position={{
-                  lng: data?.location?.longitude || 126.9783882,
-                  lat: data?.location?.latitude || 37.5666103,
+                  lng: data.location?.longitude,
+                  lat: data.location?.latitude,
                 }}
                 onClick={() => {}}
               />
@@ -433,7 +393,7 @@ function Info({ data }: any) {
                 lineHeight="150%"
                 ref={addresstextRef}
               >
-                {data?.location?.street_address}
+                {data.location?.street_address}
               </Text>
             </Flex>
             <Button
@@ -469,10 +429,10 @@ function Info({ data }: any) {
         <Line />
 
         <AccordionWrapper title="SNS" panelStyle={{ margin: '0 -16px' }}>
-          {data?.url?.instagram_url ||
-          data?.url?.YoutubeIcon_url ||
-          data?.url?.FacebookIcon_url ||
-          data?.url?.BlogIcon_url ? (
+          {data.url?.instagram_url ||
+          data.url?.youtube_url ||
+          data.url?.facebook_url ||
+          data.url?.blog_url ? (
             <Flex
               padding="20px 25px"
               color="#9A9AA1"
@@ -482,17 +442,11 @@ function Info({ data }: any) {
               gap="10px"
             >
               {SNS.map((item) => {
-                if (data?.url?.[item.apiData]) {
+                if (data.url[item.apiData]) {
                   return (
                     <Button
                       key={item.title}
-                      onClick={() => {
-                        try {
-                          window.open(data.url[item.apiData]);
-                        } catch (e) {
-                          console.log(e);
-                        }
-                      }}
+                      onClick={() => window.open(data.url[item.apiData])}
                       w="70px"
                       h="60px"
                       gap="8px"

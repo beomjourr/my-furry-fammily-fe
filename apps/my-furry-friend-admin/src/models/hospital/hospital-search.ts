@@ -69,6 +69,13 @@ export interface HospitalResponseData {
       end_time: number[];
       is_day_off: boolean;
     }[];
+    resting_time: {
+      day_of_week: string;
+      start_time: number[];
+      end_time: number[];
+      is_day_off: boolean;
+      is_today: boolean;
+    };
   };
   location: {
     zip_code: string;
