@@ -1,6 +1,3 @@
-'use client';
-
-import { useRouter } from 'next/navigation';
 import {
   Tab,
   TabList,
@@ -9,8 +6,7 @@ import {
   Tabs,
   Text,
 } from '@chakra-ui/react';
-import useSWR from 'swr';
-import { searchHospitalDeatilInfo } from '../../service/hospitalDetail';
+import { HospitalResponseData } from '../../service/hospitalDetail';
 import Info from './panels/Info';
 import Review from './panels/Review';
 import Price from './panels/Price';
@@ -19,16 +15,13 @@ import styles from '../../app/detail/[id]/page.module.scss';
 
 const TAB = ['병원소개', '진료비', '후기'];
 
-export function DetailTab({ id }: { id: string }) {
-  const router = useRouter();
-  const { data: hospitalData } = useSWR(
-    [`/animal-hospitals/${id}`],
-    (key) => searchHospitalDeatilInfo(id),
-    {
-      errorRetryCount: 2,
-    },
-  );
-
+export function DetailTab({
+  id,
+  hospitalData,
+}: {
+  id: string;
+  hospitalData: HospitalResponseData;
+}) {
   return (
     <>
       <Tabs
@@ -36,17 +29,14 @@ export function DetailTab({ id }: { id: string }) {
         width="100%"
         borderColor="gray.300"
         fontSize="16px"
+        lazyBehavior="keepMounted"
         isFitted
         isLazy
       >
         <div className={styles.tab_list}>
-          <Header
-            isBack
-            className={styles.header}
-            onBackClick={() => router.back()}
-          >
+          <Header isBack className={styles.header}>
             <div className={styles.header_title}>
-              <Text fontWeight={600}>{hospitalData?.data?.data?.name}</Text>
+              <Text fontWeight={600}>{hospitalData?.name}</Text>
             </div>
           </Header>
 
@@ -66,16 +56,13 @@ export function DetailTab({ id }: { id: string }) {
 
         <TabPanels>
           <TabPanel padding="0">
-            <Info {...hospitalData?.data} />
+            <Info data={hospitalData} />
           </TabPanel>
           <TabPanel>
-            <Price {...hospitalData?.data} />
+            <Price data={hospitalData} />
           </TabPanel>
           <TabPanel>
-            <Review
-              id={id}
-              review_rating={hospitalData?.data.data.review_rating}
-            />
+            <Review id={id} review_rating={hospitalData?.review_rating} />
           </TabPanel>
         </TabPanels>
       </Tabs>

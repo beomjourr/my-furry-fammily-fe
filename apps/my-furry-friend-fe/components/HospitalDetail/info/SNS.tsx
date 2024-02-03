@@ -1,11 +1,11 @@
-import { Button, Flex, Text } from '@chakra-ui/react';
-import Image from 'next/image';
+import { Flex } from '@chakra-ui/react';
 import InstagramIcon from '@my-furry-family/images/instagram.svg';
 import YoutubeIcon from '@my-furry-family/images/youtube.svg';
 import FacebookIcon from '@my-furry-family/images/facebook.svg';
 import BlogIcon from '@my-furry-family/images/blog.svg';
 import { Url, UrlType } from '../../../service/hospitalDetail';
 import AccordionWrapper from '../AccodionItemWrapper';
+import SnsButton from './button/SNSButton';
 
 const SNS: {
   src: any;
@@ -40,29 +40,7 @@ export default function Sns({ url }: SnsProps) {
           {SNS.map((item) => {
             return (
               url[item.apiData] && (
-                <Button
-                  key={item.title}
-                  onClick={() => window.open(url[item.apiData])}
-                  w="70px"
-                  h="60px"
-                  gap="8px"
-                  display="flex"
-                  flexDirection="column"
-                  fontWeight="500"
-                  alignItems="center"
-                  justifyContent="center"
-                  background="none"
-                >
-                  <Image
-                    width={24}
-                    height={24}
-                    src={item.src}
-                    alt={item.title}
-                  />
-                  <Text fontSize="14px" fontWeight="500" color="#9A9AA1">
-                    {item.title}
-                  </Text>
-                </Button>
+                <SnsButton key={item.title} item={item} url={url} />
               )
             );
           })}

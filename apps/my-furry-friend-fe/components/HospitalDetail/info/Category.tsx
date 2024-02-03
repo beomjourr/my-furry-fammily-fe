@@ -31,7 +31,7 @@ export default function Category({ categories }: CategoryProps) {
         flexWrap="wrap"
         paddingY="16px"
       >
-        {categories?.length > 0
+        {categories.length > 0
           ? categories.map((item, index) => {
               return (
                 <Badge key={index} sx={tagStyle}>

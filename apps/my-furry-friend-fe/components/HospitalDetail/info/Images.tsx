@@ -1,3 +1,5 @@
+'use client';
+
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import Image from 'next/image';
@@ -35,20 +37,35 @@ export default function Images({ images }: ImagesProps) {
                       background: '#E3E3E8',
                       width: 'calc(100% + 32px)',
                       height: '240px',
+                      position: 'relative',
                     }}
                   >
-                    <Image fill src={imageItem.uploaded_url} alt="main image" />
+                    <Image
+                      fill
+                      src={imageItem.uploaded_url}
+                      alt="main image"
+                      priority
+                    />
                   </div>
                 </SwiperSlide>
               );
             })}
         </Swiper>
       ) : (
-        <Image
-          src={fileBlank}
-          style={{ width: '100%', height: '240px', background: '#F9F9F9' }}
-          alt="file_blank"
-        />
+        <div
+          style={{
+            position: 'relative',
+            width: '100%',
+            height: '240px',
+          }}
+        >
+          <Image
+            src={fileBlank}
+            style={{ background: '#F9F9F9' }}
+            fill
+            alt="file_blank"
+          />
+        </div>
       )}
     </>
   );
