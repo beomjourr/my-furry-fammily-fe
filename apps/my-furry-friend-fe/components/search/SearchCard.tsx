@@ -31,9 +31,7 @@ function SearchCard({ data }: SearchCardProps) {
           width={98}
           height={98}
           style={{ objectFit: 'cover', borderRadius: '16px' }}
-          // TODO: 백단 이미지 경로 수정되면 주석 해제
-          // src={data.thumbnail_image || fileBlank}
-          src={fileBlank}
+          src={data.thumbnail_image || fileBlank}
           alt="thumbnail_image"
         />
       </Box>
