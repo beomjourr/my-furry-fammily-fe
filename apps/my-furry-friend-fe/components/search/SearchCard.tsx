@@ -26,11 +26,15 @@ function SearchCard({ data }: SearchCardProps) {
         handleSearchCardBox(data);
       }}
     >
-      <Box marginRight="16px">
+      <Box position="relative" width="98px" height="98px" marginRight="16px">
         <Image
           width={98}
           height={98}
-          style={{ objectFit: 'cover', borderRadius: '16px' }}
+          style={{
+            width: '100%',
+            height: '100%',
+            borderRadius: '16px',
+          }}
           src={data.thumbnail_image || fileBlank}
           alt="thumbnail_image"
         />

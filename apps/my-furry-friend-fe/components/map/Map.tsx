@@ -67,12 +67,18 @@ function Map({
           rounded={16}
         >
           <Box display="flex">
-            <Box marginRight="16px">
+            <Box
+              position="relative"
+              maxWidth="100px"
+              minWidth="100px"
+              height="100px"
+              marginRight="16px"
+            >
               <Image
                 style={{
+                  width: '100%',
+                  height: '100%',
                   objectFit: 'cover',
-                  width: '100px',
-                  height: '100px',
                   borderRadius: '16px',
                 }}
                 src={active.thumbnail_image || fileBlank}
