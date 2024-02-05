@@ -21,3 +21,5 @@ export const selectedFilters = atom<{
 });
 
 export const searchRecentFocusState = atom<boolean>(false);
+
+export const searchDisplayMapState = atom<boolean>(false);

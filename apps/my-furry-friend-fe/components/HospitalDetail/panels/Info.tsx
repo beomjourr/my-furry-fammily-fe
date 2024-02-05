@@ -16,6 +16,7 @@ import Notice from '../info/Notice';
 interface InfoProps {
   data: HospitalResponseData;
 }
+
 function Info({ data }: InfoProps) {
   return (
     <>

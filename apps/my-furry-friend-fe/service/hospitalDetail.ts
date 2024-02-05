@@ -72,16 +72,8 @@ export interface HospitalResponseData {
   }[];
   images: {
     has_sheet_image: boolean;
-    main_images: {
-      uploaded_url: string;
-      image_type: string;
-      is_thumbnail: boolean;
-    }[];
-    sheet_images: {
-      uploaded_url: string;
-      image_type: string;
-      is_thumbnail: boolean;
-    }[];
+    main_images: string[];
+    sheet_images: string[];
     thumbnail_image?: string;
   };
   health_screening_info: {
