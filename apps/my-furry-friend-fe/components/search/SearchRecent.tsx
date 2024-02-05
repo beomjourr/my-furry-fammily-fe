@@ -32,6 +32,7 @@ export default function SearchRecent() {
                 className={styles.search_recent_item}
                 onClick={() => {
                   setKeyword(item);
+                  setSearchRecentFocus(false);
                 }}
               >
                 <TagLabel>{item}</TagLabel>

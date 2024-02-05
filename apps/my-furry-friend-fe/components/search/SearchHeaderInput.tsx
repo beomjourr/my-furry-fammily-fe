@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect, useState } from 'react';
 import { useAtom } from 'jotai/index';
 import { SearchInput } from '@my-furry-family/next-ui-component';
@@ -16,7 +18,6 @@ function SearchHeaderInput() {
     if (e.key === 'Enter') {
       setKeyword(inputValue);
       setSearchRecentFocus(false);
-      e.currentTarget.blur();
     }
   };
 
@@ -34,6 +35,9 @@ function SearchHeaderInput() {
         value={inputValue}
         onChange={(e) => {
           handleChangeInput(e.target.value);
+        }}
+        onClick={() => {
+          setSearchRecentFocus(true);
         }}
         onFocus={() => {
           setSearchRecentFocus(true);
