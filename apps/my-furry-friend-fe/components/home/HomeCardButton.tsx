@@ -43,7 +43,7 @@ const regions = [
 
 const categories = [
   {
-    key: '1',
+    key: 'All',
     value: '전체보기',
     buttonContent: '전체보기',
     iconPath: MedicalIcon,
@@ -158,7 +158,7 @@ export function HomeCardButton({ keyword = 'regions' }: HomeCardButtonProps) {
       value: keyWordVariable[keyword].value,
     });
 
-    if (item.key === '1' || item.key === 'SEOUL') {
+    if (item.key === 'All' || item.key === 'SEOUL') {
       return setSearchFilter((prev) => ({
         ...prev,
         [keyword]: data?.data.data[keyword] || [],
