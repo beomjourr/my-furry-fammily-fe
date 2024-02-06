@@ -10,6 +10,7 @@ import {
 } from '@chakra-ui/react';
 import Image from 'next/image';
 import clock from '@my-furry-family/images/clock.svg';
+import { Fragment } from 'react';
 
 interface OperatingTimesProps {
   operating_times: {
@@ -40,6 +41,7 @@ interface OperatingTimesProps {
 export default function OperatingTimes({
   operating_times,
 }: OperatingTimesProps) {
+  console.log(operating_times);
   return (
     <AccordionItem
       background="#F5F5F7"
@@ -108,9 +110,15 @@ export default function OperatingTimes({
           color="#545459"
         >
           {operating_times.operating_times?.map((item, index) => (
-            <ListItem key={index}>
-              {`${item?.day_of_week} ${item?.start_time} - ${item?.end_time}`}
-            </ListItem>
+            <Fragment key={index}>
+              {item.is_day_off ? (
+                <ListItem>{`${item.day_of_week} 휴무`}</ListItem>
+              ) : (
+                <ListItem>
+                  {`${item?.day_of_week} ${item?.start_time} - ${item?.end_time}`}
+                </ListItem>
+              )}
+            </Fragment>
           ))}
         </UnorderedList>
       </AccordionPanel>
