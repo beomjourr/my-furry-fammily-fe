@@ -1,4 +1,4 @@
-import React from 'react';
+import { useMemo, useState } from 'react';
 import {
   Button,
   Checkbox,
@@ -13,11 +13,9 @@ import {
 import useSWR from 'swr';
 import { useAtom } from 'jotai';
 import { CloseIcon } from '@chakra-ui/icons';
-import { searchCategories } from '../../service/categories';
-import { searchScales } from '../../service/scales';
 import styles from '../../app/search/page.module.scss';
 import { Search, search } from '../../store/search';
-import { searchRegions } from '../../service/regions';
+import { searchHospitalConditions } from '../../service/hospitalDetail';
 
 interface SearchModalProps {
   isOpen: boolean;
@@ -26,20 +24,17 @@ interface SearchModalProps {
 }
 
 function SearchModal({ isOpen, onClose, selectedFilter }: SearchModalProps) {
-  const [, setSearchFilter] = useAtom(search);
-  const [localSearchFilter, setLocalSearchFilter] = React.useState<Search>({
-    regions: [],
-    categories: [],
-    values: [],
-  });
+  const [searchFilter, setSearchFilter] = useAtom(search);
+  const [localSearchFilter, setLocalSearchFilter] =
+    useState<Search>(searchFilter);
 
-  const selectedFilterName = React.useMemo(() => {
+  const selectedFilterName = useMemo(() => {
     switch (selectedFilter.key) {
       case 'regions':
         return '지역';
       case 'categories':
         return '진료';
-      case 'values':
+      case 'scales':
         return '규모';
       default:
         return '';
@@ -47,21 +42,11 @@ function SearchModal({ isOpen, onClose, selectedFilter }: SearchModalProps) {
   }, [selectedFilter.key]);
 
   const { data, isLoading } = useSWR(
-    `/animal-hospitals/${selectedFilter.key}`,
-    () => {
-      switch (selectedFilter.key) {
-        case 'regions':
-          return searchRegions();
-        case 'categories':
-          return searchCategories();
-        case 'values':
-          return searchScales();
-        default:
-      }
-    },
+    `/animal-hospitals/search-conditions`,
+    searchHospitalConditions,
   );
 
-  const allChecked = data?.data?.data?.every(
+  const allChecked = data?.data.data[selectedFilter.key]?.every(
     (item: { key: string; value: string }) =>
       localSearchFilter[selectedFilter.key]?.some(
         (filter) => filter.key === item.key,
@@ -156,14 +141,14 @@ function SearchModal({ isOpen, onClose, selectedFilter }: SearchModalProps) {
                       setLocalSearchFilter((prev) => ({
                         ...prev,
                         [selectedFilter.key]: e.target.checked
-                          ? data?.data?.data
+                          ? data?.data.data[selectedFilter.key] || []
                           : [],
                       }))
                     }
                   >
                     전체보기
                   </Checkbox>
-                  {data?.data?.data?.map(
+                  {data?.data.data[selectedFilter.key]?.map(
                     (item: { key: string; value: string }) => (
                       <Checkbox
                         key={item.key}

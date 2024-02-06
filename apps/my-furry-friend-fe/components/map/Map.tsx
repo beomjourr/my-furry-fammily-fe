@@ -113,8 +113,8 @@ function Map({
         appKey={APP_KEY}
         onClick={() => setActive(undefined)}
         center={{
-          lng: searchLocation?.longitude || 126.9783882,
-          lat: searchLocation?.latitude || 37.5666103,
+          lng: searchLocation?.longitude || 127.028307900881,
+          lat: searchLocation?.latitude || 37.4981646510326,
         }}
         setPosition={setLocation}
         boundsLocation={boundsLocation}

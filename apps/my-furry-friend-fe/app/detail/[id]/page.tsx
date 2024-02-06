@@ -1,9 +1,9 @@
 import { DetailTab } from '../../../components/HospitalDetail/DetailTab';
 import styles from './page.module.scss';
-import { searchHospitalDeatilInfo } from '../../../service/hospitalDetail';
+import { searchHospitalDetailInfo } from '../../../service/hospitalDetail';
 
 export default async function Page({ params }: { params: { id: string } }) {
-  const hospitalData = await searchHospitalDeatilInfo(params.id);
+  const hospitalData = await searchHospitalDetailInfo(params.id);
 
   return (
     <div className={styles.container}>
