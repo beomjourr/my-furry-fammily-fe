@@ -1,5 +1,6 @@
 import { AxiosResponse } from 'axios';
 import { fetcher } from '../utils/fetcher';
+import { Search } from '../store/search';
 
 interface SearchHospitalReviewParams {
   animalHospitalId: string | string[];
@@ -69,6 +70,7 @@ export interface HospitalResponseData {
     cost: string;
     clinic_type_name: string;
     animal_name: string;
+    animal_weight: string;
   }[];
   images: {
     has_sheet_image: boolean;
@@ -94,7 +96,7 @@ export interface HospitalReviewData {
   totalPage: number;
 }
 
-export function searchHospitalDeatilInfo(
+export function searchHospitalDetailInfo(
   id: string | string[],
 ): Promise<AxiosResponse<{ data: HospitalResponseData }>> {
   return fetcher.get(`/animal-hospitals/${id}`);
@@ -106,4 +108,12 @@ export function searchHospitalReview(
   return fetcher.get('/reviews', {
     params,
   });
+}
+
+export function searchHospitalConditions(): Promise<
+  AxiosResponse<{
+    data: Search;
+  }>
+> {
+  return fetcher.get('/animal-hospitals/search-conditions');
 }

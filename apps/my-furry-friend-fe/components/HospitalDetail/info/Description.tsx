@@ -22,8 +22,9 @@ export default function Description({ info_description }: DescriptionProps) {
         fontStyle="normal"
         fontWeight="500"
         lineHeight="150%"
+        whiteSpace="pre-line"
       >
-        {info_description}
+        {info_description || '병원소개가 없습니다.'}
       </Text>
     </AccordionWrapper>
   );

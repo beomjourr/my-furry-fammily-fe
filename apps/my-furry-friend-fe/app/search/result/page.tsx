@@ -47,7 +47,7 @@ export default function Index() {
     ['/animal-hospitals/search', keyword, location, scale, category, region],
     (key) =>
       searchHospital({
-        ...(scale ? { values: [scale] } : {}),
+        ...(scale ? { scales: [scale] } : {}),
         ...(category ? { categories: [category] } : {}),
         ...(region ? { regions: [region] } : {}),
         ...(keyword ? { name: keyword } : {}),

@@ -7,7 +7,7 @@ export interface Search {
 export const search = atom<Search>({
   regions: [],
   categories: [],
-  values: [],
+  scales: [],
 });
 
 export const searchKeyword = atom<string>('');

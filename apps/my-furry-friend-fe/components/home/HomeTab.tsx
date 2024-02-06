@@ -5,7 +5,7 @@ import { HomeCardButton } from './HomeCardButton';
 
 export function HomeTab() {
   return (
-    <Tabs width="100%" isFitted borderColor="gray.300" fontSize="16px">
+    <Tabs isLazy width="100%" isFitted borderColor="gray.300" fontSize="16px">
       <TabList>
         <Tab
           _selected={{ borderColor: '#9CB6FF', fontWeight: '600' }}
@@ -31,13 +31,13 @@ export function HomeTab() {
       </TabList>
       <TabPanels>
         <TabPanel>
-          <HomeCardButton tab="지역별" />
+          <HomeCardButton keyword="regions" />
         </TabPanel>
         <TabPanel>
-          <HomeCardButton tab="진료별" />
+          <HomeCardButton keyword="categories" />
         </TabPanel>
         <TabPanel>
-          <HomeCardButton tab="규모별" />
+          <HomeCardButton keyword="scales" />
         </TabPanel>
       </TabPanels>
     </Tabs>

@@ -14,13 +14,13 @@ const Container = () => {
   const screens = useBreakPoint('md');
   const [searchParams] = useSearchParams();
   const name = searchParams.get('name');
-  const values = searchParams.getAll('scale');
+  const scales = searchParams.getAll('scale');
   const { data } = useSuspenseQuery({
-    queryKey: [HospitalsQueryKey.hospitalsSearch, name, values],
+    queryKey: [HospitalsQueryKey.hospitalsSearch, name, scales],
     queryFn: () =>
       getAllHospitalSearch({
         ...(name && { name }),
-        ...(values.length > 0 && { values }),
+        ...(scales.length > 0 && { scales }),
       }),
     select: ({ data }) => {
       return data?.data.cooperationAnimalHospitals.concat(

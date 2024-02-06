@@ -25,7 +25,7 @@ const filters = [
     value: '진료',
   },
   {
-    key: 'values',
+    key: 'scales',
     value: '규모',
   },
 ];
