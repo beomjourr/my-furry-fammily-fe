@@ -1,6 +1,4 @@
-import { useCallback, useEffect } from 'react';
 import { useAtom } from 'jotai/index';
-import { checkDevice } from '../utils/checkDevice';
 import { searchLocationState } from '../store/location';
 
 const useLocation = () => {
@@ -20,36 +18,36 @@ const useLocation = () => {
   //   requestLocation();
   // }, []);
 
-  const listenMessage = useCallback(
-    (e: MessageEvent | (Event & { data?: string })) => {
-      const { data, type } = JSON.parse(e.data);
-
-      switch (type) {
-        // case 'RESPONSE_LOCATION':
-        //   setLocation(data);
-        //   break;
-        // case 'RESPONSE_CURRENT_LOCATION':
-        //   setCurrentLocation(data);
-        //   break;
-        // case 'RESPONSE_PERMISSION':
-        //   setPermission(data);
-        //   break;
-        default:
-          break;
-      }
-    },
-    [],
-  );
-
-  useEffect(() => {
-    if (checkDevice() === 'ios') {
-      window.addEventListener('message', listenMessage);
-    }
-
-    if (checkDevice() === 'android') {
-      document.addEventListener('message', listenMessage);
-    }
-  }, [listenMessage]);
+  // const listenMessage = useCallback(
+  //   (e: MessageEvent | (Event & { data?: string })) => {
+  //     const { data, type } = JSON.parse(e.data);
+  //
+  //     switch (type) {
+  //       // case 'RESPONSE_LOCATION':
+  //       //   setLocation(data);
+  //       //   break;
+  //       // case 'RESPONSE_CURRENT_LOCATION':
+  //       //   setCurrentLocation(data);
+  //       //   break;
+  //       // case 'RESPONSE_PERMISSION':
+  //       //   setPermission(data);
+  //       //   break;
+  //       default:
+  //         break;
+  //     }
+  //   },
+  //   [],
+  // );
+  //
+  // useEffect(() => {
+  //   if (checkDevice() === 'ios') {
+  //     window.addEventListener('message', listenMessage);
+  //   }
+  //
+  //   if (checkDevice() === 'android') {
+  //     document.addEventListener('message', listenMessage);
+  //   }
+  // }, [listenMessage]);
 
   return {
     // permission,

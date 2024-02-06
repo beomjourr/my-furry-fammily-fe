@@ -41,7 +41,6 @@ interface OperatingTimesProps {
 export default function OperatingTimes({
   operating_times,
 }: OperatingTimesProps) {
-  console.log(operating_times);
   return (
     <AccordionItem
       background="#F5F5F7"

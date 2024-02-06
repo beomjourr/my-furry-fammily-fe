@@ -2,13 +2,15 @@
 
 import { Accordion, Box } from '@chakra-ui/react';
 import { groupBy } from 'lodash';
+import { useState } from 'react';
 import AccordionWrapper from '../AccodionItemWrapper';
 import Line from '../Divider';
 import { HospitalResponseData } from '../../../service/hospitalDetail';
+import PreviewImage from '../info/PreviewImage';
 
 interface PriceItemProp {
   title: string;
-  price: string;
+  price: React.ReactNode;
 }
 
 interface PriceProps {
@@ -36,6 +38,23 @@ function PriceItem({ title, price }: PriceItemProp) {
 }
 
 function Price({ data }: PriceProps) {
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const [previewImage, setPreviewImage] = useState<{
+    image: string[];
+    index: number;
+  }>({
+    image: [],
+    index: 0,
+  });
+
+  const handlePreviewImage = () => {
+    setPreviewImage({
+      image: data?.images.sheet_images || [],
+      index: 0,
+    });
+    setIsPreviewOpen(true);
+  };
+
   const hospitalFeesGroupBy = groupBy(
     data?.clinic_fees.sort((a, b) =>
       a.is_required === b.is_required ? 0 : a.is_required ? -1 : 1,
@@ -78,6 +97,34 @@ function Price({ data }: PriceProps) {
             );
           },
         )}
+        {data?.images.has_sheet_image && (
+          <>
+            <AccordionWrapper
+              title="건강검진"
+              is_required={false}
+              panelStyle={{
+                background: '#F9F9F9',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '16px',
+              }}
+            >
+              <PriceItem
+                title="건강검진 항목"
+                price={
+                  <button
+                    type="button"
+                    className="underline"
+                    onClick={handlePreviewImage}
+                  >
+                    건강검진 항목표 보기 (click)
+                  </button>
+                }
+              />
+            </AccordionWrapper>
+            <Line />
+          </>
+        )}
       </Accordion>
       <Box
         bg="#F5F5F7"
@@ -114,6 +161,12 @@ function Price({ data }: PriceProps) {
       >
         최신 정보 알려주기
       </button>
+
+      <PreviewImage
+        previewImage={previewImage}
+        isOpen={isPreviewOpen}
+        onClose={() => setIsPreviewOpen(false)}
+      />
     </>
   );
 }
