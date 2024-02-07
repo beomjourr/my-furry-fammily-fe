@@ -4,11 +4,15 @@ import { Button, ButtonGroup } from '@chakra-ui/react';
 import Image from 'next/image';
 import ListIcon from '@my-furry-family/images/list.svg';
 import MapIcon from '@my-furry-family/images/map.svg';
-import React, { useState } from 'react';
+import React from 'react';
 import { useAtom } from 'jotai';
 import SearchFilterButton from './SearchFilterButton';
 import styles from '../../app/search/page.module.scss';
-import { search, selectedFilters } from '../../store/search';
+import {
+  search,
+  searchDisplayMapState,
+  selectedFilters,
+} from '../../store/search';
 import SearchModal from './SearchModal';
 
 const filters = [
@@ -26,18 +30,11 @@ const filters = [
   },
 ];
 
-interface SearchFilterButtonGroupProps {
-  displayMap: boolean;
-  setDisplayMap: (displayMap: boolean) => void;
-}
-
-export default function SearchFilterButtonGroup({
-  displayMap,
-  setDisplayMap,
-}: SearchFilterButtonGroupProps) {
+export default function SearchFilterButtonGroup() {
   const [searchFilter] = useAtom(search);
   const [selectedFilter, setSelectedFilter] = useAtom(selectedFilters);
-  const [isOpen, setIsOpen] = useState(false);
+  const [displayMap, setDisplayMap] = useAtom(searchDisplayMapState);
+  const [isOpen, setIsOpen] = React.useState(false);
 
   const handleModalClose = () => {
     setIsOpen(false);

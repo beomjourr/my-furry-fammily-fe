@@ -1,20 +1,14 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { useAtom, useSetAtom } from 'jotai';
 import { SearchInput } from '@my-furry-family/next-ui-component';
+import { searchKeyword, searchRecentFocusState } from '../../store/search';
 
-interface SearchHeaderInputProps {
-  keyword: string;
-  setKeyword: (keyword: string) => void;
-  setSearchRecentFocus?: (searchRecentFocus: boolean) => void;
-}
-
-function SearchHeaderInput({
-  keyword,
-  setKeyword,
-  setSearchRecentFocus,
-}: SearchHeaderInputProps) {
+function SearchHeaderInput() {
+  const setSearchRecentFocus = useSetAtom(searchRecentFocusState);
   const [inputValue, setInputValue] = useState('');
+  const [keyword, setKeyword] = useAtom(searchKeyword);
 
   const handleChangeInput = (value: string) => {
     setInputValue(value);
@@ -23,7 +17,7 @@ function SearchHeaderInput({
   const handleClickInput = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       setKeyword(inputValue);
-      setSearchRecentFocus?.(false);
+      setSearchRecentFocus(false);
     }
   };
 
@@ -43,10 +37,10 @@ function SearchHeaderInput({
           handleChangeInput(e.target.value);
         }}
         onClick={() => {
-          setSearchRecentFocus?.(true);
+          setSearchRecentFocus(true);
         }}
         onFocus={() => {
-          setSearchRecentFocus?.(true);
+          setSearchRecentFocus(true);
         }}
         placeholder="병원명으로 검색해보세요."
       />
