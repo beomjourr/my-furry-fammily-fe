@@ -1,7 +1,7 @@
 import React, { HTMLAttributes, useEffect } from 'react';
 import Image from 'next/image';
 import gps from '@my-furry-family/images/gps.svg';
-import { useAtom } from 'jotai/index';
+import { useAtom } from 'jotai';
 import styles from './LocationButton.module.scss';
 import { addressState } from '../../../store/address';
 import { searchLocationState } from '../../../store/location';

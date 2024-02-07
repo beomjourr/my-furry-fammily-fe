@@ -1,12 +1,12 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { useAtom } from 'jotai/index';
+import { useAtom, useSetAtom } from 'jotai';
 import { SearchInput } from '@my-furry-family/next-ui-component';
 import { searchKeyword, searchRecentFocusState } from '../../store/search';
 
 function SearchHeaderInput() {
-  const [, setSearchRecentFocus] = useAtom(searchRecentFocusState);
+  const setSearchRecentFocus = useSetAtom(searchRecentFocusState);
   const [inputValue, setInputValue] = useState('');
   const [keyword, setKeyword] = useAtom(searchKeyword);
 
