@@ -2,7 +2,7 @@
 
 import { CloseButton, Tag, TagCloseButton, TagLabel } from '@chakra-ui/react';
 import React from 'react';
-import { useAtom } from 'jotai/index';
+import { useAtom, useSetAtom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 import styles from '../../app/search/page.module.scss';
 import { searchKeyword, searchRecentFocusState } from '../../store/search';
@@ -14,7 +14,7 @@ export default function SearchRecent() {
   const [searchRecentFocus, setSearchRecentFocus] = useAtom(
     searchRecentFocusState,
   );
-  const [, setKeyword] = useAtom(searchKeyword);
+  const setKeyword = useSetAtom(searchKeyword);
 
   return (
     <>

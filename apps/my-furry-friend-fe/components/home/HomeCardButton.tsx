@@ -17,7 +17,7 @@ import {
   SmallCardButton,
 } from '@my-furry-family/next-ui-component';
 import { useRouter } from 'next/navigation';
-import { useAtom } from 'jotai/index';
+import { useSetAtom } from 'jotai';
 import { searchHospitalConditions } from '../../service/hospitalDetail';
 import styles from './HomeCardButton.module.scss';
 import { search, selectedFilters } from '../../store/search';
@@ -138,8 +138,8 @@ const badgeColors = ['orange', 'purple', 'pink', 'blue'];
 
 export function HomeCardButton({ keyword = 'regions' }: HomeCardButtonProps) {
   const router = useRouter();
-  const [, setSearchFilter] = useAtom(search);
-  const [, setSelectedFilter] = useAtom(selectedFilters);
+  const setSearchFilter = useSetAtom(search);
+  const setSelectedFilter = useSetAtom(selectedFilters);
 
   const ButtonComponent =
     keyWordVariable[keyword].size === 'small'

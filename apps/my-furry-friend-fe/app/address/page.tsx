@@ -2,7 +2,7 @@
 
 import DaumPostcodeEmbed from 'react-daum-postcode';
 import useSWR from 'swr';
-import { useAtom } from 'jotai/index';
+import { useAtom } from 'jotai';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { fetchAddressTransCoord } from '../../service/address';

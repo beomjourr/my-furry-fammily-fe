@@ -1,7 +1,7 @@
 'use client';
 
 import useSWR from 'swr';
-import { useAtom } from 'jotai/index';
+import { useAtomValue } from 'jotai';
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useToast } from '@chakra-ui/react';
@@ -11,10 +11,11 @@ import { searchKeyword } from '../../../store/search';
 import useLocation from '../../../hooks/useLocation';
 
 export default function Index() {
-  const [keyword] = useAtom(searchKeyword);
+  const keyword = useAtomValue(searchKeyword);
   const [location, setLocation] = useState<
     { lat: number; lng: number } | undefined
   >(undefined);
+  const [isRequest, setIsRequest] = useState(false);
   const { searchLocation } = useLocation();
   const searchParams = useSearchParams();
   const scale = searchParams.get('scale');
@@ -44,8 +45,10 @@ export default function Index() {
   }, [searchLocation]);
 
   const { data } = useSWR(
-    ['/animal-hospitals/search', keyword, location, scale, category, region],
-    (key) =>
+    isRequest && location
+      ? ['/animal-hospitals/search', keyword, scale, category, region, location]
+      : ['/animal-hospitals/search', keyword, scale, category, region],
+    () =>
       searchHospital({
         ...(scale ? { scales: [scale] } : {}),
         ...(category ? { categories: [category] } : {}),
@@ -68,6 +71,7 @@ export default function Index() {
       )}
       setLocation={setLocation}
       searchLocation={searchLocation}
+      setIsRequest={setIsRequest}
     />
   );
 }

@@ -5,7 +5,7 @@ import Image from 'next/image';
 import ListIcon from '@my-furry-family/images/list.svg';
 import MapIcon from '@my-furry-family/images/map.svg';
 import React from 'react';
-import { useAtom } from 'jotai/index';
+import { useAtom } from 'jotai';
 import SearchFilterButton from './SearchFilterButton';
 import styles from '../../app/search/page.module.scss';
 import {

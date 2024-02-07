@@ -16,6 +16,7 @@ interface MapProps {
   setLocation?: (position: { lat: number; lng: number }) => void;
   searchLocation?: { latitude: number; longitude: number };
   boundsLocation?: { lat: number; lng: number }[];
+  setIsRequest?: (isRequest: boolean) => void;
 }
 
 function Map({
@@ -23,9 +24,11 @@ function Map({
   setLocation,
   boundsLocation,
   searchLocation,
+  setIsRequest,
 }: MapProps) {
   const router = useRouter();
   const [active, setActive] = useState<HospitalResponse | undefined>(undefined);
+  const [isDragEnd, setIsDragEnd] = useState(false);
 
   return (
     <div className="relative w-full overflow-hidden flex-1">
@@ -55,6 +58,23 @@ function Map({
           </Text>
         </Box>
       </Card>
+
+      {isDragEnd && (
+        <Card
+          backgroundColor="white"
+          position="absolute"
+          top="12px"
+          left="50%"
+          transform="translate(-50%, 0%)"
+          padding="12px"
+          zIndex={999}
+        >
+          <Button onClick={() => setIsRequest?.(true)}>
+            여기서 검색하기(임시 버튼)
+          </Button>
+        </Card>
+      )}
+
       {active && (
         <Card
           height="194px"
@@ -118,6 +138,8 @@ function Map({
         }}
         setPosition={setLocation}
         boundsLocation={boundsLocation}
+        setIsRequest={setIsRequest}
+        setIsDragEnd={setIsDragEnd}
       >
         {hospitalData?.map((item) => (
           <Marker

@@ -2,7 +2,7 @@
 
 import React, { useEffect } from 'react';
 import useSWR from 'swr';
-import { useAtom } from 'jotai/index';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 import { Skeleton, Stack } from '@chakra-ui/react';
 import Map from '../map/Map';
@@ -24,15 +24,15 @@ export default function SearchContainer() {
   const [boundsLocation, setBoundsLocation] = React.useState<
     { lat: number; lng: number }[] | undefined
   >(undefined);
-  const [, setSearchRecent] = useAtom(searchRecentStorage);
-  const [searchFilter] = useAtom(search);
-  const [selectedFilter] = useAtom(selectedFilters);
-  const [keyword] = useAtom(searchKeyword);
+  const setSearchRecent = useSetAtom(searchRecentStorage);
+  const searchFilter = useAtomValue(search);
+  const selectedFilter = useAtomValue(selectedFilters);
+  const keyword = useAtomValue(searchKeyword);
   const isSearchFilterValue = Object.values(searchFilter).some(
     (item) => item.length > 0,
   );
-  const [displayMap] = useAtom(searchDisplayMapState);
-  const [searchRecentFocus] = useAtom(searchRecentFocusState);
+  const displayMap = useAtomValue(searchDisplayMapState);
+  const searchRecentFocus = useAtomValue(searchRecentFocusState);
 
   const { data, isLoading } = useSWR(
     ['/animal-hospitals/search', keyword, searchFilter],

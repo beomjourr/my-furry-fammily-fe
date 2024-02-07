@@ -14,6 +14,8 @@ interface MarkerProps extends MapProps {
   ) => void;
   setPosition?: (position: { lat: number; lng: number }) => void;
   boundsLocation?: { lat: number; lng: number }[] | undefined;
+  setIsRequest?: (isRequest: boolean) => void;
+  setIsDragEnd?: (isDragEnd: boolean) => void;
 }
 
 export function KakaoMap({
@@ -23,6 +25,8 @@ export function KakaoMap({
   center,
   setPosition,
   boundsLocation,
+  setIsRequest,
+  setIsDragEnd,
   ...rest
 }: MarkerProps) {
   const [loading] = useKakaoLoader({
@@ -35,12 +39,14 @@ export function KakaoMap({
         return;
       }
 
+      setIsRequest?.(false);
+      setIsDragEnd?.(true);
       setPosition?.({
         lat: map.getCenter().getLat(),
         lng: map.getCenter().getLng(),
       });
     },
-    [setPosition],
+    [setIsDragEnd, setIsRequest, setPosition],
   );
 
   const handleBoundsLocation = useCallback(
@@ -67,6 +73,7 @@ export function KakaoMap({
           center={center}
           style={{ width: '100%', height: '100%' }}
           onClick={onClick}
+          onDragStart={() => setIsRequest?.(false)}
           onDragEnd={handleSetPosition}
           onCreate={handleBoundsLocation}
           {...rest}
