@@ -33,6 +33,7 @@ export function KakaoMap({
 }: MarkerProps) {
   const [loading] = useKakaoLoader({
     appkey: appKey,
+    libraries: ['services', 'clusterer'],
   });
 
   const handleSetPosition = useCallback(

@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { KakaoMap } from '@my-furry-family/next-ui-component';
+import { MarkerClusterer } from 'react-kakao-maps-sdk';
 import { Marker } from '../Marker/Marker';
 import { HospitalResponse } from '../../service/search';
 import MapInfo from './MapInfo';
@@ -60,19 +61,39 @@ function Map({
         setIsRequest={setIsRequest}
         setIsDragEnd={setIsDragEnd}
         isBounds={isBounds}
+        level={4}
       >
-        {hospitalData?.map((item) => (
-          <Marker
-            key={item.id}
-            isCooperation={item.is_cooperation}
-            isActive={selectHospital?.id === item.id}
-            position={{
-              lng: item.longitude,
-              lat: item.latitude,
-            }}
-            onClick={() => setSelectHospital(item)}
-          />
-        ))}
+        <MarkerClusterer
+          averageCenter
+          minLevel={7}
+          styles={[
+            {
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '40px',
+              height: '40px',
+              background: '#fff',
+              border: '1px solid #3467D4',
+              borderRadius: '50%',
+              color: '#3467D4',
+              fontWeight: 'bold',
+            },
+          ]}
+        >
+          {hospitalData?.map((item) => (
+            <Marker
+              key={item.id}
+              isCooperation={item.is_cooperation}
+              isActive={selectHospital?.id === item.id}
+              position={{
+                lng: item.longitude,
+                lat: item.latitude,
+              }}
+              onClick={() => setSelectHospital(item)}
+            />
+          ))}
+        </MarkerClusterer>
         {searchLocation && (
           <Marker
             position={{
