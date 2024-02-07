@@ -1,11 +1,23 @@
 'use client';
 
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
+import { useAtom } from 'jotai';
 import { HomeCardButton } from './HomeCardButton';
+import { mainTabState } from '../../store/mainTab';
 
 export function HomeTab() {
+  const [mainTab, setMainTab] = useAtom(mainTabState);
+
   return (
-    <Tabs isLazy width="100%" isFitted borderColor="gray.300" fontSize="16px">
+    <Tabs
+      defaultIndex={mainTab}
+      isLazy
+      width="100%"
+      isFitted
+      borderColor="gray.300"
+      fontSize="16px"
+      onChange={(index) => setMainTab(index)}
+    >
       <TabList>
         <Tab
           _selected={{ borderColor: '#9CB6FF', fontWeight: '600' }}
