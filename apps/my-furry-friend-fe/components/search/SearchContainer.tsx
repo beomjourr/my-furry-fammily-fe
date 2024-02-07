@@ -1,38 +1,40 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import useSWR from 'swr';
 import { useAtomValue, useSetAtom } from 'jotai';
-import { atomWithStorage } from 'jotai/utils';
 import { Skeleton, Stack } from '@chakra-ui/react';
 import Map from '../map/Map';
 import SearchList from './SearchList';
 import useLocation from '../../hooks/useLocation';
 import {
   search,
-  searchDisplayMapState,
-  searchKeyword,
-  searchRecentFocusState,
+  searchRecentStorage,
   selectedFilters,
 } from '../../store/search';
 import { searchHospital } from '../../service/search';
 
-const searchRecentStorage = atomWithStorage<string[]>('search-recent', []);
+interface SearchContainerProps {
+  keyword: string;
+  searchRecentFocus: boolean;
+  displayMap: boolean;
+}
 
-export default function SearchContainer() {
+export default function SearchContainer({
+  keyword,
+  searchRecentFocus,
+  displayMap,
+}: SearchContainerProps) {
   const { searchLocation } = useLocation();
-  const [boundsLocation, setBoundsLocation] = React.useState<
+  const [boundsLocation, setBoundsLocation] = useState<
     { lat: number; lng: number }[] | undefined
   >(undefined);
   const setSearchRecent = useSetAtom(searchRecentStorage);
   const searchFilter = useAtomValue(search);
   const selectedFilter = useAtomValue(selectedFilters);
-  const keyword = useAtomValue(searchKeyword);
   const isSearchFilterValue = Object.values(searchFilter).some(
     (item) => item.length > 0,
   );
-  const displayMap = useAtomValue(searchDisplayMapState);
-  const searchRecentFocus = useAtomValue(searchRecentFocusState);
 
   const { data, isLoading } = useSWR(
     ['/animal-hospitals/search', keyword, searchFilter],
@@ -64,28 +66,18 @@ export default function SearchContainer() {
   );
 
   useEffect(() => {
-    if (
-      !data?.data.data.cooperationAnimalHospitals.concat(
-        data?.data.data.nonCooperationAnimalHospitals,
-      )
-    ) {
+    if (!data) {
       return;
     }
 
-    if (
-      data?.data.data.cooperationAnimalHospitals.concat(
-        data?.data.data.nonCooperationAnimalHospitals,
-      ).length > 0
-    ) {
-      setBoundsLocation(
-        data?.data.data.cooperationAnimalHospitals
-          .concat(data?.data.data.nonCooperationAnimalHospitals)
-          .map((item) => ({
-            lat: item.latitude,
-            lng: item.longitude,
-          })),
-      );
-    }
+    setBoundsLocation(
+      data?.data.data.cooperationAnimalHospitals
+        .concat(data?.data.data.nonCooperationAnimalHospitals)
+        .map((item) => ({
+          lat: item.latitude,
+          lng: item.longitude,
+        })),
+    );
   }, [data]);
 
   if (isLoading) {
