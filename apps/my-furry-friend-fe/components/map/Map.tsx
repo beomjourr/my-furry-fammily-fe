@@ -6,6 +6,7 @@ import { KakaoMap } from '@my-furry-family/next-ui-component';
 import fileBlank from '@my-furry-family/images/blank.svg';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import RedoIcon from '@my-furry-family/images/redo.svg';
 import { Marker } from '../Marker/Marker';
 import { HospitalResponse } from '../../service/search';
 
@@ -59,76 +60,83 @@ function Map({
         </Box>
       </Card>
 
-      {isDragEnd && (
-        <Card
-          backgroundColor="white"
-          position="absolute"
-          top="12px"
-          left="50%"
-          transform="translate(-50%, 0%)"
-          padding="12px"
-          zIndex={999}
-        >
-          <Button onClick={() => setIsRequest?.(true)}>
-            여기서 검색하기(임시 버튼)
-          </Button>
-        </Card>
-      )}
-
-      {active && (
-        <Card
-          height="194px"
-          width="95%"
-          position="absolute"
-          bottom="16px"
-          left="10px"
-          padding="16px"
-          zIndex={999}
-          rounded={16}
-        >
-          <Box display="flex">
-            <Box
-              position="relative"
-              maxWidth="100px"
-              minWidth="100px"
-              height="100px"
-              marginRight="16px"
-            >
-              <Image
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  borderRadius: '16px',
-                }}
-                src={active.thumbnail_image || fileBlank}
-                alt="thumbnail_image"
-              />
-            </Box>
-            <Box display="flex" flexDirection="column" justifyContent="center">
-              <Text fontSize="16px" fontWeight={600} marginBottom="2px">
-                {active.name}
-              </Text>
-              <Text fontSize="14px" fontWeight={400} marginBottom="2px">
-                {active.street_address}
-              </Text>
-              <Text fontSize="12px" fontWeight={400} color="gray.600">
-                중성화 · 내과 전문
-              </Text>
-            </Box>
-          </Box>
-          <Button
-            colorScheme="brand"
-            backgroundColor="brand.300"
-            marginTop="16px"
-            variant="solid"
-            rounded={100}
-            onClick={() => router.push(`/detail/${active.id}`)}
+      <div className="absolute w-full bottom-[16px] left-0 flex items-center justify-center">
+        {isDragEnd && (
+          <Card
+            className="rounded-[16px] py-[6px] px-[12px] bg-white absolute left-[50%]"
+            bottom={active ? '210px' : '0'}
+            transform="translate(-50%, 0%)"
+            zIndex={999}
           >
-            자세히 보러가기
-          </Button>
-        </Card>
-      )}
+            <button
+              className="flex items-center justify-center gap-[6px]"
+              type="button"
+              onClick={() => setIsRequest?.(true)}
+            >
+              <Image src={RedoIcon} width={18} height={18} alt="redo" />
+              <Text className="text-[14px] text-[#3467D4]">
+                현 지도에서 검색
+              </Text>
+            </button>
+          </Card>
+        )}
+        {active && (
+          <Card
+            height="194px"
+            className="w-[95%]"
+            padding="16px"
+            zIndex={999}
+            rounded={16}
+          >
+            <Box display="flex">
+              <Box
+                position="relative"
+                maxWidth="100px"
+                minWidth="100px"
+                height="100px"
+                marginRight="16px"
+              >
+                <Image
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    borderRadius: '16px',
+                  }}
+                  src={active.thumbnail_image || fileBlank}
+                  alt="thumbnail_image"
+                />
+              </Box>
+              <Box
+                display="flex"
+                flexDirection="column"
+                justifyContent="center"
+              >
+                <Text fontSize="16px" fontWeight={600} marginBottom="2px">
+                  {active.name}
+                </Text>
+                <Text fontSize="14px" fontWeight={400} marginBottom="2px">
+                  {active.street_address}
+                </Text>
+                <Text fontSize="12px" fontWeight={400} color="gray.600">
+                  중성화 · 내과 전문
+                </Text>
+              </Box>
+            </Box>
+            <Button
+              colorScheme="brand"
+              backgroundColor="brand.300"
+              marginTop="16px"
+              variant="solid"
+              rounded={100}
+              onClick={() => router.push(`/detail/${active.id}`)}
+            >
+              자세히 보러가기
+            </Button>
+          </Card>
+        )}
+      </div>
+
       <KakaoMap
         appKey={APP_KEY}
         onClick={() => setActive(undefined)}
