@@ -103,8 +103,6 @@ function Map({
                     objectFit: 'cover',
                     borderRadius: '16px',
                   }}
-                  width={100}
-                  height={100}
                   src={active.thumbnail_image || fileBlank}
                   alt="thumbnail_image"
                 />

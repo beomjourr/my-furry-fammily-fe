@@ -51,7 +51,7 @@ export function KakaoMap({
 
   const handleBoundsLocation = useCallback(
     (map: kakao.maps.Map) => {
-      if (!boundsLocation || boundsLocation.length === 0) {
+      if (!boundsLocation) {
         return;
       }
 
