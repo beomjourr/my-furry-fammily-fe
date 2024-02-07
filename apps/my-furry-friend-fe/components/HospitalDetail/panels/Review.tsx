@@ -42,7 +42,9 @@ function ReviewItem({
       }}
     >
       <div style={{ color: '#323236', fontSize: '14px', fontWeight: '600' }}>
-        {reviewIndex > 0 ? `방문자${reviewIndex + 1}` : ''}
+        {typeof reviewIndex === 'number' && reviewIndex >= 0
+          ? `방문자${reviewIndex + 1}`
+          : ''}
       </div>
       <div
         style={{
