@@ -8,10 +8,12 @@ import styles from './page.module.scss';
 import LocationButton from '../components/main/LocationButton/LocationButton';
 import RequestLocationModal from '../components/main/RequestLocationModal/RequestLocationModal';
 import { HomeTab } from '../components/home/HomeTab';
+import useResetAtoms from '../hooks/useResetAtoms';
 
 export default function Home() {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  useResetAtoms();
   // const { location } = useLocation();
 
   const handleModalClose = () => {

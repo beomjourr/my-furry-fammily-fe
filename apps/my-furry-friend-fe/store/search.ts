@@ -1,18 +1,18 @@
-import { atom } from 'jotai';
+import { atomWithReset, atomWithStorage } from 'jotai/utils';
 
 export interface Search {
   [key: string]: { key: string; value: string }[];
 }
 
-export const search = atom<Search>({
+export const search = atomWithReset<Search>({
   regions: [],
   categories: [],
   scales: [],
 });
 
-export const searchKeyword = atom<string>('');
+export const searchKeyword = atomWithReset<string>('');
 
-export const selectedFilters = atom<{
+export const selectedFilters = atomWithReset<{
   key: string;
   value: string;
 }>({
@@ -20,6 +20,11 @@ export const selectedFilters = atom<{
   value: '',
 });
 
-export const searchRecentFocusState = atom<boolean>(false);
+export const searchRecentFocusState = atomWithReset<boolean>(false);
 
-export const searchDisplayMapState = atom<boolean>(false);
+export const searchDisplayMapState = atomWithReset<boolean>(false);
+
+export const searchRecentStorage = atomWithStorage<string[]>(
+  'search-recent',
+  [],
+);

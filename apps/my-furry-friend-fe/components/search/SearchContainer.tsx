@@ -3,7 +3,6 @@
 import React, { useEffect } from 'react';
 import useSWR from 'swr';
 import { useAtomValue, useSetAtom } from 'jotai';
-import { atomWithStorage } from 'jotai/utils';
 import { Skeleton, Stack } from '@chakra-ui/react';
 import Map from '../map/Map';
 import SearchList from './SearchList';
@@ -13,11 +12,10 @@ import {
   searchDisplayMapState,
   searchKeyword,
   searchRecentFocusState,
+  searchRecentStorage,
   selectedFilters,
 } from '../../store/search';
 import { searchHospital } from '../../service/search';
-
-const searchRecentStorage = atomWithStorage<string[]>('search-recent', []);
 
 export default function SearchContainer() {
   const { searchLocation } = useLocation();
