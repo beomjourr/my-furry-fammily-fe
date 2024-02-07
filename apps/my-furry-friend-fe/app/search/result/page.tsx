@@ -66,11 +66,20 @@ export default function Index() {
 
   return (
     <Map
+      isBounds={!!keyword}
       hospitalData={data?.data.data.cooperationAnimalHospitals.concat(
         data?.data.data.nonCooperationAnimalHospitals,
       )}
       setLocation={setLocation}
       searchLocation={searchLocation}
+      boundsLocation={
+        data?.data.data.cooperationAnimalHospitals
+          .concat(data?.data.data.nonCooperationAnimalHospitals)
+          .map((hospital) => ({
+            lat: hospital.latitude,
+            lng: hospital.longitude,
+          })) || []
+      }
       setIsRequest={setIsRequest}
     />
   );

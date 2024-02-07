@@ -14,6 +14,7 @@ interface MarkerProps extends MapProps {
   ) => void;
   setPosition?: (position: { lat: number; lng: number }) => void;
   boundsLocation?: { lat: number; lng: number }[] | undefined;
+  isBounds?: boolean;
   setIsRequest?: (isRequest: boolean) => void;
   setIsDragEnd?: (isDragEnd: boolean) => void;
 }
@@ -25,6 +26,7 @@ export function KakaoMap({
   center,
   setPosition,
   boundsLocation,
+  isBounds,
   setIsRequest,
   setIsDragEnd,
   ...rest
@@ -51,19 +53,22 @@ export function KakaoMap({
 
   const handleBoundsLocation = useCallback(
     (map: kakao.maps.Map) => {
-      if (!boundsLocation || boundsLocation.length === 0) {
+      if (!isBounds || !boundsLocation || boundsLocation.length === 0) {
         return;
       }
-
       const bounds = new window.kakao.maps.LatLngBounds();
 
       boundsLocation?.forEach((point) => {
         bounds.extend(new window.kakao.maps.LatLng(point.lat, point.lng));
       });
 
-      map.setBounds(bounds);
+      const boundsTimeout = setTimeout(() => {
+        map.setBounds(bounds);
+      });
+
+      return () => clearTimeout(boundsTimeout);
     },
-    [boundsLocation],
+    [boundsLocation, isBounds],
   );
 
   return (

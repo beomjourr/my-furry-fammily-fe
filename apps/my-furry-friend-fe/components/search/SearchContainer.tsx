@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import useSWR from 'swr';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { Skeleton, Stack } from '@chakra-ui/react';
@@ -19,9 +19,6 @@ import { searchHospital } from '../../service/search';
 
 export default function SearchContainer() {
   const { searchLocation } = useLocation();
-  const [boundsLocation, setBoundsLocation] = React.useState<
-    { lat: number; lng: number }[] | undefined
-  >(undefined);
   const setSearchRecent = useSetAtom(searchRecentStorage);
   const searchFilter = useAtomValue(search);
   const selectedFilter = useAtomValue(selectedFilters);
@@ -61,31 +58,6 @@ export default function SearchContainer() {
     },
   );
 
-  useEffect(() => {
-    if (
-      !data?.data.data.cooperationAnimalHospitals.concat(
-        data?.data.data.nonCooperationAnimalHospitals,
-      )
-    ) {
-      return;
-    }
-
-    if (
-      data?.data.data.cooperationAnimalHospitals.concat(
-        data?.data.data.nonCooperationAnimalHospitals,
-      ).length > 0
-    ) {
-      setBoundsLocation(
-        data?.data.data.cooperationAnimalHospitals
-          .concat(data?.data.data.nonCooperationAnimalHospitals)
-          .map((item) => ({
-            lat: item.latitude,
-            lng: item.longitude,
-          })),
-      );
-    }
-  }, [data]);
-
   if (isLoading) {
     return (
       <>
@@ -103,10 +75,18 @@ export default function SearchContainer() {
         <>
           {displayMap ? (
             <Map
+              isBounds={!!keyword || isSearchFilterValue}
               hospitalData={data?.data.data.cooperationAnimalHospitals.concat(
                 data?.data.data.nonCooperationAnimalHospitals,
               )}
-              boundsLocation={boundsLocation}
+              boundsLocation={
+                data?.data.data.cooperationAnimalHospitals
+                  .concat(data?.data.data.nonCooperationAnimalHospitals)
+                  .map((item) => ({
+                    lat: item.latitude,
+                    lng: item.longitude,
+                  })) || []
+              }
               searchLocation={searchLocation}
             />
           ) : (
