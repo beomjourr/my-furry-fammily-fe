@@ -6,6 +6,7 @@ import starGray from '@my-furry-family/images/star_gray.svg';
 import { useQuery } from '@tanstack/react-query';
 import { searchHospitalReview } from '../../../service/hospitalDetail';
 import * as urlConstants from '../../../constants/url';
+import { logEvent } from 'apps/my-furry-friend-fe/utils/ga';
 
 interface ReviewProps {
   id: string;
@@ -98,6 +99,14 @@ function Review({ id, review_rating }: ReviewProps) {
   });
 
   const handleGoReviewFormButton = () => {
+    logEvent({
+      action: 'write_review',
+      params: {
+        rocommandation: '추천병원',
+        hospital_name: '병원이름',
+      },
+    });
+    
     window.open(urlConstants.RECEIPT_REVIEW_FORM_URL);
   };
 
