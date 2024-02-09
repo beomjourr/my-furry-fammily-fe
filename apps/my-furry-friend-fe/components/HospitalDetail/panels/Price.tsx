@@ -88,7 +88,9 @@ function Price({ data }: PriceProps) {
                   {hospitalFee?.map((item: any, index2: number) => {
                     return (
                       <PriceItem
-                        title={item.name}
+                        title={`${item.animal_weight || ''} ${
+                          item.animal_name || ''
+                        } ${item.clinic_type_name}`}
                         price={item.cost}
                         key={index2}
                       />
