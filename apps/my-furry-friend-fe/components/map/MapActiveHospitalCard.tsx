@@ -14,7 +14,6 @@ export default function MapActiveHospitalCard({
 }: MapActiveHospitalCardProps) {
   const router = useRouter();
 
-  console.log(selectHospital);
   return (
     <Card
       height="194px"
