@@ -6,6 +6,7 @@ import starGray from '@my-furry-family/images/star_gray.svg';
 import { useQuery } from '@tanstack/react-query';
 import { searchHospitalReview } from '../../../service/hospitalDetail';
 import * as urlConstants from '../../../constants/url';
+import { logEvent } from 'apps/my-furry-friend-fe/utils/ga';
 
 interface ReviewProps {
   id: string;
@@ -98,6 +99,14 @@ function Review({ id, review_rating }: ReviewProps) {
   });
 
   const handleGoReviewFormButton = () => {
+    logEvent({
+      action: 'write_review',
+      params: {
+        rocommandation: '추천병원',
+        hospital_name: '병원이름',
+      },
+    });
+    
     window.open(urlConstants.RECEIPT_REVIEW_FORM_URL);
   };
 
@@ -113,9 +122,16 @@ function Review({ id, review_rating }: ReviewProps) {
         gap="10px"
         padding="26px 0"
       >
-        <div style={{ color: '#9A9AA1', fontSize: '14px' }}>
-          영수증 리뷰를 남겨주세요
-        </div>
+        <Flex
+          fontSize="14px"
+          fontWeight="600"
+          justifyContent="center"
+          alignItems="center"
+          textAlign="center"
+        >
+          리뷰 작성자 전원에게 <br />
+          카카오페이 1,000원 혜택을 드립니다!
+        </Flex>
         <button
           type="button"
           onClick={() => {
