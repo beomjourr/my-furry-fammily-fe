@@ -1,11 +1,9 @@
-'use client';
-
 import { Box, Flex, Text } from '@chakra-ui/react';
 import Image from 'next/image';
 import './Review.module.scss';
-import useSWR from 'swr';
 import star from '@my-furry-family/images/star.svg';
 import starGray from '@my-furry-family/images/star_gray.svg';
+import { useQuery } from '@tanstack/react-query';
 import { searchHospitalReview } from '../../../service/hospitalDetail';
 
 interface ReviewProps {
@@ -90,16 +88,13 @@ function ReviewItem({
 }
 
 function Review({ id, review_rating }: ReviewProps) {
-  const { data } = useSWR(
-    ['/animal-hospitals', id],
-    (key) =>
+  const { data } = useQuery({
+    queryKey: ['/reviews', id],
+    queryFn: () =>
       searchHospitalReview({
         animalHospitalId: id,
       }),
-    {
-      errorRetryCount: 2,
-    },
-  );
+  });
 
   return (
     <>

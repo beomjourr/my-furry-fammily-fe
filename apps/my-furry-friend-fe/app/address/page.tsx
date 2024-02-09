@@ -1,10 +1,10 @@
 'use client';
 
 import DaumPostcodeEmbed from 'react-daum-postcode';
-import useSWR from 'swr';
 import { useAtom } from 'jotai';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { fetchAddressTransCoord } from '../../service/address';
 import { searchLocationState } from '../../store/location';
 
@@ -13,20 +13,22 @@ export default function Page() {
   const [searchValue, setSearchValue] = useState('');
   const [, setSearchLocation] = useAtom(searchLocationState);
 
-  useSWR(
-    searchValue ? ['/kakao-address-trans-api', searchValue] : null,
-    () => fetchAddressTransCoord(searchValue),
-    {
-      onSuccess: (response) => {
-        const [region] = response.data.documents;
-        setSearchLocation({
-          latitude: region?.y,
-          longitude: region?.x,
-        });
-        router.push('/');
-      },
-    },
-  );
+  const { data, isSuccess } = useQuery({
+    queryKey: ['/kakao-address-trans-api', searchValue],
+    queryFn: () => fetchAddressTransCoord(searchValue),
+    enabled: !!searchValue,
+  });
+
+  useEffect(() => {
+    if (isSuccess) {
+      const [region] = data.data.documents;
+      setSearchLocation({
+        latitude: region?.y,
+        longitude: region?.x,
+      });
+      router.push('/');
+    }
+  }, [data, isSuccess, router, setSearchLocation]);
 
   const handleComplete = (daumAddress: {
     address: string;

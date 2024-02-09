@@ -1,5 +1,3 @@
-'use client';
-
 import Badge24Icon from '@my-furry-family/images/card/24-badge.svg';
 import Badge1ChaIcon from '@my-furry-family/images/card/1cha-badge.svg';
 import Badge2ChaIcon from '@my-furry-family/images/card/2cha-badge.svg';
@@ -11,13 +9,13 @@ import ListIcon from '@my-furry-family/images/card/list.svg';
 import MapPinSelectedIcon from '@my-furry-family/images/card/map_pin_selected.svg';
 import MedicalIcon from '@my-furry-family/images/card/medical_documentation.svg';
 import ToothImg from '@my-furry-family/images/card/tooth.svg';
-import useSWR from 'swr';
 import {
   LargeCardButton,
   SmallCardButton,
 } from '@my-furry-family/next-ui-component';
 import { useRouter } from 'next/navigation';
 import { useSetAtom } from 'jotai';
+import { useQuery } from '@tanstack/react-query';
 import { searchHospitalConditions } from '../../service/hospitalDetail';
 import styles from './HomeCardButton.module.scss';
 import { search, selectedFilters } from '../../store/search';
@@ -146,10 +144,10 @@ export function HomeCardButton({ keyword = 'regions' }: HomeCardButtonProps) {
       ? SmallCardButton
       : LargeCardButton;
 
-  const { data } = useSWR(
-    `/animal-hospitals/search-conditions`,
-    searchHospitalConditions,
-  );
+  const { data } = useQuery({
+    queryKey: ['/animal-hospitals/search-conditions'],
+    queryFn: searchHospitalConditions,
+  });
 
   const handleButtonClick = (item: { key: string; value?: string }) => {
     router.push('/search');

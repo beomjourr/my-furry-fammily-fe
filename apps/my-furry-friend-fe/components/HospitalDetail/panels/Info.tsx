@@ -14,10 +14,12 @@ import Sns from '../info/SNS';
 import Notice from '../info/Notice';
 
 interface InfoProps {
-  data: HospitalResponseData;
+  data?: HospitalResponseData;
 }
 
 function Info({ data }: InfoProps) {
+  if (!data) return null;
+
   return (
     <>
       <Images images={data.images} />

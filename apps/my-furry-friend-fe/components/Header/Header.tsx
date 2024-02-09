@@ -1,5 +1,3 @@
-'use client';
-
 import { IconButton } from '@my-furry-family/next-ui-component';
 import backArrow from '@my-furry-family/images/ico_back.png';
 import React from 'react';

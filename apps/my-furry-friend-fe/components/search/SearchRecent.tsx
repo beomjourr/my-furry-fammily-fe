@@ -1,5 +1,3 @@
-'use client';
-
 import { CloseButton, Tag, TagCloseButton, TagLabel } from '@chakra-ui/react';
 import React from 'react';
 import { useAtom, useSetAtom } from 'jotai';

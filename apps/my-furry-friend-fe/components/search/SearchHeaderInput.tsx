@@ -1,5 +1,3 @@
-'use client';
-
 import React, { useEffect, useState } from 'react';
 import { useAtom, useSetAtom } from 'jotai';
 import { SearchInput } from '@my-furry-family/next-ui-component';

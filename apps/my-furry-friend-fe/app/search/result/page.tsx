@@ -1,10 +1,10 @@
 'use client';
 
-import useSWR from 'swr';
 import { useAtomValue } from 'jotai';
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useToast } from '@chakra-ui/react';
+import { useQuery } from '@tanstack/react-query';
 import Map from '../../../components/map/Map';
 import { searchHospital } from '../../../service/search';
 import { searchKeyword } from '../../../store/search';
@@ -44,11 +44,19 @@ export default function Index() {
     }
   }, [searchLocation]);
 
-  const { data } = useSWR(
-    isRequest && location
-      ? ['/animal-hospitals/search', keyword, scale, category, region, location]
-      : ['/animal-hospitals/search', keyword, scale, category, region],
-    () =>
+  const { data } = useQuery({
+    queryKey:
+      isRequest && location
+        ? [
+            '/animal-hospitals/search',
+            keyword,
+            scale,
+            category,
+            region,
+            location,
+          ]
+        : ['/animal-hospitals/search', keyword, scale, category, region],
+    queryFn: () =>
       searchHospital({
         ...(scale ? { scales: [scale] } : {}),
         ...(category ? { categories: [category] } : {}),
@@ -59,10 +67,7 @@ export default function Index() {
           : {}),
         distance: 5,
       }),
-    {
-      errorRetryCount: 3,
-    },
-  );
+  });
 
   return (
     <Map

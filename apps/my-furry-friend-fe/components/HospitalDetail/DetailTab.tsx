@@ -1,5 +1,3 @@
-'use client';
-
 import {
   Tab,
   TabList,
@@ -23,7 +21,7 @@ export function DetailTab({
   hospitalData,
 }: {
   id: string;
-  hospitalData: HospitalResponseData;
+  hospitalData?: HospitalResponseData;
 }) {
   const tabsRef = useRef<HTMLDivElement>(null);
 

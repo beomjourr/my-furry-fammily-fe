@@ -1,10 +1,8 @@
-'use client';
-
 import { Button, ButtonGroup } from '@chakra-ui/react';
 import Image from 'next/image';
 import ListIcon from '@my-furry-family/images/list.svg';
 import MapIcon from '@my-furry-family/images/map.svg';
-import React from 'react';
+import React, { useState } from 'react';
 import { useAtom } from 'jotai';
 import SearchFilterButton from './SearchFilterButton';
 import styles from '../../app/search/page.module.scss';
@@ -34,7 +32,7 @@ export default function SearchFilterButtonGroup() {
   const [searchFilter] = useAtom(search);
   const [selectedFilter, setSelectedFilter] = useAtom(selectedFilters);
   const [displayMap, setDisplayMap] = useAtom(searchDisplayMapState);
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleModalClose = () => {
     setIsOpen(false);

@@ -10,9 +10,9 @@ import {
   Skeleton,
   Stack,
 } from '@chakra-ui/react';
-import useSWR from 'swr';
 import { useAtom } from 'jotai';
 import { CloseIcon } from '@chakra-ui/icons';
+import { useQuery } from '@tanstack/react-query';
 import styles from '../../app/search/page.module.scss';
 import { Search, search } from '../../store/search';
 import { searchHospitalConditions } from '../../service/hospitalDetail';
@@ -41,10 +41,10 @@ function SearchModal({ isOpen, onClose, selectedFilter }: SearchModalProps) {
     }
   }, [selectedFilter.key]);
 
-  const { data, isLoading } = useSWR(
-    `/animal-hospitals/search-conditions`,
-    searchHospitalConditions,
-  );
+  const { data, isLoading } = useQuery({
+    queryKey: ['/animal-hospitals/search-conditions'],
+    queryFn: searchHospitalConditions,
+  });
 
   const allChecked = data?.data.data[selectedFilter.key]?.every(
     (item: { key: string; value: string }) =>

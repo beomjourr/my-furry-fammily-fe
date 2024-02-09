@@ -1,5 +1,3 @@
-'use client';
-
 import { Accordion, Box } from '@chakra-ui/react';
 import { groupBy } from 'lodash';
 import { useState } from 'react';

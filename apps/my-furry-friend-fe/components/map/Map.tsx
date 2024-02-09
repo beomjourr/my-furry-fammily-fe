@@ -1,5 +1,3 @@
-'use client';
-
 import React, { useState } from 'react';
 import { KakaoMap } from '@my-furry-family/next-ui-component';
 import { MarkerClusterer } from 'react-kakao-maps-sdk';

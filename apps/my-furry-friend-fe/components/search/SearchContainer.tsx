@@ -1,9 +1,7 @@
-'use client';
-
-import React from 'react';
-import useSWR from 'swr';
+import React, { useEffect } from 'react';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { Skeleton, Stack } from '@chakra-ui/react';
+import { useQuery } from '@tanstack/react-query';
 import Map from '../map/Map';
 import SearchList from './SearchList';
 import useLocation from '../../hooks/useLocation';
@@ -29,9 +27,9 @@ export default function SearchContainer() {
   const displayMap = useAtomValue(searchDisplayMapState);
   const searchRecentFocus = useAtomValue(searchRecentFocusState);
 
-  const { data, isLoading } = useSWR(
-    ['/animal-hospitals/search', keyword, searchFilter],
-    (key) =>
+  const { data, isLoading, isSuccess } = useQuery({
+    queryKey: ['/animal-hospitals/search', keyword, searchFilter],
+    queryFn: () =>
       searchHospital({
         ...(keyword ? { name: keyword } : {}),
         ...(isSearchFilterValue
@@ -42,21 +40,18 @@ export default function SearchContainer() {
             }
           : {}),
       }),
-    {
-      onSuccess: () => {
-        setSearchRecent((prev) => {
-          if (keyword) {
-            if (prev.includes(keyword)) {
-              return prev;
-            }
-            return [keyword, ...prev];
-          }
+  });
+
+  useEffect(() => {
+    if (isSuccess && keyword) {
+      setSearchRecent((prev) => {
+        if (prev.includes(keyword)) {
           return prev;
-        });
-      },
-      errorRetryCount: 3,
-    },
-  );
+        }
+        return [keyword, ...prev].slice(0, 5);
+      });
+    }
+  }, [isSuccess, keyword, setSearchRecent]);
 
   if (isLoading) {
     return (

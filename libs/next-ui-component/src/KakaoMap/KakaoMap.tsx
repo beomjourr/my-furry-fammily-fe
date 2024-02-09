@@ -1,5 +1,3 @@
-'use client';
-
 import React, { useCallback } from 'react';
 import { Map, useKakaoLoader } from 'react-kakao-maps-sdk';
 import { Spinner } from '@chakra-ui/react';

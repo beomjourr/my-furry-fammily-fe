@@ -4,6 +4,8 @@ import { Provider } from 'jotai';
 import React from 'react';
 import { CacheProvider } from '@chakra-ui/next-js';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 const theme = extendTheme({
   colors: {
@@ -85,12 +87,26 @@ const theme = extendTheme({
   },
 });
 
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5,
+      gcTime: 1000 * 60 * 5,
+      refetchOnWindowFocus: false,
+      retry: 3,
+    },
+  },
+});
+
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <CacheProvider>
-      <ChakraProvider theme={theme}>
-        <Provider>{children}</Provider>
-      </ChakraProvider>
-    </CacheProvider>
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
+      <CacheProvider>
+        <ChakraProvider theme={theme}>
+          <Provider>{children}</Provider>
+        </ChakraProvider>
+      </CacheProvider>
+    </QueryClientProvider>
   );
 }
