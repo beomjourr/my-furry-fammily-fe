@@ -113,9 +113,16 @@ function Review({ id, review_rating }: ReviewProps) {
         gap="10px"
         padding="26px 0"
       >
-        <div style={{ color: '#9A9AA1', fontSize: '14px' }}>
-          영수증 리뷰를 남겨주세요
-        </div>
+        <Flex
+          fontSize="14px"
+          fontWeight="600"
+          justifyContent="center"
+          alignItems="center"
+          textAlign="center"
+        >
+          리뷰 작성자 전원에게 <br />
+          카카오페이 1,000원 혜택을 드립니다!
+        </Flex>
         <button
           type="button"
           onClick={() => {
