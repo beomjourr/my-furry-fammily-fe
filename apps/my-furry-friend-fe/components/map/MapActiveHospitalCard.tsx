@@ -14,6 +14,7 @@ export default function MapActiveHospitalCard({
 }: MapActiveHospitalCardProps) {
   const router = useRouter();
 
+  console.log(selectHospital);
   return (
     <Card
       height="194px"
@@ -49,9 +50,6 @@ export default function MapActiveHospitalCard({
           </Text>
           <Text fontSize="14px" fontWeight={400} marginBottom="2px">
             {selectHospital.street_address}
-          </Text>
-          <Text fontSize="12px" fontWeight={400} color="gray.600">
-            중성화 · 내과 전문
           </Text>
         </Box>
       </Box>
