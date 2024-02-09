@@ -1,8 +1,15 @@
+'use client';
+
 import { Box, Flex, Text } from '@chakra-ui/react';
 import Image from 'next/image';
 import arrow from '@my-furry-family/images/arrow_right.svg';
+import * as urlConstants from '../../../constants/url';
 
 export default function Notice() {
+  const handleNoticeClick = () => {
+    window.open(urlConstants.INFO_UPDATE_REQUEST_FORM_URL);
+  };
+
   return (
     <Flex
       padding="16px 25px"
@@ -10,6 +17,9 @@ export default function Notice() {
       border="1px solid #E6E9F9"
       borderRadius="4px"
       margin="16px"
+      onClick={() => {
+        handleNoticeClick();
+      }}
     >
       <Box flex="1">
         <Text color="#3467D4" fontSize="14px" fontWeight="600">

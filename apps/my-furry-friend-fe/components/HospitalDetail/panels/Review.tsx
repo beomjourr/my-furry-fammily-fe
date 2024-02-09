@@ -5,6 +5,7 @@ import star from '@my-furry-family/images/star.svg';
 import starGray from '@my-furry-family/images/star_gray.svg';
 import { useQuery } from '@tanstack/react-query';
 import { searchHospitalReview } from '../../../service/hospitalDetail';
+import * as urlConstants from '../../../constants/url';
 
 interface ReviewProps {
   id: string;
@@ -96,6 +97,10 @@ function Review({ id, review_rating }: ReviewProps) {
       }),
   });
 
+  const handleGoReviewFormButton = () => {
+    window.open(urlConstants.RECEIPT_REVIEW_FORM_URL);
+  };
+
   return (
     <>
       <Flex
@@ -113,7 +118,9 @@ function Review({ id, review_rating }: ReviewProps) {
         </div>
         <button
           type="button"
-          onClick={() => {}}
+          onClick={() => {
+            handleGoReviewFormButton();
+          }}
           style={{
             fontSize: '14px',
             width: 'fit-content',

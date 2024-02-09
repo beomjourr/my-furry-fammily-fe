@@ -4,6 +4,7 @@ import { useState } from 'react';
 import AccordionWrapper from '../AccodionItemWrapper';
 import Line from '../Divider';
 import { HospitalResponseData } from '../../../service/hospitalDetail';
+import * as urlConstants from '../../../constants/url';
 import PreviewImage from '../info/PreviewImage';
 
 interface PriceItemProp {
@@ -60,6 +61,10 @@ function Price({ data }: PriceProps) {
     'clinic_type_name',
   );
 
+  const handleMoveNewInfoButton = () => {
+    window.open(urlConstants.INFO_UPDATE_REQUEST_FORM_URL);
+  };
+
   return (
     <>
       <Accordion allowMultiple margin="-16px 0 0">
@@ -83,7 +88,9 @@ function Price({ data }: PriceProps) {
                   {hospitalFee?.map((item: any, index2: number) => {
                     return (
                       <PriceItem
-                        title={item.name}
+                        title={`${item.animal_weight || ''} ${
+                          item.animal_name || ''
+                        } ${item.clinic_type_name}`}
                         price={item.cost}
                         key={index2}
                       />
@@ -144,7 +151,9 @@ function Price({ data }: PriceProps) {
       </Box>
       <button
         type="button"
-        onClick={() => {}}
+        onClick={() => {
+          handleMoveNewInfoButton();
+        }}
         style={{
           fontSize: '14px',
           width: '100%',

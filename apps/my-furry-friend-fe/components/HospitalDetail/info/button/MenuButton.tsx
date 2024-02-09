@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { Flex, Text } from '@chakra-ui/react';
+import * as urlConstants from '../../../../constants/url';
 
 interface MenuButtonProps {
   homepage_url: string;
@@ -41,6 +42,9 @@ export default function MenuButton({
           );
         }
         break;
+      case '리뷰작성':
+        window.open(urlConstants.RECEIPT_REVIEW_FORM_URL);
+        break;
       default:
     }
   };
@@ -49,7 +53,9 @@ export default function MenuButton({
     <Flex
       role="button"
       onClick={() => {
-        handleMenuButton(item.title);
+        if (!item.disabled) {
+          handleMenuButton(item.title);
+        }
       }}
       display="flex"
       w="82px"
