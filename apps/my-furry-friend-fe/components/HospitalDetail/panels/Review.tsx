@@ -7,6 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import { searchHospitalReview } from '../../../service/hospitalDetail';
 import * as urlConstants from '../../../constants/url';
 import { logEvent } from 'apps/my-furry-friend-fe/utils/ga';
+import ReactGA from 'react-ga4';
 
 interface ReviewProps {
   id: string;
@@ -99,14 +100,16 @@ function Review({ id, review_rating }: ReviewProps) {
   });
 
   const handleGoReviewFormButton = () => {
-    logEvent({
-      action: 'write_review',
-      params: {
-        rocommandation: '추천병원',
-        hospital_name: '병원이름',
-      },
+    ReactGA.event({
+      category: 'Reviews', // Typically the object that was interacted with (e.g., 'Video')
+      action: 'write_review', // The type of interaction (e.g., 'play')
+      label: 'Hospital Review', // Useful for categorizing events (e.g., 'Fall Campaign')
+      value: 1, // A numeric value associated with the event (e.g., 42)
+      // params: { // Custom dimensions and metrics
+      //   rocommandation: '추천병원',
+      //   hospital_name: '병원이름',
+      // },
     });
-    
     window.open(urlConstants.RECEIPT_REVIEW_FORM_URL);
   };
 
