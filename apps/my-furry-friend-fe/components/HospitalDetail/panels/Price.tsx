@@ -13,6 +13,7 @@ interface PriceItemProp {
 }
 
 interface PriceProps {
+  sendCollectionGAEvent?: Function;
   data?: HospitalResponseData;
 }
 
@@ -36,7 +37,7 @@ function PriceItem({ title, price }: PriceItemProp) {
   );
 }
 
-function Price({ data }: PriceProps) {
+function Price({ sendCollectionGAEvent, data }: PriceProps) {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState<{
     image: string[];
@@ -62,6 +63,9 @@ function Price({ data }: PriceProps) {
   );
 
   const handleMoveNewInfoButton = () => {
+    if (sendCollectionGAEvent) {
+      sendCollectionGAEvent();
+    }
     window.open(urlConstants.INFO_UPDATE_REQUEST_FORM_URL);
   };
 

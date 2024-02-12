@@ -14,10 +14,13 @@ import Sns from '../info/SNS';
 import Notice from '../info/Notice';
 
 interface InfoProps {
+  sendWriteReviewGAEvent?: Function;
+  sendCallingGAEvent?: Function;
+  sendCollectionGAEvent?: Function;
   data?: HospitalResponseData;
 }
 
-function Info({ data }: InfoProps) {
+function Info({ sendWriteReviewGAEvent, sendCallingGAEvent, sendCollectionGAEvent, data }: InfoProps) {
   if (!data) return null;
 
   return (
@@ -31,7 +34,7 @@ function Info({ data }: InfoProps) {
         number_of_reviews={data.number_of_reviews}
         review_rating={data.review_rating}
       />
-      <Menu homepage_url={data.url.homepage_url} tell={data.tell} />
+      <Menu sendWriteReviewGAEvent={sendWriteReviewGAEvent} sendCallingGAEvent={sendCallingGAEvent} homepage_url={data.url.homepage_url} tell={data.tell} />
       <Accordion defaultIndex={[1, 2, 3, 4]} allowMultiple padding="0 16px">
         <OperatingTimes operating_times={data.operating_times} />
         <Line />
@@ -44,7 +47,7 @@ function Info({ data }: InfoProps) {
         <Sns url={data.url} />
       </Accordion>
       <Line />
-      <Notice />
+      <Notice sendCollectionGAEvent={sendCollectionGAEvent} />
     </>
   );
 }
