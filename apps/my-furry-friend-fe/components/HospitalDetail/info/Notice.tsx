@@ -5,8 +5,15 @@ import Image from 'next/image';
 import arrow from '@my-furry-family/images/arrow_right.svg';
 import * as urlConstants from '../../../constants/url';
 
-export default function Notice() {
+interface NoticeProps {
+  sendCollectionGAEvent?: Function;
+}
+
+export default function Notice({sendCollectionGAEvent}: NoticeProps) {
   const handleNoticeClick = () => {
+    if (sendCollectionGAEvent) {
+      sendCollectionGAEvent();
+    }
     window.open(urlConstants.INFO_UPDATE_REQUEST_FORM_URL);
   };
 

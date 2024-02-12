@@ -5,6 +5,8 @@ import { Flex, Text } from '@chakra-ui/react';
 import * as urlConstants from '../../../../constants/url';
 
 interface MenuButtonProps {
+  sendWriteReviewGAEvent?: Function;
+  sendCallingGAEvent?: Function;
   homepage_url: string;
   tell: string;
   item: {
@@ -16,6 +18,8 @@ interface MenuButtonProps {
 }
 
 export default function MenuButton({
+  sendWriteReviewGAEvent,
+  sendCallingGAEvent,
   homepage_url,
   tell,
   item,
@@ -24,6 +28,9 @@ export default function MenuButton({
     switch (title) {
       case '전화하기':
         if (tell) {
+          if (sendCallingGAEvent) {
+            sendCallingGAEvent();
+          }
           window.ReactNativeWebView.postMessage(
             JSON.stringify({
               type: 'CALL_TELL',
@@ -43,6 +50,9 @@ export default function MenuButton({
         }
         break;
       case '리뷰작성':
+        if (sendWriteReviewGAEvent) {
+          sendWriteReviewGAEvent();
+        }
         window.open(urlConstants.RECEIPT_REVIEW_FORM_URL);
         break;
       default:
