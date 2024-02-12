@@ -26,7 +26,6 @@ export default function RootLayout({
           gtag('js', new Date());
 
           gtag('config', 'G-7Y35P8RQMH');
-          gtag(‘event’, ’calling’, {‘recommendation’ : 추천병원이 맞는지 아닌지 구분할 수 있는 값, ‘hospital_name’ : 동물병원 이름});
         `}
       </Script>
       <body>
