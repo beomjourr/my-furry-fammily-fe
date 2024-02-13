@@ -1,4 +1,4 @@
-import { Accordion, Box } from '@chakra-ui/react';
+import { Accordion, Box, Text } from '@chakra-ui/react';
 import { groupBy } from 'lodash';
 import { useState } from 'react';
 import AccordionWrapper from '../AccodionItemWrapper';
@@ -6,7 +6,18 @@ import Line from '../Divider';
 import { HospitalResponseData } from '../../../service/hospitalDetail';
 import * as urlConstants from '../../../constants/url';
 import PreviewImage from '../info/PreviewImage';
+import { Badge, Flex } from '@chakra-ui/react';
 
+const badgeStyle = {
+  background: 'white',
+  padding: '6px 8px',
+  width: 'fit-content',
+  borderRadius: 4,
+  color: '#545459',
+  fontSize: '12px',
+  fontWeight: '600',
+  border: '1px solid #E3E3E8',
+};
 interface PriceItemProp {
   title: string;
   price: React.ReactNode;
@@ -19,7 +30,7 @@ interface PriceProps {
 
 function PriceItem({ title, price }: PriceItemProp) {
   return (
-    <div style={{ padding: '16px' }}>
+    <div style={{ padding: '16px 22px' }}>
       <div style={{ textAlign: 'left', fontSize: '14px', fontWeight: 500 }}>
         {title}
       </div>
@@ -91,9 +102,51 @@ function Price({ sendCollectionGAEvent, data }: PriceProps) {
                     background: '#F9F9F9',
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: '16px',
+                    padding: '0px'
                   }}
                 >
+                  {hospitalFee.some(fee => fee.clinic_type_name.includes('건강검진')) && (
+                    <Flex
+                      flexDirection="column"
+                      padding="16px 22px"
+                      justifyContent="center"
+                      alignItems="flex-start"
+                      gap="16px"
+                      alignSelf="stretch"
+                    >
+                      <Text
+                        color="var(--Gray-Scale-Gray800, #323236)"
+                        fontFamily="Pretendard"
+                        fontSize="14px"
+                        fontStyle="normal"
+                        fontWeight="700"
+                        lineHeight="normal"
+                        letterSpacing="0.28px"
+                      >
+                        건강검진 항목
+                      </Text>
+                      <Flex
+                        color="#9A9AA1"
+                        alignItems="center"
+                        alignContent="center"
+                        justifyContent="flex-start"
+                        fontWeight="600"
+                        gap="10px"
+                        alignSelf="stretch"
+                        flexWrap="wrap"
+                      >
+                        {data?.health_screening_info?.items && data?.health_screening_info?.items.length > 0
+                          ? data.health_screening_info.items.map((item, index) => {
+                              return (
+                                <Badge key={index} sx={badgeStyle}>
+                                  {item}
+                                </Badge>
+                              );
+                            })
+                          : '전문과목 정보가 없습니다.'}
+                      </Flex>
+                    </Flex>
+                  )}
                   {hospitalFee?.map((item: any, index2: number) => {
                     return (
                       <PriceItem
