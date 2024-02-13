@@ -2,6 +2,7 @@ import React, { HTMLAttributes, useEffect } from 'react';
 import Image from 'next/image';
 import gps from '@my-furry-family/images/gps.svg';
 import { useAtom } from 'jotai';
+import { sendGAEvent } from '../../../utils/ga';
 import styles from './LocationButton.module.scss';
 import { addressState } from '../../../store/address';
 import { searchLocationState } from '../../../store/location';
@@ -26,6 +27,11 @@ function LocationButton({ onClick }: LocationButtonProps) {
         );
         const [region] = data.documents;
         setAddress(region?.address?.region_3depth_name);
+        sendGAEvent('select_location', {
+          location: `${region?.address?.region_1depth_name || ''} ${
+            region?.address?.region_2depth_name || ''
+          }`,
+        });
       }
       //
       // if (location && !searchLocation) {
