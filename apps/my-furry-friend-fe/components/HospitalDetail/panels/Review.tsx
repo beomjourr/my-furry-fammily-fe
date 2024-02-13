@@ -10,7 +10,7 @@ import * as urlConstants from '../../../constants/url';
 interface ReviewProps {
   id: string;
   review_rating?: number;
-  sendWriteReviewGAEvent?: Function;
+  sendWriteReviewGAEvent?: () => void;
 }
 
 interface ReviewItemProps {

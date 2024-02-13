@@ -6,7 +6,7 @@ import arrow from '@my-furry-family/images/arrow_right.svg';
 import * as urlConstants from '../../../constants/url';
 
 interface NoticeProps {
-  sendCollectionGAEvent?: Function;
+  sendCollectionGAEvent?: () => void;
 }
 
 export default function Notice({ sendCollectionGAEvent }: NoticeProps) {

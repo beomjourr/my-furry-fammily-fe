@@ -5,8 +5,8 @@ import { Flex, Text } from '@chakra-ui/react';
 import * as urlConstants from '../../../../constants/url';
 
 interface MenuButtonProps {
-  sendWriteReviewGAEvent?: Function;
-  sendCallingGAEvent?: Function;
+  sendWriteReviewGAEvent?: () => void;
+  sendCallingGAEvent?: () => void;
   homepage_url: string;
   tell: string;
   item: {
