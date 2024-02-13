@@ -32,7 +32,7 @@ function SearchList({ hospitalData }: SearchListProps) {
     <div>
       {hospitalGroupBy.true?.length > 0 && (
         <SearchListCardWrapper
-          title="내새꾸 협력병원"
+          title="내새꾸 추천병원"
           hospitalData={hospitalGroupBy.true}
         />
       )}

@@ -14,7 +14,7 @@ export default function MapInfo() {
       <Box display="flex" alignItems="center" marginBottom="3px">
         <Box bgColor="brand.800" rounded="full" width="10px" height="10px" />
         <Text marginLeft="5px" fontSize="12px">
-          내새꾸 협력병원
+          내새꾸 추천병원
         </Text>
       </Box>
       <Box display="flex" alignItems="center" marginBottom="3px">

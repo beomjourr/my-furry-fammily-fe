@@ -1,4 +1,3 @@
-import Badge24Icon from '@my-furry-family/images/card/24-badge.svg';
 import Badge1ChaIcon from '@my-furry-family/images/card/1cha-badge.svg';
 import Badge2ChaIcon from '@my-furry-family/images/card/2cha-badge.svg';
 import Badge3ChaIcon from '@my-furry-family/images/card/3cha-badge.svg';
@@ -94,13 +93,13 @@ const scales = [
     buttonContent: '3차 동물병원',
     iconPath: Badge3ChaIcon,
   },
-  {
-    key: 'ALWAYS',
-    value: '24시간 병원',
-    badgeText: '언제든 열려있는',
-    buttonContent: '24시간 병원',
-    iconPath: Badge24Icon,
-  },
+  // {
+  //   key: 'ALWAYS',
+  //   value: '24시간 병원',
+  //   badgeText: '언제든 열려있는',
+  //   buttonContent: '24시간 병원',
+  //   iconPath: Badge24Icon,
+  // },
 ];
 
 const variable: {
