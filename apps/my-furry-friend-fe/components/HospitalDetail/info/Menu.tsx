@@ -2,6 +2,7 @@ import { Flex } from '@chakra-ui/react';
 import PhoneIcon from '@my-furry-family/images/phone.svg';
 import HomepageIcon from '@my-furry-family/images/homepage.svg';
 import HomepageDisabledIcon from '@my-furry-family/images/hompage-disabled.svg';
+import ReviewDisabledIcon from '@my-furry-family/images/review_disabled.svg';
 import ReviewIcon from '@my-furry-family/images/review.svg';
 import HeartIcon from '@my-furry-family/images/heart.svg';
 import MenuButton from './button/MenuButton';
@@ -28,9 +29,9 @@ const MENU = ({ homepage_url, tell }: MenuProps) => [
   },
   {
     icon: ReviewIcon,
-    disabledIcon: ReviewIcon,
+    disabledIcon: ReviewDisabledIcon,
     title: '리뷰작성',
-    disabled: true,
+    disabled: false,
   },
   { icon: HeartIcon, disabledIcon: HeartIcon, title: '찜하기', disabled: true },
 ];
