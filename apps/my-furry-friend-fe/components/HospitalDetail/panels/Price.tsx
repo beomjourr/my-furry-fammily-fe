@@ -136,14 +136,13 @@ function Price({ sendCollectionGAEvent, data }: PriceProps) {
                         flexWrap="wrap"
                       >
                         {data?.health_screening_info?.items && data?.health_screening_info?.items.length > 0
-                          ? data.health_screening_info.items.map((item, index) => {
-                              return (
-                                <Badge key={index} sx={badgeStyle}>
-                                  {item}
-                                </Badge>
-                              );
-                            })
-                          : '전문과목 정보가 없습니다.'}
+                          && data.health_screening_info.items.map((item, index) => {
+                            return (
+                              <Badge key={index} sx={badgeStyle}>
+                                {item}
+                              </Badge>
+                            );
+                        })}
                       </Flex>
                     </Flex>
                   )}
