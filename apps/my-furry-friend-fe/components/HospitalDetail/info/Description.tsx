@@ -6,11 +6,35 @@ interface DescriptionProps {
 }
 
 export default function Description({ info_description }: DescriptionProps) {
+  if (info_description) {
+    return (
+      <AccordionWrapper
+        title="병원소개"
+        panelStyle={{
+          background: '#F5F5F7',
+          padding: '16px',
+          color: '#323236',
+          fontSize: '14px',
+          fontWeight: 300,
+        }}
+      >
+        <Text
+          fontSize="14px"
+          fontStyle="normal"
+          fontWeight="500"
+          lineHeight="150%"
+          whiteSpace="pre-line"
+        >
+          {info_description}
+        </Text>
+      </AccordionWrapper>
+    )
+  }
+
   return (
     <AccordionWrapper
       title="병원소개"
       panelStyle={{
-        background: '#F5F5F7',
         padding: '16px',
         color: '#323236',
         fontSize: '14px',
@@ -18,14 +42,15 @@ export default function Description({ info_description }: DescriptionProps) {
       }}
     >
       <Text
+        color="#9A9AA1"
         fontSize="14px"
         fontStyle="normal"
-        fontWeight="500"
+        fontWeight="600"
         lineHeight="150%"
         whiteSpace="pre-line"
       >
-        {info_description || '병원소개가 없습니다.'}
+        병원소개가 없습니다.
       </Text>
     </AccordionWrapper>
-  );
+  )
 }
