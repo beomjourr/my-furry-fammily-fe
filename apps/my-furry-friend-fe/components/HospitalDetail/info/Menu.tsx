@@ -7,8 +7,8 @@ import HeartIcon from '@my-furry-family/images/heart.svg';
 import MenuButton from './button/MenuButton';
 
 interface MenuProps {
-  sendWriteReviewGAEvent?: Function;
-  sendCallingGAEvent?: Function;
+  sendWriteReviewGAEvent?: () => void;
+  sendCallingGAEvent?: () => void;
   homepage_url: string;
   tell: string;
 }
@@ -35,7 +35,12 @@ const MENU = ({ homepage_url, tell }: MenuProps) => [
   { icon: HeartIcon, disabledIcon: HeartIcon, title: '찜하기', disabled: true },
 ];
 
-export default function Menu({ sendWriteReviewGAEvent, sendCallingGAEvent, homepage_url, tell }: MenuProps) {
+export default function Menu({
+  sendWriteReviewGAEvent,
+  sendCallingGAEvent,
+  homepage_url,
+  tell,
+}: MenuProps) {
   return (
     <Flex m="26px 0 20px">
       {MENU({ homepage_url, tell }).map((item) => (
@@ -46,7 +51,13 @@ export default function Menu({ sendWriteReviewGAEvent, sendCallingGAEvent, homep
           justifyContent="center"
           alignItems="center"
         >
-          <MenuButton sendWriteReviewGAEvent={sendWriteReviewGAEvent} sendCallingGAEvent={sendCallingGAEvent} homepage_url={homepage_url} tell={tell} item={item} />
+          <MenuButton
+            sendWriteReviewGAEvent={sendWriteReviewGAEvent}
+            sendCallingGAEvent={sendCallingGAEvent}
+            homepage_url={homepage_url}
+            tell={tell}
+            item={item}
+          />
         </Flex>
       ))}
     </Flex>

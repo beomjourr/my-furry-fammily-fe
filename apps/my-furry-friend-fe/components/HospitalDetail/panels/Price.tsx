@@ -13,7 +13,7 @@ interface PriceItemProp {
 }
 
 interface PriceProps {
-  sendCollectionGAEvent?: Function;
+  sendCollectionGAEvent?: () => void;
   data?: HospitalResponseData;
 }
 
