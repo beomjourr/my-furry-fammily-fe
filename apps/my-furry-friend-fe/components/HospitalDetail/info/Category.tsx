@@ -26,7 +26,6 @@ export default function Category({ categories }: CategoryProps) {
         alignItems="center"
         justifyContent="flex-start"
         fontWeight="600"
-        gap="16px"
         alignSelf="stretch"
         flexWrap="wrap"
         paddingY="16px"
