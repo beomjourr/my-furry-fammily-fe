@@ -33,8 +33,8 @@ export default function MenuButton({
           }
           window.ReactNativeWebView.postMessage(
             JSON.stringify({
-              type: 'CALL_TELL',
-              tell,
+              type: 'LINKING_OPEN_URL',
+              url: `tel:${tell}`,
             }),
           );
         }
@@ -53,9 +53,15 @@ export default function MenuButton({
         if (sendWriteReviewGAEvent) {
           sendWriteReviewGAEvent();
         }
-        window.open(urlConstants.RECEIPT_REVIEW_FORM_URL);
+        window.ReactNativeWebView.postMessage(
+          JSON.stringify({
+            type: 'LINKING_OPEN_URL',
+            url: urlConstants.RECEIPT_REVIEW_FORM_URL,
+          }),
+        );
         break;
       default:
+        break;
     }
   };
 

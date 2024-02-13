@@ -9,12 +9,17 @@ interface NoticeProps {
   sendCollectionGAEvent?: Function;
 }
 
-export default function Notice({sendCollectionGAEvent}: NoticeProps) {
+export default function Notice({ sendCollectionGAEvent }: NoticeProps) {
   const handleNoticeClick = () => {
     if (sendCollectionGAEvent) {
       sendCollectionGAEvent();
     }
-    window.open(urlConstants.INFO_UPDATE_REQUEST_FORM_URL);
+    window.ReactNativeWebView.postMessage(
+      JSON.stringify({
+        type: 'LINKING_OPEN_URL',
+        url: urlConstants.INFO_UPDATE_REQUEST_FORM_URL,
+      }),
+    );
   };
 
   return (

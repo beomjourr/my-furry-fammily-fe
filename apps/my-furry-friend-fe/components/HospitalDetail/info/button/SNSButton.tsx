@@ -18,7 +18,14 @@ export default function SnsButton({ item, url }: SnsButtonProps) {
   return (
     <Button
       key={item.title}
-      onClick={() => window.open(url[item.apiData])}
+      onClick={() =>
+        window.ReactNativeWebView.postMessage(
+          JSON.stringify({
+            type: 'LINKING_OPEN_URL',
+            url: url[item.apiData],
+          }),
+        )
+      }
       w="70px"
       h="60px"
       gap="8px"

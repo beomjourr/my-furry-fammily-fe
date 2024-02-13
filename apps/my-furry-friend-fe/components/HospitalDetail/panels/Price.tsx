@@ -66,7 +66,12 @@ function Price({ sendCollectionGAEvent, data }: PriceProps) {
     if (sendCollectionGAEvent) {
       sendCollectionGAEvent();
     }
-    window.open(urlConstants.INFO_UPDATE_REQUEST_FORM_URL);
+    window.ReactNativeWebView.postMessage(
+      JSON.stringify({
+        type: 'LINKING_OPEN_URL',
+        url: urlConstants.INFO_UPDATE_REQUEST_FORM_URL,
+      }),
+    );
   };
 
   return (

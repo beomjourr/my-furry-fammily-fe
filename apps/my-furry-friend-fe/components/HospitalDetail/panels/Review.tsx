@@ -102,7 +102,12 @@ function Review({ id, review_rating, sendWriteReviewGAEvent }: ReviewProps) {
     if (sendWriteReviewGAEvent) {
       sendWriteReviewGAEvent();
     }
-    window.open(urlConstants.RECEIPT_REVIEW_FORM_URL);
+    window.ReactNativeWebView.postMessage(
+      JSON.stringify({
+        type: 'LINKING_OPEN_URL',
+        url: urlConstants.RECEIPT_REVIEW_FORM_URL,
+      }),
+    );
   };
 
   return (
