@@ -249,12 +249,14 @@ function Price({ sendCollectionGAEvent, data }: PriceProps) {
         color="#545459"
         fontSize="14px"
       >
-        <div>
+        <Text>
           아래 항목은 반려동물의 건강상태, 몸무게, 종, 수술난이도 등 다양한
           이유로 현장의 최신 정보와 차이가 있을 수 있습니다. 현장 정보와
           일치하지 않아 발생한 피해에 대해서는 내새꾸측이 책임을 지거나 보상하지
           않습니다. 정확한 비용은 동물병원에 문의해 주시기 바랍니다.
-        </div>
+        </Text>
+        <br />
+        <Text textAlign="right">수집일자 : 2023년 10월 ~ 2024년 2월</Text>
       </Box>
       <button
         type="button"
