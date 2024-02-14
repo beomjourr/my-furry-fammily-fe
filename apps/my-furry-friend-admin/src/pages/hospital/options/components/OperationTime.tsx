@@ -96,7 +96,11 @@ export default function OperationTime({ id }: OperationTimeProps) {
                     label="시간"
                     name={[name, 'date']}
                     rules={[
-                      { required: true, message: '시간을 선택해주세요.' },
+                      {
+                        required:
+                          DAY_OF_WEEK_STATUS[key].day_of_week_status !== 'REST',
+                        message: '시간을 입력해주세요',
+                      },
                     ]}
                   >
                     <TimePicker.RangePicker format="HH:mm" showSecond={false} />
