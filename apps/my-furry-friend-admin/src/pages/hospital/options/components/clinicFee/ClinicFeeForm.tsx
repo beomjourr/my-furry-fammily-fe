@@ -19,7 +19,7 @@ import {
 } from '../../../../../models/hospital-clinic-fee/hospital-clinic-fee.ts';
 
 interface FormValues {
-  is_required: boolean;
+  clinic_type_category: string;
   clinic_cost_info: string;
   clinic_type_id: number;
   animal_id: number;
@@ -42,7 +42,7 @@ export default function ClinicFeeForm({
   useEffect(() => {
     if (type === 'edit' && record) {
       form.setFieldsValue({
-        is_required: record.is_required,
+        clinic_type_category: record.clinic_type_category,
         clinic_cost_info: record.cost_info,
         clinic_type_id: record.clinic_type_id,
         animal_id: record.animal_id,
@@ -147,7 +147,11 @@ export default function ClinicFeeForm({
         <Input placeholder="진료비 정보를 입력해주세요." />
       </Form.Item>
 
-      <Form.Item initialValue={false} label="진료비" name="is_required">
+      <Form.Item
+        initialValue={false}
+        label="진료비"
+        name="clinic_type_category"
+      >
         <Switch />
       </Form.Item>
 

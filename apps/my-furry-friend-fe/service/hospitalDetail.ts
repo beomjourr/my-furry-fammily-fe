@@ -65,7 +65,7 @@ export interface HospitalResponseData {
     longitude: number;
   };
   clinic_fees: {
-    is_required: boolean;
+    clinic_type_category: string;
     name: string;
     cost: string;
     clinic_type_name: string;

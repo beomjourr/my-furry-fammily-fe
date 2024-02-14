@@ -11,7 +11,7 @@ interface AccordionItemWrapperProps {
   title: string;
   children: ReactNode; // ReactNode를 사용하여 React 컴포넌트, 문자열, 숫자, null 등을 포함할 수 있도록 함
   panelStyle?: CSSProperties;
-  is_required?: boolean;
+  clinic_type_category?: string;
 }
 
 const badgeStyle = {
@@ -28,12 +28,12 @@ function AccordionWrapper({
   title,
   children,
   panelStyle,
-  is_required,
+  clinic_type_category,
 }: AccordionItemWrapperProps) {
   let badge: React.ReactNode = null;
 
-  if (typeof is_required === 'boolean') {
-    if (is_required) {
+  if (typeof clinic_type_category === 'string') {
+    if (clinic_type_category === '필수') {
       badge = (
         <span
           style={{
@@ -46,7 +46,7 @@ function AccordionWrapper({
         </span>
       );
     }
-    if (!is_required) {
+    if (clinic_type_category === '단독') {
       badge = (
         <span
           style={{
@@ -56,6 +56,19 @@ function AccordionWrapper({
           }}
         >
           단독
+        </span>
+      );
+    }
+    if (clinic_type_category === '기타') {
+      badge = (
+        <span
+          style={{
+            ...badgeStyle,
+            background: '#0a0a0a4c',
+            color: 'white',
+          }}
+        >
+          기타
         </span>
       );
     }

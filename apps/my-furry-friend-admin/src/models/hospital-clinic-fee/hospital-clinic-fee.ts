@@ -4,7 +4,7 @@ import { axiosInstance } from '../../lib/axios.ts';
 const PATH = '/admin/animal-hospitals';
 
 export interface HospitalClinicFeeRequestData {
-  is_required: boolean;
+  clinic_type_category: string;
   clinic_cost_info: string;
   clinic_type_id: number;
   animal_id: number;
@@ -12,7 +12,7 @@ export interface HospitalClinicFeeRequestData {
 
 export interface HospitalClinicFeeResponseData {
   id: string;
-  is_required: boolean;
+  clinic_type_category: string;
   cost_info: string;
   clinic_type_name: string;
   clinic_type_id: number;

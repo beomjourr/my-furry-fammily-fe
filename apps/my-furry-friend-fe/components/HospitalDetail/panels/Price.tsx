@@ -1,4 +1,4 @@
-import { Accordion, Box, Text } from '@chakra-ui/react';
+import { Accordion, Box, Text, Badge, Flex } from '@chakra-ui/react';
 import { groupBy } from 'lodash';
 import { useState } from 'react';
 import AccordionWrapper from '../AccodionItemWrapper';
@@ -6,7 +6,6 @@ import Line from '../Divider';
 import { HospitalResponseData } from '../../../service/hospitalDetail';
 import * as urlConstants from '../../../constants/url';
 import PreviewImage from '../info/PreviewImage';
-import { Badge, Flex } from '@chakra-ui/react';
 
 const badgeStyle = {
   background: 'white',
@@ -27,6 +26,20 @@ interface PriceProps {
   sendCollectionGAEvent?: () => void;
   data?: HospitalResponseData;
 }
+
+interface ClinicFee {
+  clinic_type_category: '필수' | '단독' | '기타' | string;
+}
+
+type CategoryOrder = {
+  [key in '필수' | '단독' | '기타' | string]: number;
+};
+
+const categoryOrder: CategoryOrder = {
+  필수: 1,
+  단독: 2,
+  기본: 3,
+};
 
 function PriceItem({ title, price }: PriceItemProp) {
   return (
@@ -67,9 +80,12 @@ function Price({ sendCollectionGAEvent, data }: PriceProps) {
   };
 
   const hospitalFeesGroupBy = groupBy(
-    data?.clinic_fees.sort((a, b) =>
-      a.is_required === b.is_required ? 0 : a.is_required ? -1 : 1,
-    ),
+    data?.clinic_fees.sort((a: ClinicFee, b: ClinicFee) => {
+      return (
+        (categoryOrder[a.clinic_type_category as keyof CategoryOrder] || 4) -
+        (categoryOrder[b.clinic_type_category as keyof CategoryOrder] || 4)
+      );
+    }),
     'clinic_type_name',
   );
 
@@ -85,27 +101,47 @@ function Price({ sendCollectionGAEvent, data }: PriceProps) {
     );
   };
 
+  const getPriceItemTtile = (item: any) => {
+    if (!item) return '';
+
+    if (item.clinic_type_category === '필수') {
+      return item.name || '';
+    }
+    if (item.clinic_type_category === '단독') {
+      return `${item.animal_weight || ''} ${
+        item.animal_name || ''
+      } ${item.clinic_type_name || ''}`;
+    }
+    if (item.clinic_type_category === '기타') {
+      return item.name || '';
+    }
+
+    return '';
+  };
+
   return (
     <>
       <Accordion allowMultiple margin="-16px 0 0">
         {Object.values(hospitalFeesGroupBy)?.map(
           (hospitalFee, index: number) => {
             const feesWrapperName = hospitalFee?.[0]?.clinic_type_name;
-            const hospitalFeeIsRequired = hospitalFee?.[0]?.is_required;
+            const clinicTypeCategory = hospitalFee?.[0]?.clinic_type_category;
 
             return (
               <div key={index}>
                 <AccordionWrapper
                   title={feesWrapperName}
-                  is_required={hospitalFeeIsRequired}
+                  clinic_type_category={clinicTypeCategory}
                   panelStyle={{
                     background: '#F9F9F9',
                     display: 'flex',
                     flexDirection: 'column',
-                    padding: '0px'
+                    padding: '0px',
                   }}
                 >
-                  {hospitalFee.some(fee => fee.clinic_type_name.includes('건강검진')) && (
+                  {hospitalFee.some((fee) =>
+                    fee.clinic_type_name.includes('건강검진'),
+                  ) && (
                     <Flex
                       flexDirection="column"
                       padding="16px 22px"
@@ -135,23 +171,24 @@ function Price({ sendCollectionGAEvent, data }: PriceProps) {
                         alignSelf="stretch"
                         flexWrap="wrap"
                       >
-                        {data?.health_screening_info?.items && data?.health_screening_info?.items.length > 0
-                          && data.health_screening_info.items.map((item, index) => {
-                            return (
-                              <Badge key={index} sx={badgeStyle}>
-                                {item}
-                              </Badge>
-                            );
-                        })}
+                        {data?.health_screening_info?.items &&
+                          data?.health_screening_info?.items.length > 0 &&
+                          data.health_screening_info.items.map(
+                            (item, index2) => {
+                              return (
+                                <Badge key={index2} sx={badgeStyle}>
+                                  {item}
+                                </Badge>
+                              );
+                            },
+                          )}
                       </Flex>
                     </Flex>
                   )}
                   {hospitalFee?.map((item: any, index2: number) => {
                     return (
                       <PriceItem
-                        title={`${item.animal_weight || ''} ${
-                          item.animal_name || ''
-                        } ${item.clinic_type_name}`}
+                        title={getPriceItemTtile(item)}
                         price={item.cost}
                         key={index2}
                       />
@@ -167,7 +204,7 @@ function Price({ sendCollectionGAEvent, data }: PriceProps) {
           <>
             <AccordionWrapper
               title="건강검진"
-              is_required={false}
+              clinic_type_category="단독"
               panelStyle={{
                 background: '#F9F9F9',
                 display: 'flex',
