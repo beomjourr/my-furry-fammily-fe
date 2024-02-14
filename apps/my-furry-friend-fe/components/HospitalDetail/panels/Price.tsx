@@ -104,21 +104,19 @@ function Price({ sendCollectionGAEvent, data }: PriceProps) {
   const getPriceItemTtile = (item: any) => {
     if (!item) return '';
 
-    // clinic_type_name가 '기타'이면, clinic_type_category가 '단독'으로 넘어오지만, name값을 노출
-    if (item.clinic_type_name === '기타') {
-      return item.name || '';
+    switch (item.clinic_type_category) {
+      case '필수':
+      case '기타': {
+        return item.name || '';
+      }
+      case '단독': {
+        return `${item.animal_weight || ''} ${
+          item.animal_name || ''
+        } ${item.clinic_type_name || ''}`;
+      }
+      default:
+        return '';
     }
-
-    if (item.clinic_type_category === '필수') {
-      return item.name || '';
-    }
-    if (item.clinic_type_category === '단독') {
-      return `${item.animal_weight || ''} ${
-        item.animal_name || ''
-      } ${item.clinic_type_name || ''}`;
-    }
-
-    return '';
   };
 
   return (
