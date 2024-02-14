@@ -9,6 +9,7 @@ import LocationButton from '../components/main/LocationButton/LocationButton';
 import RequestLocationModal from '../components/main/RequestLocationModal/RequestLocationModal';
 import { HomeTab } from '../components/home/HomeTab';
 import useResetAtoms from '../hooks/useResetAtoms';
+import { HomeFooter } from '../components/home/HomeFooter';
 
 export default function Home() {
   const router = useRouter();
@@ -62,6 +63,7 @@ export default function Home() {
         </p>
       </Button>
       <HomeTab />
+      <HomeFooter />
       <RequestLocationModal
         isOpen={isOpen}
         onClose={handleModalClose}
