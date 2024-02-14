@@ -38,7 +38,7 @@ export function HomeFooter() {
           onClick={() => {
             window.ReactNativeWebView.postMessage(
               JSON.stringify({
-                type: 'INTRODUCTION_MY_FURRY_FRITEND_URL',
+                type: 'LINKING_OPEN_URL',
                 url: urlConstants.INTRODUCTION_MY_FURRY_FRITEND_URL,
               }),
             );
@@ -64,7 +64,7 @@ export function HomeFooter() {
           onClick={() => {
             window.ReactNativeWebView.postMessage(
               JSON.stringify({
-                type: 'TERMS_OF_USE_URL',
+                type: 'LINKING_OPEN_URL',
                 url: urlConstants.TERMS_OF_USE_URL,
               }),
             );
@@ -90,7 +90,7 @@ export function HomeFooter() {
           onClick={() => {
             window.ReactNativeWebView.postMessage(
               JSON.stringify({
-                type: 'PRIVACY_POLICY_URL',
+                type: 'LINKING_OPEN_URL',
                 url: urlConstants.PRIVACY_POLICY_URL,
               }),
             );
