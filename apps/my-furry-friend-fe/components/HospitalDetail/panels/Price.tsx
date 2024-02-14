@@ -127,6 +127,15 @@ function Price({ sendCollectionGAEvent, data }: PriceProps) {
             const feesWrapperName = hospitalFee?.[0]?.clinic_type_name;
             const clinicTypeCategory = hospitalFee?.[0]?.clinic_type_category;
 
+            // 건강검진 항목인데, has_sheet_image값이 있으면 (건강검진 이미지) 노출X
+            // -> 아래에 별도로 건강검진 항목표 있는 건강검진 요소를 추가함
+            if (
+              feesWrapperName?.includes('건강검진') &&
+              data?.images.has_sheet_image
+            ) {
+              return null;
+            }
+
             return (
               <div key={index}>
                 <AccordionWrapper
