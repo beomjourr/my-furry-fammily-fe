@@ -150,39 +150,39 @@ function Price({ sendCollectionGAEvent, data }: PriceProps) {
                 >
                   {hospitalFee.some((fee) =>
                     fee.clinic_type_name.includes('건강검진'),
-                  ) && (
-                    <Flex
-                      flexDirection="column"
-                      padding="16px 22px"
-                      justifyContent="center"
-                      alignItems="flex-start"
-                      gap="16px"
-                      alignSelf="stretch"
-                    >
-                      <Text
-                        color="var(--Gray-Scale-Gray800, #323236)"
-                        fontFamily="Pretendard"
-                        fontSize="14px"
-                        fontStyle="normal"
-                        fontWeight="700"
-                        lineHeight="normal"
-                        letterSpacing="0.28px"
-                      >
-                        건강검진 항목
-                      </Text>
+                  ) &&
+                    data?.health_screening_info?.items &&
+                    data?.health_screening_info?.items.length > 0 && (
                       <Flex
-                        color="#9A9AA1"
-                        alignItems="center"
-                        alignContent="center"
-                        justifyContent="flex-start"
-                        fontWeight="600"
-                        gap="10px"
+                        flexDirection="column"
+                        padding="16px 22px"
+                        justifyContent="center"
+                        alignItems="flex-start"
+                        gap="16px"
                         alignSelf="stretch"
-                        flexWrap="wrap"
                       >
-                        {data?.health_screening_info?.items &&
-                          data?.health_screening_info?.items.length > 0 &&
-                          data.health_screening_info.items.map(
+                        <Text
+                          color="var(--Gray-Scale-Gray800, #323236)"
+                          fontFamily="Pretendard"
+                          fontSize="14px"
+                          fontStyle="normal"
+                          fontWeight="700"
+                          lineHeight="normal"
+                          letterSpacing="0.28px"
+                        >
+                          건강검진 항목
+                        </Text>
+                        <Flex
+                          color="#9A9AA1"
+                          alignItems="center"
+                          alignContent="center"
+                          justifyContent="flex-start"
+                          fontWeight="600"
+                          gap="10px"
+                          alignSelf="stretch"
+                          flexWrap="wrap"
+                        >
+                          {data.health_screening_info.items.map(
                             (item, index2) => {
                               return (
                                 <Badge key={index2} sx={badgeStyle}>
@@ -191,9 +191,9 @@ function Price({ sendCollectionGAEvent, data }: PriceProps) {
                               );
                             },
                           )}
+                        </Flex>
                       </Flex>
-                    </Flex>
-                  )}
+                    )}
                   {hospitalFee?.map((item: any, index2: number) => {
                     return (
                       <PriceItem
