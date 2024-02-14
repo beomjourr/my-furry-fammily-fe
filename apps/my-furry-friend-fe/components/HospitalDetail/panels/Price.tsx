@@ -104,11 +104,6 @@ function Price({ sendCollectionGAEvent, data }: PriceProps) {
   const getPriceItemTtile = (item: any) => {
     if (!item) return '';
 
-    // clinic_type_name가 '기타'이면, clinic_type_category가 '단독'으로 넘어오지만, name값을 노출
-    if (item.clinic_type_name === '기타') {
-      return item.name || '';
-    }
-
     if (item.clinic_type_category === '필수') {
       return item.name || '';
     }
@@ -116,6 +111,9 @@ function Price({ sendCollectionGAEvent, data }: PriceProps) {
       return `${item.animal_weight || ''} ${
         item.animal_name || ''
       } ${item.clinic_type_name || ''}`;
+    }
+    if (item.clinic_type_category === '기타') {
+      return item.name || '';
     }
 
     return '';
