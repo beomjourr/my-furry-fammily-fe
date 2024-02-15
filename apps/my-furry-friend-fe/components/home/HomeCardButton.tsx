@@ -149,13 +149,17 @@ export function HomeCardButton({ keyword = 'regions' }: HomeCardButtonProps) {
   });
 
   const handleButtonClick = (item: { key: string; value?: string }) => {
+    if (item.key === 'All') {
+      return router.push('/search');
+    }
+
     router.push('/search');
     setSelectedFilter({
       key: keyword,
       value: keyWordVariable[keyword].value,
     });
 
-    if (item.key === 'All' || item.key === 'SEOUL') {
+    if (item.key === 'SEOUL') {
       return setSearchFilter((prev) => ({
         ...prev,
         [keyword]: data?.data.data[keyword] || [],
