@@ -17,21 +17,21 @@ interface OperatingTimesProps {
     now_operation_status: string;
     today_operating_time: {
       day_of_week: string;
-      start_time: number[];
-      end_time: number[];
+      start_time: string;
+      end_time: string;
       is_day_off: boolean;
       is_today: boolean;
     };
     operating_times: {
       day_of_week: string;
-      start_time: number[];
-      end_time: number[];
+      start_time: string;
+      end_time: string;
       is_day_off: boolean;
     }[];
     resting_time: {
       day_of_week: string;
-      start_time: number[];
-      end_time: number[];
+      start_time: string;
+      end_time: string;
       is_day_off: boolean;
       is_today: boolean;
     };
@@ -84,21 +84,25 @@ export default function OperatingTimes({
         <AccordionIcon />
       </AccordionButton>
       <AccordionPanel padding="0">
-        {operating_times.resting_time && (
-          <Box
-            display="flex"
-            padding="6px 8px"
-            justifyContent="center"
-            alignItems="center"
-            gap="4px"
-            color="#6282DB"
-            background="#E6E9F9"
-            fontSize="14px"
-            fontWeight="500"
-          >
-            {`휴게시간 ${operating_times.resting_time.start_time} - ${operating_times.resting_time.end_time}`}
-          </Box>
-        )}
+        {operating_times.resting_time &&
+          !(
+            operating_times.resting_time.start_time === '00:00' &&
+            operating_times.resting_time.end_time === '00:00'
+          ) && (
+            <Box
+              display="flex"
+              padding="6px 8px"
+              justifyContent="center"
+              alignItems="center"
+              gap="4px"
+              color="#6282DB"
+              background="#E6E9F9"
+              fontSize="14px"
+              fontWeight="500"
+            >
+              {`휴게시간 ${operating_times.resting_time.start_time} - ${operating_times.resting_time.end_time}`}
+            </Box>
+          )}
         <UnorderedList
           m="1"
           listStyleType="none"

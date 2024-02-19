@@ -38,21 +38,21 @@ export interface HospitalResponseData {
     now_operation_status: string;
     today_operating_time: {
       day_of_week: string;
-      start_time: number[];
-      end_time: number[];
+      start_time: string;
+      end_time: string;
       is_day_off: boolean;
       is_today: boolean;
     };
     operating_times: {
       day_of_week: string;
-      start_time: number[];
-      end_time: number[];
+      start_time: string;
+      end_time: string;
       is_day_off: boolean;
     }[];
     resting_time: {
       day_of_week: string;
-      start_time: number[];
-      end_time: number[];
+      start_time: string;
+      end_time: string;
       is_day_off: boolean;
       is_today: boolean;
     };
