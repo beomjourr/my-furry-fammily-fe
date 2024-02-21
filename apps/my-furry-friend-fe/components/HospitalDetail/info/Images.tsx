@@ -4,6 +4,8 @@ import Image from 'next/image';
 import fileBlank from '@my-furry-family/images/blank.svg';
 import { useState } from 'react';
 import PreviewImage from './PreviewImage';
+import styles from './Swiper.module.scss';
+
 
 interface ImagesProps {
   images: {
@@ -35,7 +37,12 @@ export default function Images({ images }: ImagesProps) {
   return (
     <>
       {images.main_images.length > 0 || images.sheet_images.length > 0 ? (
-        <Swiper loop className="mySwiper" pagination modules={[Pagination]}>
+        <Swiper
+          loop
+          className={styles.swiper}
+          pagination
+          modules={[Pagination]}
+        >
           {[...images.main_images].slice(0, 5).map((imageItem, index) => (
             <SwiperSlide key={index}>
               <button
