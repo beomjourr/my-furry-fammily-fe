@@ -5,4 +5,7 @@
   .swiper-pagination-bullet-active {
     background: #6282DB;
   }
+  .swiper-slide-zoomed {
+    z-index: 1000;
+  }
 }
