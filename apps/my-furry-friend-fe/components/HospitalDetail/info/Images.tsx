@@ -6,7 +6,6 @@ import { useState } from 'react';
 import PreviewImage from './PreviewImage';
 import styles from './Swiper.module.scss';
 
-
 interface ImagesProps {
   images: {
     has_sheet_image: boolean;

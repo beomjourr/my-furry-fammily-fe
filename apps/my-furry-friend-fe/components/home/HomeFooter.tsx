@@ -4,7 +4,6 @@ import dividerIcon from '@my-furry-family/images/divider.svg';
 import myFurryFriendIcon from '@my-furry-family/images/my_furry_friend.svg';
 import * as urlConstants from '../../constants/url';
 
-
 export function HomeFooter() {
   return (
     <Box
@@ -19,17 +18,11 @@ export function HomeFooter() {
       bottom="0"
       background="var(--Gray-Scale-Gray300, #F5F5F7)"
     >
-      <Flex
-        alignItems="center"
-        gap="2.353px"
-      >
+      <Flex alignItems="center" gap="2.353px">
         <Image src={termsOfUseIcon.src} alt="" />
         <Image src={myFurryFriendIcon.src} alt="" />
       </Flex>
-      <Flex
-        alignItems="center"
-        gap="8px"
-      >
+      <Flex alignItems="center" gap="8px">
         <Flex
           // width="60px"
           height="28px"
@@ -108,8 +101,6 @@ export function HomeFooter() {
           </Text>
         </Flex>
       </Flex>
-
-
     </Box>
   );
 }
