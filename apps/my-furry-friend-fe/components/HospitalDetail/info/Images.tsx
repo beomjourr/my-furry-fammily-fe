@@ -56,7 +56,7 @@ export default function Images({ images }: ImagesProps) {
                   handlePreviewImage(index);
                 }}
               >
-                <Image fill src={imageItem} alt="main image" priority />
+                <Image fill objectFit='cover' src={imageItem} alt="main image" priority />
               </button>
             </SwiperSlide>
           ))}
