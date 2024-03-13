@@ -28,7 +28,7 @@ export default function Description({ info_description }: DescriptionProps) {
           {info_description}
         </Text>
       </AccordionWrapper>
-    )
+    );
   }
 
   return (
@@ -52,5 +52,5 @@ export default function Description({ info_description }: DescriptionProps) {
         병원소개가 없습니다.
       </Text>
     </AccordionWrapper>
-  )
+  );
 }

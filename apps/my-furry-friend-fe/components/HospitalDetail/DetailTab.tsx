@@ -28,21 +28,21 @@ export function DetailTab({
 
   const sendWriteReviewGAEvent = () => {
     sendGAEvent('write_review', {
-      recommendation: hospitalData?.is_cooperation ? true : false,
+      recommendation: !!hospitalData?.is_cooperation,
       hospital_name: hospitalData?.name || '정보없음',
     });
   };
 
   const sendCallingGAEvent = () => {
     sendGAEvent('calling', {
-      recommendation: hospitalData?.is_cooperation ? true : false,
+      recommendation: !!hospitalData?.is_cooperation,
       hospital_name: hospitalData?.name || '정보없음',
     });
   };
 
   const sendCollectionGAEvent = () => {
     sendGAEvent('collection', {
-      recommendation: hospitalData?.is_cooperation ? true : false,
+      recommendation: !!hospitalData?.is_cooperation,
       hospital_name: hospitalData?.name || '정보없음',
     });
   };
