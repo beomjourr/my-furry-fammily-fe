@@ -7,7 +7,7 @@ import * as urlConstants from '../../constants/url';
 export function HomeFooter() {
   return (
     <Box
-      position="fixed"
+      position="absolute"
       width="100%"
       height="120px"
       padding="20px 16px"
