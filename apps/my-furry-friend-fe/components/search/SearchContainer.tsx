@@ -39,6 +39,12 @@ export default function SearchContainer() {
               ),
             }
           : {}),
+        ...(searchLocation
+          ? {
+              latitude: searchLocation?.latitude,
+              longitude: searchLocation?.longitude,
+            }
+          : {}),
       }),
   });
 

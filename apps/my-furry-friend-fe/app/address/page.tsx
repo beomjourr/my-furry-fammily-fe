@@ -1,17 +1,16 @@
 'use client';
 
 import DaumPostcodeEmbed from 'react-daum-postcode';
-import { useAtom } from 'jotai';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import useLocation from '../../hooks/useLocation';
 import { fetchAddressTransCoord } from '../../service/address';
-import { searchLocationState } from '../../store/location';
 
 export default function Page() {
   const router = useRouter();
   const [searchValue, setSearchValue] = useState('');
-  const [, setSearchLocation] = useAtom(searchLocationState);
+  const { setSearchLocation } = useLocation();
 
   const { data, isSuccess } = useQuery({
     queryKey: ['/kakao-address-trans-api', searchValue],
