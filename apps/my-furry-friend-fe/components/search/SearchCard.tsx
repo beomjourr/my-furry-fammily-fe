@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Text } from '@chakra-ui/react';
+import { Box, Flex, Text } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
 import fileBlank from '@my-furry-family/images/blank.svg';
 import Image from 'next/image';
@@ -48,9 +48,19 @@ function SearchCard({ data }: SearchCardProps) {
         <Text fontSize="16px" fontWeight={600} marginBottom="2px">
           {data.name}
         </Text>
-        <Text fontSize="14px" fontWeight={400} marginBottom="2px">
-          {data.street_address}
-        </Text>
+        <Flex justifyContent="space-between" alignItems="center">
+          <Text fontSize="14px" fontWeight={400} marginBottom="2px">
+            {data.street_address}
+          </Text>
+          <Text
+            color="#9A9AA1"
+            fontSize="12px"
+            fontWeight={400}
+            marginBottom="2px"
+          >
+            {data.distance ? `${Math.round(data.distance)}km` : ''}
+          </Text>
+        </Flex>
       </Box>
     </Box>
   );
