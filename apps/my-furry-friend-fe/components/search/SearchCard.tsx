@@ -34,6 +34,7 @@ function SearchCard({ data }: SearchCardProps) {
             width: '100%',
             height: '100%',
             borderRadius: '16px',
+            objectFit: 'cover',
           }}
           src={data.thumbnail_image || fileBlank}
           alt="thumbnail_image"
